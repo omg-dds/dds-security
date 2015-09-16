@@ -57,7 +57,8 @@ class ShapeTypeConfigurator {
         DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
                  "com.rti.serv.secure.logging.log_level",
                  "4", DDS_BOOLEAN_FALSE);
-          DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+
+        DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
                 "com.rti.serv.secure.access_control.governance_file",
                 governance_file, DDS_BOOLEAN_FALSE);
         DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
@@ -67,6 +68,11 @@ class ShapeTypeConfigurator {
         DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
                 "com.rti.serv.secure.authentication.ca_file",
                 "../TESTONLY_identity_ca_cert.pem", DDS_BOOLEAN_FALSE);
+
+        DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+                "com.rti.serv.secure.access_control.permissions_authority_file",
+                "../TESTONLY_permissions_ca_cert.pem", DDS_BOOLEAN_FALSE);
+
         DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
                 "com.rti.serv.secure.authentication.certificate_file",
                 "../rti_connext_dds_certs/TESTONLY_rti_connext_dds_identity_cert.pem", DDS_BOOLEAN_FALSE);
@@ -75,17 +81,6 @@ class ShapeTypeConfigurator {
                 "com.rti.serv.secure.authentication.private_key_file",
                 "../rti_connext_dds_certs/private/TESTONLY_rti_connext_dds_identity_private_key.pem", DDS_BOOLEAN_FALSE);
 
-        DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
-                "com.rti.serv.secure.access_control.permissions_authority_file",
-                "../TESTONLY_permissions_ca_cert.pem", DDS_BOOLEAN_FALSE);
-
-        DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
-                "com.rti.serv.secure.access_control.governance_file",
-                "../TESTONLY_governance_signed.p7s", DDS_BOOLEAN_FALSE);
-
-        DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
-                "com.rti.serv.secure.access_control.permissions_file",
-                "../rti_connext_dds_certs/TESTONLY_rti_connext_dds_permissions_join_signed.p7s", DDS_BOOLEAN_FALSE);
 
 
         participant = TheParticipantFactory->create_participant(
