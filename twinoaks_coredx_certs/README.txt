@@ -1,13 +1,14 @@
 # These commands assume the CWD is the repository root (dds-security)
 
-# Generation of RTI Identity private key:
-openssl genrsa -out twinoaks_coredx_files/private/TESTONLY_twinoaks_coredx_identity_private_key.pem 2048
+# Generation of TwinOaks Identity private key:
+openssl genrsa -out twinoaks_coredx_certs/private/TESTONLY_twinoaks_coredx_identity_private_key.pem 2048
 
 # Generation of certificate request to be signed by the Identity CA:
-openssl req -config twinoaks_coredx_files/twinoaks_coredx_openssl.cnf -new -key twinoaks_coredx_files/private/TESTONLY_twinoaks_coredx_identity_private_key.pem -out twinoaks_coredx_files/identity_twinoaks_coredx.csr
+openssl req -config twinoaks_coredx_certs/twinoaks_coredx_openssl.cnf -new -key twinoaks_coredx_certs/private/TESTONLY_twinoaks_coredx_identity_private_key.pem -out twinoaks_coredx_certs/identity_twinoaks_coredx.csr
 
-# Generation of RTI Identity Certificate by the Identity CA (signing of certificate request)
-openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in twinoaks_coredx_files/identity_twinoaks_coredx.csr -out  twinoaks_coredx_files/TESTONLY_twinoaks_coredx_identity_cert.pem
+# See identity_ca_files/README.txt for the generation of TwinOaks Identity Certificate by the Identity CA (signing of certificate request)
+
+# See permissions_ca_files/README.txt for the generation of TwinOaks Permission Signed documents by the Permissions CA (signing of Permissions XML documents)
 
 
 
