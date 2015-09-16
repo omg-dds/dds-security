@@ -6,7 +6,8 @@ The executables in this repository test mutual autentication of each *DDS Domain
 
 Example execution from CWD  srcCxx:
 
-```ubuntu:srcCxx$ ./rti_connext_dds_5.2_linux -pub PD_RWA_OM_OD -permissions ../rti_connext_dds_certs/TESTONLY_rti_connext_dds_permissions_read_signed.p7s -governance ../TESTONLY_governance_signed.p7s
+```
+ubuntu:srcCxx$ ./rti_connext_dds_5.2_linux -pub PD_RWA_OM_OD -permissions ../rti_connext_dds_certs/TESTONLY_rti_connext_dds_permissions_write_signed.p7s -governance ../TESTONLY_governance_signed.p7s
 
 Usage:  ./rti_connext_dds_5.2_linux [-pub <pubTopic>] [-sub <subTopic>] [-domain <domainId>] [-color <colorName>] [-governance <governenceFile>]  [-permissions <permissionsFile>]
 
@@ -18,5 +19,5 @@ AccessControl_check_create_topic:topic not allowed: cannot be published or subsc
 PRESParticipant_createTopic:!security function check_create_topic
 DDS_Topic_createI:!create presentation topic
 DDSTopic_impl::createI:!create topic
-create_topic error for topic 'PD_RWA_OM_OD``
+create_topic error for topic 'PD_RWA_OM_OD
 ```
