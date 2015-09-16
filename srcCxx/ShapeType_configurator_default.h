@@ -16,7 +16,7 @@ class ShapeTypeConfigurator {
 
         participant = TheParticipantFactory->create_participant(
             domain_id, PARTICIPANT_QOS_DEFAULT,
-            NULL /* listener */, DDS_STATUS_MASK_NONE);
+            NULL /* listener */, STATUS_MASK_NONE);
         if ( participant == NULL ) {
             printf("create_participant error for domain_id '%d'\n", domain_id);
             return NULL;

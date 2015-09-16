@@ -33,7 +33,7 @@ void signal_handler(int signal)
     fprintf(stderr, "Stopping...\n");
     exit_application = true;
     if ( exit_guard != NULL ) {
-        exit_guard->set_trigger_value(DDS_BOOLEAN_TRUE);
+        exit_guard->set_trigger_value(BOOLEAN_TRUE);
     }
 }
 
@@ -130,8 +130,8 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
 
     if ( participant == NULL ) { return -1; }
 
-    DDS_Duration_t send_period = {1, 0};
-    DDS_Time_t current_time   = {0, 0};
+    Duration_t send_period = {1, 0};
+    Time_t current_time   = {0, 0};
 
     WaitSet *wait_set = new WaitSet();
     exit_guard = new GuardCondition();
@@ -162,18 +162,18 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
         reader = create_reader(participant, sub_topic);
         if ( reader == NULL ) { return -1; }
         retcode = wait_set->attach_condition(
-                reader->create_readcondition(DDS_ANY_SAMPLE_STATE, DDS_ANY_VIEW_STATE, DDS_ANY_INSTANCE_STATE));
-        if ( retcode != DDS_RETCODE_OK ) {
+                reader->create_readcondition(ANY_SAMPLE_STATE, ANY_VIEW_STATE, ANY_INSTANCE_STATE));
+        if ( retcode != RETCODE_OK ) {
             printf("attach_condition error. Retcode: %d\n", retcode);
             return -1;
         }
     }
 
     participant->get_current_time(current_time);
-    DDS_Time_t last_send_time    = {0, 0};
-    DDS_Time_t send_time = { send_period.sec, send_period.nanosec};
-    DDS_Time_t next_send_time    = current_time + send_time;
-    DDS_Duration_t wait_timeout  = (writer==NULL)?DURATION_INFINITE:send_period;
+    Time_t last_send_time    = {0, 0};
+    Time_t send_time = { send_period.sec, send_period.nanosec};
+    Time_t next_send_time    = current_time + send_time;
+    Duration_t wait_timeout  = (writer==NULL)?DURATION_INFINITE:send_period;
 
     ShapeType shape;
     ShapeType_initialize(&shape);
@@ -189,7 +189,7 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
         wait_set->wait(active_cond, wait_timeout);
 
         if ( reader != NULL ) {
-            while ( reader->take_next_sample(shape, info) != DDS_RETCODE_NO_DATA ) {
+            while ( reader->take_next_sample(shape, info) != RETCODE_NO_DATA ) {
                 printf("Received sample: sec_number = %d\n", info.publication_sequence_number.low);
                 if ( info.valid_data ) {
                     recv_count++;
@@ -210,12 +210,12 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
                 shape.x = 5*(sent_count%50);
                 shape.y = (4 * (color[0] - 'A')) % 250;
                 shape.shapesize = 30;
-                writer->write(shape, DDS_HANDLE_NIL);
+                writer->write(shape, HANDLE_NIL);
             }
 
             // Workaround missing operation wait_timeout = next_send_time - last_send_time
-            DDS_Duration_t d1 = {next_send_time.sec,  next_send_time.nanosec};
-            DDS_Duration_t d2 = {last_send_time.sec, last_send_time.nanosec};
+            Duration_t d1 = {next_send_time.sec,  next_send_time.nanosec};
+            Duration_t d2 = {last_send_time.sec, last_send_time.nanosec};
             wait_timeout = d1 - d2;
         }
     }
