@@ -1,0 +1,10 @@
+prompt=no
+distinguished_name	= DN_TEST_DDS-SECURITY_TWINOAKS_COREDX
+
+[ DN_TEST_DDS-SECURITY_TWINOAKS_COREDX ]
+countryName=US
+stateOrProvinceName=CO
+localityName=Castle Rock
+organizationName=Twin Oaks Computing
+emailAddress=support@twinoakscomputing.com
+commonName=CN_TEST_DDS-SECURITY_TWINOAKS_COREDX

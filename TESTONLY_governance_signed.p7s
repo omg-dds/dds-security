@@ -1,0 +1,293 @@
+MIME-Version: 1.0
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg="sha1"; boundary="----344718A8C8CF14148AAF117ABCA35BDE"
+
+This is an S/MIME signed message
+
+------344718A8C8CF14148AAF117ABCA35BDE
+Content-Type: text/plain
+
+<?xml version="1.0" encoding="UTF-8"?>
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.omg.org/spec/DDS-SECURITY/20140301/dds_security_governance.xsd">
+
+    <domain_access_rules>
+        <domain_rule>
+            <domain_id>0</domain_id>
+            <allow_unauthenticated_join>FALSE</allow_unauthenticated_join>
+            <enable_join_access_control>TRUE</enable_join_access_control>
+            <discovery_protection_kind>ENCRYPT</discovery_protection_kind>
+            <liveliness_protection_kind>ENCRYPT</liveliness_protection_kind>
+            <rtps_protection_kind>SIGN</rtps_protection_kind>
+            
+            <!--  Naming for Topics:
+            	OD / PD             : Open / Protected Discovery
+            	OA / RA / WA / RWA  : Open / Read / Write / ReadWrite Access
+            	OM / SM / EM        : Open / Signed / Encrypted  Meta-data
+            	OD / SD / ED        : Open / Signed / Encrypted  Data
+             -->
+            <topic_access_rules>
+                <topic_rule>
+                    <topic_expression>OD_OA_OM_OD</topic_expression>
+                    <enable_discovery_protection>FALSE</enable_discovery_protection>
+                    <enable_read_access_control>FALSE</enable_read_access_control>
+                    <enable_write_access_control>FALSE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>
+                </topic_rule>
+                <topic_rule>
+                    <topic_expression>PD_OA_OM_OD</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>FALSE</enable_read_access_control>
+                    <enable_write_access_control>FALSE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>                
+                </topic_rule>
+                <topic_rule>
+                    <topic_expression>PD_RA_OM_OD</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>FALSE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>                
+                </topic_rule>
+                 <topic_rule>
+                    <topic_expression>PD_WA_OM_OD</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>FALSE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>                
+                </topic_rule>
+                <topic_rule>
+                    <topic_expression>PD_RWA_OM_OD</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>                
+                </topic_rule>
+                <topic_rule>
+                    <topic_expression>PDRWAOMOD</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>                
+                </topic_rule>
+                <topic_rule>
+                    <topic_expression>PD_RWA_SM_OD</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>SIGN</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>                
+                </topic_rule>
+                 <topic_rule>
+                    <topic_expression>PD_RWA_EM_OD</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>ENCRYPT</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>                
+                </topic_rule>
+                <topic_rule>
+                    <topic_expression>PD_RWA_OM_SD</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>SIGN</data_protection_kind>                
+                </topic_rule>                 
+                <topic_rule>
+                    <topic_expression>PD_RWA_SM_SD</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>SIGN</metadata_protection_kind>
+                    <data_protection_kind>SIGN</data_protection_kind>                
+                </topic_rule>       
+                <topic_rule>
+                    <topic_expression>PD_RWA_EM_SD</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>ENCRYPT</metadata_protection_kind>
+                    <data_protection_kind>SIGN</data_protection_kind>                
+                </topic_rule>       
+                <topic_rule>
+                    <topic_expression>PD_RWA_OM_ED</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>ENCRYPT</data_protection_kind>                
+                </topic_rule>       
+                <topic_rule>
+                    <topic_expression>PD_RWA_SM_ED</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>SIGN</metadata_protection_kind>
+                    <data_protection_kind>ENCRYPT</data_protection_kind>                
+                </topic_rule>       
+                <topic_rule>
+                    <topic_expression>PD_RWA_EM_ED</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>ENCRYPT</metadata_protection_kind>
+                    <data_protection_kind>ENCRYPT</data_protection_kind>                
+                </topic_rule>   
+                
+                <!--  Expression Rules -->   
+                <topic_rule>
+                    <topic_expression>SET_OD_OA_OM_OD*</topic_expression>
+                    <enable_discovery_protection>FALSE</enable_discovery_protection>
+                    <enable_read_access_control>FALSE</enable_read_access_control>
+                    <enable_write_access_control>FALSE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>
+                </topic_rule>
+                <topic_rule>
+                    <topic_expression>SET_PD_OA_OM_OD*</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>FALSE</enable_read_access_control>
+                    <enable_write_access_control>FALSE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>                
+                </topic_rule>
+                <topic_rule>
+                    <topic_expression>SET_PD_RA_OM_OD*</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>FALSE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>                
+                </topic_rule>
+                 <topic_rule>
+                    <topic_expression>SET_PD_WA_OM_OD*</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>FALSE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>                
+                </topic_rule>
+                <topic_rule>
+                    <topic_expression>SET_PD_RWA_OM_OD*</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>                
+                </topic_rule>
+                <topic_rule>
+                    <topic_expression>SET_PD_RWA_SM_OD*</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>SIGN</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>                
+                </topic_rule>
+                 <topic_rule>
+                    <topic_expression>SET_PD_RWA_EM_OD*</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>ENCRYPT</metadata_protection_kind>
+                    <data_protection_kind>NONE</data_protection_kind>                
+                </topic_rule>
+                <topic_rule>
+                    <topic_expression>SET_PD_RWA_OM_SD*</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>SIGN</data_protection_kind>                
+                </topic_rule>                 
+                <topic_rule>
+                    <topic_expression>SET_PD_RWA_SM_SD*</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>SIGN</metadata_protection_kind>
+                    <data_protection_kind>SIGN</data_protection_kind>                
+                </topic_rule>       
+                <topic_rule>
+                    <topic_expression>SET_PD_RWA_EM_SD*</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>ENCRYPT</metadata_protection_kind>
+                    <data_protection_kind>SIGN</data_protection_kind>                
+                </topic_rule>       
+                <topic_rule>
+                    <topic_expression>SET_PD_RWA_OM_ED*</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>NONE</metadata_protection_kind>
+                    <data_protection_kind>ENCRYPT</data_protection_kind>                
+                </topic_rule>       
+                <topic_rule>
+                    <topic_expression>SET_PD_RWA_SM_ED*</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>SIGN</metadata_protection_kind>
+                    <data_protection_kind>ENCRYPT</data_protection_kind>                
+                </topic_rule>       
+                <topic_rule>
+                    <topic_expression>SET_PD_RWA_EM_ED*</topic_expression>
+                    <enable_discovery_protection>TRUE</enable_discovery_protection>
+                    <enable_read_access_control>TRUE</enable_read_access_control>
+                    <enable_write_access_control>TRUE</enable_write_access_control>
+                    <metadata_protection_kind>ENCRYPT</metadata_protection_kind>
+                    <data_protection_kind>ENCRYPT</data_protection_kind>                
+                </topic_rule>                  
+            </topic_access_rules>
+        </domain_rule>
+    </domain_access_rules>
+</dds>
+
+------344718A8C8CF14148AAF117ABCA35BDE
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+
+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
+RJAdeFLWB/zuv3fJGsSlvNArFFoFRw==
+
+------344718A8C8CF14148AAF117ABCA35BDE--
+

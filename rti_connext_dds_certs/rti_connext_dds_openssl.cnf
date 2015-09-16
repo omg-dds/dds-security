@@ -1,0 +1,10 @@
+prompt=no
+distinguished_name	= DN_TEST_DDS-SECURITY_RTI_CONNEXT_DDS
+
+[ DN_TEST_DDS-SECURITY_RTI_CONNEXT_DDS ]
+countryName=US
+stateOrProvinceName=CA
+localityName=Sunnyvale
+organizationName=Real Time Innovations
+emailAddress=support@rti.com
+commonName=CN_TEST_DDS-SECURITY_RTI_CONNEXT_DDS

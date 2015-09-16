@@ -1,0 +1,46 @@
+# To compile, type:
+# 	gmake -f makefile_rti
+#
+# This makefile assumes that your build environment is already correctly
+# configured. (For example, the correct version of your compiler and
+# linker should be on your PATH.)
+######################################################################
+
+# If undefined in the environment default NDDSHOME to install dir
+ifndef NDDSHOME
+NDDSHOME := /mnt/hgfs/sec-gar-5.1.1.2/ndds.5.1.1
+endif
+
+TARGET_ARCH = i86Linux3.xgcc4.6.3
+
+COMPILER = g++
+COMPILER_FLAGS = -ggdb -m32 -Wall
+LINKER = g++
+LINKER_FLAGS = -m32 -static-libgcc -Wl,--no-as-needed
+SYSLIBS      = -ldl -lnsl -lm -lpthread -lrt
+DEFINES      = 
+
+INCLUDES = -I. 
+MAIN    = ShapeType_main.cxx
+SOURCES = $(MAIN)
+
+
+#These are for RTI
+SOURCES  += rti_connext_dds/ShapeTypeSupport.cxx rti_connext_dds/ShapeTypePlugin.cxx rti_connext_dds/ShapeType.cxx 
+LIBS     +=  -L$(NDDSHOME)/lib/$(TARGET_ARCH) \
+             -lnddscppzd -lnddsczd -lnddscorezd $(SYSLIBS)
+DEFINES  += -DRTI_CONNEXT_DDS -DRTI_UNIX -DRTI_LINUX 
+INCLUDES += -I$(NDDSHOME)/include -I$(NDDSHOME)/include/ndds 
+#End of RTI
+       
+
+OBJS    = $(SOURCES:%.cxx=%.o)
+EXEC    = rti_connext_dds_5.2_linux
+
+all: $(EXEC)
+
+$(EXEC) : $(OBJS)
+	$(LINKER) $(LINKER_FLAGS)  -o $@ $(OBJS) $(LIBS)
+
+%.o : %.cxx 
+	$(COMPILER) $(COMPILER_FLAGS)  -o $@ $(DEFINES) $(INCLUDES) -c $<
