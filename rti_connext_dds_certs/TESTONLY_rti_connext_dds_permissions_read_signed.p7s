@@ -1,9 +1,9 @@
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg="sha1"; boundary="----827DBC60EFEC557EC7F35703B1DBF619"
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg="sha1"; boundary="----9E63C2568D7A6B6D37AE0F9A92ED71EB"
 
 This is an S/MIME signed message
 
-------827DBC60EFEC557EC7F35703B1DBF619
+------9E63C2568D7A6B6D37AE0F9A92ED71EB
 Content-Type: text/plain
 
 <permissions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -27,14 +27,32 @@ Content-Type: text/plain
             	 -->	            
 	            <subscribe>
 	            	<topic>PD_RA_OM_OD</topic>
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_OM_OD</topic>
+	           	</subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_SM_OD</topic>	
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_EM_OD</topic>
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_OM_SD</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_SM_SD</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_EM_SD</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_OM_ED</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_SM_ED</topic>
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_EM_ED</topic>
 	            </subscribe>
 	        </allow_rule>
@@ -42,7 +60,7 @@ Content-Type: text/plain
 	    </grant>
 </permissions>
 
-------827DBC60EFEC557EC7F35703B1DBF619
+------9E63C2568D7A6B6D37AE0F9A92ED71EB
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -72,15 +90,15 @@ BgNVBAgMAk1BMQ8wDQYDVQQHDAZCb3N0b24xJTAjBgNVBAoMHE9NRy1ERFMgU0lH
 IChQZXJtaXNzaW9ucyBDQSkxGjAYBgNVBAMMEU9NRy1ERFMgKFBlcm0gQ0EpMRow
 GAYJKoZIhvcNAQkBFgtkZHNAb21nLm9yZwIJAL/BDMiecyoSMAkGBSsOAwIaBQCg
 gbEwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTUw
-OTE1MjI0MjEwWjAjBgkqhkiG9w0BCQQxFgQUz7fx+ZgiOkSaughiOyVkY1nVvjow
+OTE3MDMyMjM3WjAjBgkqhkiG9w0BCQQxFgQUWmakauPMb+aX4m6kLw1FBla2zzEw
 UgYJKoZIhvcNAQkPMUUwQzAKBggqhkiG9w0DBzAOBggqhkiG9w0DAgICAIAwDQYI
 KoZIhvcNAwICAUAwBwYFKw4DAgcwDQYIKoZIhvcNAwICASgwDQYJKoZIhvcNAQEB
-BQAEggEAmblpo0eb9+uvtPHLBMOw8zEmWUvh9X+BMzAoLLjZ48n53kSSxnsVxTZa
-P7ZvrbriJVRUBqZWJBhZpFUSAw9ffjc4grqXjuvMRajgbp5pyX9xoc4zpw1aGX1M
-8uUpiOZ4iBM3x7do16JW+Jqv7/LoVRmupeJR7cXNRNVj2R/PVu7eofIcn3E1la+b
-rhhSJ94dfM0DXXTeW40/7qf4rMJDOAMuN/W2dB3RGO9XU/5zvZolYqRufEdAHJ0c
-t/5lNkRzuSFzrdvWPiM8b5V99K+OVqRQOpmE0gzyErZgx5PInJQKmQsj7wGiipV8
-u6vROYAFTAChV0vwn5LPisN8OFSRfA==
+BQAEggEAkBvEhjWeRf/hLoIR+ocF6u10jlSlvtEP6RcradPPONAj93HX8tSx+m6W
+TmYjYWfpgRS5TSAc9jS22aoyb1RsPplvz2dT21u26616dRUVuk0fi9F0zbyOSZ5T
+8AGOAyom/ZwUdxABFHVQq1SecU+1M/n5UtTGvtDi1ygaOxJIqeUh48du8bCG1PDs
+0Zs08svAwkTsZEokwjacP4u5oehyRx5dpW5HXBrwpFD3cFBl2uQUjDXE29iKjok2
+a6ttE7Lm67dMqQY87dhnlWpJST0yIoFjUaYIAqldIde88sUOCmC8uboTqrbeV67w
+vjhod8WrDI3wDP8a6ayHT0pW/deLMw==
 
-------827DBC60EFEC557EC7F35703B1DBF619--
+------9E63C2568D7A6B6D37AE0F9A92ED71EB--
 

@@ -1,9 +1,9 @@
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg="sha1"; boundary="----8A727CC5DEC268813118D017FDD2167C"
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg="sha1"; boundary="----42F70E16BC334EA1E327E98294BB5B72"
 
 This is an S/MIME signed message
 
-------8A727CC5DEC268813118D017FDD2167C
+------42F70E16BC334EA1E327E98294BB5B72
 Content-Type: text/plain
 
 <permissions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -27,28 +27,63 @@ Content-Type: text/plain
             	 -->	            
 	            <publish>
 	            	<topic>PD_WA_OM_OD</topic>
-	            	<topic>PD_RWA_OM_OD</topic>
-	            	<topic>PD_RWA_OM_OD*</topic>
-	            	<topic>PD_RWA_SM_OD</topic>	
-	            	<topic>PD_RWA_EM_OD</topic>
-	            	<topic>PD_RWA_OM_SD</topic>
-	            	<topic>PD_RWA_SM_SD</topic>
-	            	<topic>PD_RWA_EM_SD</topic>
-	            	<topic>PD_RWA_OM_ED</topic>
-	            	<topic>PD_RWA_SM_ED</topic>
-	            	<topic>PD_RWA_EM_ED</topic>	    	            	
 	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_OM_OD</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_SM_OD</topic>	
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_EM_OD</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_OM_SD</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_SM_SD</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_EM_SD</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_OM_ED</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_SM_ED</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_EM_ED</topic>	            
+	            </publish>
+	            
 	            <subscribe>
 	            	<topic>PD_RA_OM_OD</topic>
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_OM_OD</topic>
-	            	<topic>PD_RWA_OM_OD*</topic>
+	           	</subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_SM_OD</topic>	
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_EM_OD</topic>
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_OM_SD</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_SM_SD</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_EM_SD</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_OM_ED</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_SM_ED</topic>
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_EM_ED</topic>
 	            </subscribe>
 	        </allow_rule>
@@ -56,7 +91,7 @@ Content-Type: text/plain
 	    </grant>
 </permissions>
 
-------8A727CC5DEC268813118D017FDD2167C
+------42F70E16BC334EA1E327E98294BB5B72
 Content-Type: application/pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -86,15 +121,15 @@ BgNVBAgMAk1BMQ8wDQYDVQQHDAZCb3N0b24xJTAjBgNVBAoMHE9NRy1ERFMgU0lH
 IChQZXJtaXNzaW9ucyBDQSkxGjAYBgNVBAMMEU9NRy1ERFMgKFBlcm0gQ0EpMRow
 GAYJKoZIhvcNAQkBFgtkZHNAb21nLm9yZwIJAL/BDMiecyoSMAkGBSsOAwIaBQCg
 gbEwGAYJKoZIhvcNAQkDMQsGCSqGSIb3DQEHATAcBgkqhkiG9w0BCQUxDxcNMTUw
-OTE2MDUxMTM3WjAjBgkqhkiG9w0BCQQxFgQUk9iD1CQo5aLN2TN98RXbC5UAVbgw
+OTE3MDMyMjQ2WjAjBgkqhkiG9w0BCQQxFgQUI+qtLXGHvQJUw7CUPdRKxjefSVcw
 UgYJKoZIhvcNAQkPMUUwQzAKBggqhkiG9w0DBzAOBggqhkiG9w0DAgICAIAwDQYI
 KoZIhvcNAwICAUAwBwYFKw4DAgcwDQYIKoZIhvcNAwICASgwDQYJKoZIhvcNAQEB
-BQAEggEAKFG46fcUbbONylJfjCRdUW6E/WgmE95pkrCbqSJ93SnnttfK8SXr0NFo
-YJU0SERfy3GwUR/A8TyGs3WkaikUhqhXWIeIxCMjscmDVS4aNfx4IqU2NlUGr/8M
-8bZiW76szjctCtMcTzjmHk0hpBtw6ozVt+k5s+/mfSBrixlK+ZRI6F84WBEqLFay
-2wqYDDpFGZsMayIHnpMYdRSUJo/t4Ozsbii7r5mjd4jFG8ykKfUjuf0LA5+niPzA
-90d67qBm1jnR+jkce6urO0fdRYdbg/s6mRbWKnwOwv0GYjoPoPSnTwQi3KxMBnE1
-HxgERvv6bg92WG6EZrSNe6lwzezwCQ==
+BQAEggEAQytlPprDb2O4UbGrPZzV6rANIpKJ34Wlb9DgSyhRfaK/mWpQ2AJiMICv
+Pz7qnOYUakqeYjq3irOtlHEA2k0rFLmYSM1mHREoyBnQFLiG5vS0qx5S4n4lrRXl
+9KxcMv+4VjHXzQ1q9/LDNsDNf8TMWA/SzygWxDd+GMotPapZiqCPsdHbTr8tPDs6
+taIZ+sBopxEgid2NsrY1ELBGIcdKNpXypfz0SIJgwgWucirRgeec2/3VDWgke5zc
+gBJ7UwRR7G7TATzkoQtLD1DTFRMx0ImDJB32tslqo/RLUeYZSjQOvL8/sZprrxoS
+9ZdNjICZ9rFlvhgEEYpjBCFPYDUKrw==
 
-------8A727CC5DEC268813118D017FDD2167C--
+------42F70E16BC334EA1E327E98294BB5B72--
 

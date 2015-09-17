@@ -17,30 +17,65 @@
 	            	OM / SM / EM        : Open / Signed / Encrypted  Meta-data
 	            	OD / SD / ED        : Open / Signed / Encrypted  Data
             	 -->	            
-	            <publish>
+	           <publish>
 	            	<topic>PD_WA_OM_OD</topic>
-	            	<topic>PD_RWA_OM_OD</topic>
-	            	<topic>PD_RWA_OM_OD*</topic>
-	            	<topic>PD_RWA_SM_OD</topic>	
-	            	<topic>PD_RWA_EM_OD</topic>
-	            	<topic>PD_RWA_OM_SD</topic>
-	            	<topic>PD_RWA_SM_SD</topic>
-	            	<topic>PD_RWA_EM_SD</topic>
-	            	<topic>PD_RWA_OM_ED</topic>
-	            	<topic>PD_RWA_SM_ED</topic>
-	            	<topic>PD_RWA_EM_ED</topic>	    	            	
 	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_OM_OD</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_SM_OD</topic>	
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_EM_OD</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_OM_SD</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_SM_SD</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_EM_SD</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_OM_ED</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_SM_ED</topic>
+	            </publish>
+	            <publish>
+	            	<topic>PD_RWA_EM_ED</topic>	            
+	            </publish>
+	            
 	            <subscribe>
 	            	<topic>PD_RA_OM_OD</topic>
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_OM_OD</topic>
-	            	<topic>PD_RWA_OM_OD*</topic>
+	           	</subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_SM_OD</topic>	
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_EM_OD</topic>
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_OM_SD</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_SM_SD</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_EM_SD</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_OM_ED</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_SM_ED</topic>
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_EM_ED</topic>
 	            </subscribe>
 	        </allow_rule>

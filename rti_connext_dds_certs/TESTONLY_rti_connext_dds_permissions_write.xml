@@ -19,14 +19,32 @@
             	 -->	            
 	            <publish>
 	            	<topic>PD_WA_OM_OD</topic>
+	            </publish>
+	            <publish>
 	            	<topic>PD_RWA_OM_OD</topic>
+	            </publish>
+	            <publish>
 	            	<topic>PD_RWA_SM_OD</topic>	
+	            </publish>
+	            <publish>
 	            	<topic>PD_RWA_EM_OD</topic>
+	            </publish>
+	            <publish>
 	            	<topic>PD_RWA_OM_SD</topic>
+	            </publish>
+	            <publish>
 	            	<topic>PD_RWA_SM_SD</topic>
+	            </publish>
+	            <publish>
 	            	<topic>PD_RWA_EM_SD</topic>
+	            </publish>
+	            <publish>
 	            	<topic>PD_RWA_OM_ED</topic>
+	            </publish>
+	            <publish>
 	            	<topic>PD_RWA_SM_ED</topic>
+	            </publish>
+	            <publish>
 	            	<topic>PD_RWA_EM_ED</topic>	            
 	            </publish>
 	        </allow_rule>

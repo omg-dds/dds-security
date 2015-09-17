@@ -19,14 +19,32 @@
             	 -->	            
 	            <subscribe>
 	            	<topic>PD_RA_OM_OD</topic>
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_OM_OD</topic>
+	           	</subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_SM_OD</topic>	
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_EM_OD</topic>
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_OM_SD</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_SM_SD</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_EM_SD</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_OM_ED</topic>
+	            </subscribe>
+                <subscribe>
 	            	<topic>PD_RWA_SM_ED</topic>
+	            </subscribe>
+	            <subscribe>
 	            	<topic>PD_RWA_EM_ED</topic>
 	            </subscribe>
 	        </allow_rule>
