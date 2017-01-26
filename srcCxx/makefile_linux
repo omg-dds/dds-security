@@ -11,7 +11,11 @@ ifndef NDDSHOME
 NDDSHOME := /mnt/hgfs/sec-gar-5.1.1.2/ndds.5.1.1
 endif
 
-TARGET_ARCH = i86Linux3.xgcc4.6.3
+ifndef RTI_OPENSSLHOME
+RTI_OPENSSLHOME := /mnt/hgfs/openssl-1.0.2j
+endif
+
+TARGET_ARCH = i86Linux3gcc4.8.2
 
 COMPILER = g++
 COMPILER_FLAGS = -ggdb -m32 -Wall
@@ -28,7 +32,9 @@ SOURCES = $(MAIN)
 #These are for RTI
 SOURCES  += rti_connext_dds/ShapeTypeSupport.cxx rti_connext_dds/ShapeTypePlugin.cxx rti_connext_dds/ShapeType.cxx 
 LIBS     +=  -L$(NDDSHOME)/lib/$(TARGET_ARCH) \
-             -lnddscppzd -lnddsczd -lnddscorezd $(SYSLIBS)
+             -lnddssecurityzd -lnddscppzd -lnddsczd -lnddscorezd \
+             -L$(RTI_OPENSSLHOME)/$(TARGET_ARCH)/debug/lib \
+             -lsslz -lcryptoz $(SYSLIBS)
 DEFINES  += -DRTI_CONNEXT_DDS -DRTI_UNIX -DRTI_LINUX 
 INCLUDES += -I$(NDDSHOME)/include -I$(NDDSHOME)/include/ndds 
 #End of RTI

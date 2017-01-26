@@ -9,7 +9,7 @@
 #if defined(RTI_CONNEXT_DDS)
 #include "rti_connext_dds/ShapeType_configurator_rti_connext_dds.h"
 #elif defined(TWINOAKS_COREDX)
-#include "ShapeType_configurator_twionaks_coredx.h"
+#include "ShapeType_configurator_twinoaks_coredx.h"
 #else
 #include "ShapeType_configurator_default.h"
 #endif
@@ -234,7 +234,7 @@ int main(int argc, char *argv[])
 
     if ( argc != 5 ) {
         fprintf(stderr, "Usage:  %s [-pub <pubTopic>] [-sub <subTopic>] [-domain <domainId>] [-color <colorName>]\n"
-                "\t\t [-governance <governenceFile>]  [-permissions <permissionsFile>]\n",
+                "\t\t [-governance <governanceFile>]  [-permissions <permissionsFile>]\n",
                 argv[0]);
     }
     
