@@ -9,7 +9,7 @@
 #if defined(RTI_CONNEXT_DDS)
 #include "rti_connext_dds/ShapeType_configurator_rti_connext_dds.h"
 #elif defined(TWINOAKS_COREDX)
-#include "ShapeType_configurator_twionaks_coredx.h"
+#include "toc_coredx_dds/ShapeType_configurator_toc_coredx_dds.h"
 #else
 #include "ShapeType_configurator_default.h"
 #endif
@@ -56,7 +56,7 @@ Topic *create_topic(DomainParticipant *participant, const char *topic_name)
     ReturnCode_t retcode = ShapeTypeTypeSupport::register_type(
         participant, type_name);
     if (retcode != RETCODE_OK) {
-        printf("register_type error %d\n", retcode);
+        printf("register_type error %d\n", (int)retcode);
         return NULL;
     }
 
@@ -130,8 +130,8 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
 
     if ( participant == NULL ) { return -1; }
 
-    Duration_t send_period = {1, 0};
-    Time_t current_time   = {0, 0};
+    Duration_t send_period(1,0);
+    Time_t     current_time(0,0);
 
     WaitSet *wait_set = new WaitSet();
     exit_guard = new GuardCondition();
@@ -164,19 +164,21 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
         retcode = wait_set->attach_condition(
                 reader->create_readcondition(ANY_SAMPLE_STATE, ANY_VIEW_STATE, ANY_INSTANCE_STATE));
         if ( retcode != RETCODE_OK ) {
-            printf("attach_condition error. Retcode: %d\n", retcode);
+            printf("attach_condition error. Retcode: %d\n", (int)retcode);
             return -1;
         }
     }
 
     participant->get_current_time(current_time);
-    Time_t last_send_time    = {0, 0};
-    Time_t send_time = { send_period.sec, send_period.nanosec};
+    Time_t last_send_time(0, 0);
+    Time_t send_time(send_period.sec, send_period.nanosec);
     Time_t next_send_time    = current_time + send_time;
     Duration_t wait_timeout  = (writer==NULL)?DURATION_INFINITE:send_period;
 
     ShapeType shape;
+#if defined(RTI_CONNEXT_DDS)
     ShapeType_initialize(&shape);
+#endif
     SampleInfo info;
 
     int wait_count = 0;
@@ -189,11 +191,20 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
         wait_set->wait(active_cond, wait_timeout);
 
         if ( reader != NULL ) {
-            while ( reader->take_next_sample(shape, info) != RETCODE_NO_DATA ) {
-                printf("Received sample: sec_number = %d\n", info.publication_sequence_number.low);
+#if defined(TWINOAKS_COREDX)
+            while ( reader->take_next_sample(&shape, &info) == DDS_RETCODE_OK ) 
+#else
+            while ( reader->take_next_sample(shape, info) == DDS_RETCODE_OK ) 
+#endif
+              {
+                printf("Received sample...\n");
                 if ( info.valid_data ) {
                     recv_count++;
+#if defined(TWINOAKS_COREDX)
+                    ShapeType::print(stdout, &shape);
+#else
                     ShapeTypeTypeSupport::print_data(&shape);
+#endif
                 }
             }
         }
@@ -210,15 +221,23 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
                 shape.x = 5*(sent_count%50);
                 shape.y = (4 * (color[0] - 'A')) % 250;
                 shape.shapesize = 30;
-                writer->write(shape, HANDLE_NIL);
+#if defined(TWINOAKS_COREDX)
+                writer->write(&shape, DDS_HANDLE_NIL);
+#else
+                writer->write(shape, DDS_HANDLE_NIL);
+#endif
             }
 
             // Workaround missing operation wait_timeout = next_send_time - last_send_time
-            Duration_t d1 = {next_send_time.sec,  next_send_time.nanosec};
-            Duration_t d2 = {last_send_time.sec, last_send_time.nanosec};
+            Duration_t d1(next_send_time.sec,  next_send_time.nanosec);
+            Duration_t d2(last_send_time.sec, last_send_time.nanosec);
             wait_timeout = d1 - d2;
         }
     }
+
+    // clean up 
+    fprintf(stderr, "Done...\n");
+    ShapeTypeConfigurator::destroy_participant( participant );
 
     return 0;
 }
@@ -315,12 +334,17 @@ int main(int argc, char *argv[])
         fprintf(stderr, "Info: \"-color\" unspecified. Default to: \"%s\"\n", color_name);
     }
 
-    if ( domain_id == -1 ) {
+    if ( (int)domain_id == -1 ) {
         domain_id = DAFAULT_DOMAIN_ID;
         fprintf(stderr, "Info: \"-domain\" unspecified. Default to: %d\n", domain_id);
     }
  
     setup_signal_handler();
     
+    if (published_topic)
+      printf("Publishing:  '%s'\n", published_topic);
+    if (subscribed_topic)
+      printf("Subscribing: '%s'\n", published_topic);
+
     return run(domain_id, published_topic, subscribed_topic, color_name, governance_file, permissions_file);
 }
