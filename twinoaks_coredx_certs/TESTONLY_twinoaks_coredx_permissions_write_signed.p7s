@@ -1,104 +1,92 @@
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg="sha1"; boundary="----AB6E70EAE2DA0B9BEC2AD9087B22CBA4"
+Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="----9386992A9F9313EFC79146E7259A005D"
 
 This is an S/MIME signed message
 
-------AB6E70EAE2DA0B9BEC2AD9087B22CBA4
+------9386992A9F9313EFC79146E7259A005D
 Content-Type: text/plain
 
-<permissions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="http://www.omg.org/spec/DDS-SECURITY/20140301/dds_security_permissions.xsd">
-	
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://www.omg.org/spec/DDS-SECURITY/20160303/omg_shared_ca_permissions.xsd">
+	<permissions>
 	    <grant name="TWINOAKS_grant_join_write_domain_0">
 	    	<!--  only allow joining domain 0. No explicit permission to read or write any Topic -->
 	    	<subject_name>/C=US/ST=CO/O=Twin Oaks Computing/CN=CN_TEST_DDS-SECURITY_TWINOAKS_COREDX/emailAddress=support@twinoakscomputing.com</subject_name>
 	        <validity>
-	            <!-- Format is YYYYMMDDHH in GMT -->
-	            <not_before>2015091501</not_before>
-	            <not_after>2025091501</not_after>
+	            <!-- Format is CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] in GMT -->
+	            <not_before>2015-09-15T01:00:00</not_before>
+	            <not_after>2025-09-15T01:00:00</not_after>
 	        </validity>
 	        <allow_rule>
-	            <domain_id>0</domain_id>
+	            <domains>
+                       <id>0</id>
+                   </domains>
 	            <!--  Naming for Topics (see TESTONLY_governance.xml).
 	            	OD / PD             : Open / Protected Discovery
 	            	OA / RA / WA / RWA  : Open / Read / Write / ReadWrite Access
 	            	OM / SM / EM        : Open / Signed / Encrypted  Meta-data
 	            	OD / SD / ED        : Open / Signed / Encrypted  Data
-            	 -->	            
-	           <publish>
-	            	<topic>PD_WA_OM_OD</topic>
-	            </publish>
+            	     -->
 	            <publish>
-	            	<topic>PD_RWA_OM_OD</topic>
-	            </publish>
-	            <publish>
-	            	<topic>PD_RWA_SM_OD</topic>	
-	            </publish>
-	            <publish>
-	            	<topic>PD_RWA_EM_OD</topic>
-	            </publish>
-	            <publish>
-	            	<topic>PD_RWA_OM_SD</topic>
-	            </publish>
-	            <publish>
-	            	<topic>PD_RWA_SM_SD</topic>
-	            </publish>
-	            <publish>
-	            	<topic>PD_RWA_EM_SD</topic>
-	            </publish>
-	            <publish>
-	            	<topic>PD_RWA_OM_ED</topic>
-	            </publish>
-	            <publish>
-	            	<topic>PD_RWA_SM_ED</topic>
-	            </publish>
-	            <publish>
-	            	<topic>PD_RWA_EM_ED</topic>	            
+                       <topics>
+                           <topic>PD_WA_OM_OD</topic>
+                           <topic>PD_RWA_OM_OD</topic>
+                           <topic>PD_RWA_SM_OD</topic>  
+                           <topic>PD_RWA_EM_OD</topic>
+                           <topic>PD_RWA_OM_SD</topic>
+                           <topic>PD_RWA_SM_SD</topic>
+                           <topic>PD_RWA_EM_SD</topic>
+                           <topic>PD_RWA_OM_ED</topic>
+                           <topic>PD_RWA_SM_ED</topic>
+                           <topic>PD_RWA_EM_ED</topic>
+                       </topics>
 	            </publish>
 	        </allow_rule>
 	        <default>DENY</default>
 	    </grant>
-</permissions>
+       </permissions>
+</dds>
 
-------AB6E70EAE2DA0B9BEC2AD9087B22CBA4
-Content-Type: application/pkcs7-signature; name="smime.p7s"
+------9386992A9F9313EFC79146E7259A005D
+Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
 
-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
-TXGvBeWe4kIAT/06b4HYN4Hd0GaCjQ==
+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
 
-------AB6E70EAE2DA0B9BEC2AD9087B22CBA4--
+------9386992A9F9313EFC79146E7259A005D--
 
