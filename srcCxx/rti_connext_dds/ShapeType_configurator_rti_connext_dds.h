@@ -1,6 +1,7 @@
 #include "ShapeType.h"
 #include "ShapeTypeSupport.h"
 #include "ndds/ndds_namespace_cpp.h"
+#include "security/security_default.h"
 
 using namespace DDS;
 /*
@@ -50,10 +51,15 @@ class ShapeTypeConfigurator {
         DomainParticipant *participant = NULL;
 
         DDS_DomainParticipantQos pQos;
-        TheParticipantFactory->get_participant_qos_from_profile(pQos, "BuiltinQosLibExp", "Generic.Security");
+        TheParticipantFactory->get_participant_qos_from_profile(pQos, "BuiltinQosLib", "Generic.Security");
         //get_default_participant_qos(pQos);
 
         pQos.transport_builtin.mask = DDS_TRANSPORTBUILTIN_UDPv4;
+
+        DDS_PropertyQosPolicyHelper_assert_pointer_property(&pQos.property,
+                 RTI_SECURITY_BUILTIN_PLUGIN_PROPERTY_NAME ".create_function_ptr",
+                 (void *) RTI_Security_PluginSuite_create);
+
         DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
                  "com.rti.serv.secure.logging.log_level",
                  "4", DDS_BOOLEAN_FALSE);
