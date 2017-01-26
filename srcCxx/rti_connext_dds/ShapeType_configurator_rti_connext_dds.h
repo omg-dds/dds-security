@@ -99,4 +99,13 @@ class ShapeTypeConfigurator {
 
         return participant;
     }
+    static void destroy_participant(DomainParticipant *dp)
+    {
+        DDS::DomainParticipantFactory *dpf =
+            DomainParticipantFactory::get_instance();
+        if (dp != NULL) {
+            dp->delete_contained_entities();
+            dpf->delete_participant(dp);
+        }
+    }
 };
