@@ -64,10 +64,7 @@ LIB_PATH   = -L${COREDX_TOP}/target/${COREDX_TARGET}/lib
 LIBS       =	${CDXLIBS}/libdds_cpp_cf_log.a	\
 		${CDXLIBS}/libdds_security.a	\
 		${CDXLIBS}/libdds_cf_log.a	\
-		-lxml2				\
 		-lcrypto -ldl	
-
-#		-lssl				\
 
 CXXFLAGS   = -DTWINOAKS_COREDX -Wall -O2 -g ${INC_PATH} 
 LDFLAGS    = ${LIB_PATH} ${LIBS} -lpthread -lrt
