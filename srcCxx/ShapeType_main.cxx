@@ -344,7 +344,7 @@ int main(int argc, char *argv[])
     if (published_topic)
       printf("Publishing:  '%s'\n", published_topic);
     if (subscribed_topic)
-      printf("Subscribing: '%s'\n", published_topic);
+      printf("Subscribing: '%s'\n", subscribed_topic);
 
     return run(domain_id, published_topic, subscribed_topic, color_name, governance_file, permissions_file);
 }
