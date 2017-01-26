@@ -9,15 +9,20 @@ Example execution from CWD  srcCxx:
 ```
 ubuntu:srcCxx$ ./rti_connext_dds_5.2_linux -pub PD_RWA_OM_OD -permissions ../rti_connext_dds_certs/TESTONLY_rti_connext_dds_permissions_write_signed.p7s -governance ../TESTONLY_governance_signed.p7s
 
-Usage:  ./rti_connext_dds_5.2_linux [-pub <pubTopic>] [-sub <subTopic>] [-domain <domainId>] [-color <colorName>] [-governance <governenceFile>]  [-permissions <permissionsFile>]
+Usage:  ./rti_connext_dds_5.2_linux [-pub <pubTopic>] [-sub <subTopic>] [-domain <domainId>] [-color <colorName>] [-governance <governanceFile>]  [-permissions <permissionsFile>]
 
 Info: "-color" unspecified. Default to: "BLACK"
 Info: "-domain" unspecified. Default to: 0
-AccessControl_validate_remote_permissions:successfully validated remote participant permissions
-AccessControl_check_create_participant:successfully checked participant permissions
-AccessControl_check_create_topic:topic not allowed: cannot be published or subscribed
-PRESParticipant_createTopic:!security function check_create_topic
-DDS_Topic_createI:!create presentation topic
-DDSTopic_impl::createI:!create topic
-create_topic error for topic 'PD_RWA_OM_OD
+[CREATE Participant]RTI_Security_AccessControl_create_participant:successfully checked participant permissions
+RTI_Security_AccessControl_check_create_topic:successfully checked create endpoint permissions
+RTI_Security_AccessControl_check_create_datawriter:successfully checked create endpoint permissions
+RTI_Security_AccessControl_check_remote_datawriter:successfully checked create endpoint permissions
+
+Loop: wait count = 0, sent count = 0, received count = 0
+Time: 1485455098:485484999 -- Sending sample: count = 0
+
+Loop: wait count = 1, sent count = 1, received count = 0
+Time: 1485455099:486066999 -- Sending sample: count = 1
+
+Loop: wait count = 2, sent count = 2, received count = 0
 ```
