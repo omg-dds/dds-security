@@ -175,6 +175,7 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
     }
 
     participant->get_current_time(current_time);
+
 #if defined(TWINOAKS_COREDX)
     Time_t last_send_time(0, 0);
     Time_t send_time(send_period.sec, send_period.nanosec);
@@ -182,6 +183,7 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
     Time_t last_send_time    = {0, 0};
     Time_t send_time = { send_period.sec, send_period.nanosec};
 #endif
+
     Time_t next_send_time    = current_time + send_time;
     Duration_t wait_timeout  = (writer==NULL)?DURATION_INFINITE:send_period;
 
@@ -239,6 +241,7 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
             }
 
             // Workaround missing operation wait_timeout = next_send_time - last_send_time
+
 #if defined(TWINOAKS_COREDX)
             Duration_t d1(next_send_time.sec,  next_send_time.nanosec);
             Duration_t d2(last_send_time.sec, last_send_time.nanosec);
@@ -246,6 +249,7 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
             Duration_t d1 = {next_send_time.sec,  next_send_time.nanosec};
             Duration_t d2 = {last_send_time.sec, last_send_time.nanosec};
 #endif
+
             wait_timeout = d1 - d2;
         }
     }
@@ -360,6 +364,6 @@ int main(int argc, char *argv[])
       printf("Publishing:  '%s'\n", published_topic);
     if (subscribed_topic)
       printf("Subscribing: '%s'\n", subscribed_topic);
-    
+
     return run(domain_id, published_topic, subscribed_topic, color_name, governance_file, permissions_file);
 }
