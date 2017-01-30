@@ -91,7 +91,9 @@ class ShapeTypeConfigurator {
     /* use DynamicLoad to get function */
     set_property(properties,
                  "com.toc.sec.create_plugins",
-                 "dds_security_log:DSREF_create_plugins");
+                 ":DSREF_create_plugins");                    /* this loads from 'main' executable */
+                 // "dds_security_log:DSREF_create_plugins"); /* this loads from dynamic library 'dds_security_log' */
+
     
     participant = dpf->create_participant(domain_id, dp_qos,
                                           NULL, STATUS_MASK_NONE);

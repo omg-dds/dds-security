@@ -62,8 +62,8 @@ DDL        = ${COREDX_TOP}/host/${COREDX_HOST}/bin/coredx_ddl -ip
 INC_PATH   = -I${COREDX_TOP}/target/include -I./
 LIB_PATH   = -L${COREDX_TOP}/target/${COREDX_TARGET}/lib
 LIBS       =	${CDXLIBS}/libdds_cpp_cf_log.a	\
-		${CDXLIBS}/libdds_security.a	\
 		${CDXLIBS}/libdds_cf_log.a	\
+                -Wl,-export-dynamic -Wl,--whole-archive ${CDXLIBS}/libdds_security.a -Wl,--no-whole-archive \
 		-lcrypto -ldl	
 
 CXXFLAGS   = -DTWINOAKS_COREDX -Wall -O2 -g ${INC_PATH} 

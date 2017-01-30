@@ -30,7 +30,6 @@ GuardCondition *exit_guard = NULL;
 // Signal handler changes the sets exit_service to true.
 void signal_handler(int signal)
 {
-    fprintf(stderr, "Stopping...\n");
     exit_application = true;
     if ( exit_guard != NULL ) {
         exit_guard->set_trigger_value(BOOLEAN_TRUE);
@@ -206,6 +205,7 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
                     ShapeTypeTypeSupport::print_data(&shape);
 #endif
                 }
+                fflush(stdout);
             }
         }
 
@@ -226,6 +226,7 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
 #else
                 writer->write(shape, DDS_HANDLE_NIL);
 #endif
+                fflush(stdout);
             }
 
             // Workaround missing operation wait_timeout = next_send_time - last_send_time
@@ -239,6 +240,8 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
     fprintf(stderr, "Done...\n");
     ShapeTypeConfigurator::destroy_participant( participant );
 
+    delete exit_guard;
+    delete wait_set;
     return 0;
 }
 
