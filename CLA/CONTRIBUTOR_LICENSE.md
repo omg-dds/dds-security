@@ -1,6 +1,6 @@
 # OMG DDS INTEROPERABILITY REPOSITORY - CONTRIBUTOR LICENSE AGREEMENT
 
-**This Contributor License Agreement ("Agreement") specifies the terms under which the individual or corporate entity specified in the signature block below (“You”) agree to make intellectual property contributions to the OMG DDS Interoperability Repository.   BY SIGNING BELOW YOU ARE AGREEING TO BE BOUND BY THE TERMS OF THIS AGREEMENT.  **
+**This Contributor License Agreement ("Agreement") specifies the terms under which the individual or corporate entity specified in the signature block below (“You”) agree to make intellectual property contributions to the OMG DDS Interoperability Repository.   BY SIGNING BELOW YOU ARE AGREEING TO BE BOUND BY THE TERMS OF THIS AGREEMENT.**
 
 1. Definitions
 
@@ -35,6 +35,11 @@
     9. If You are an agency of the United States Government, then this Agreement will be governed by the United States federal common law.  Otherwise, this Agreement will be governed by the laws of the State of California except with regard to its choice of law rules.  
 
     10. A party may assign this Agreement to an entity acquiring essentially all of the party’s relevant business.
+
+6. "Electronic Signature" means any electronic sound, symbol, or process attached to or logically associated with a record and executed and adopted by a party with the intent to sign such record.
+
+    Each party agrees that the Electronic Signatures, whether digital or encrypted, of the parties included in this Agreement are intended to authenticate this writing and to have the same force and effect as manual signatures.
+
 
 IN WITNESS WHEREOF, You, intending to be legally bound, have caused Your proper and duly authorized officer to execute and deliver this agreement, for good and valuable consideration, the sufficiency of of which is hereby acknowledged, as of the day and year first written below.  
 
