@@ -6,7 +6,7 @@
 
     1. "OMG DDS Interoperability Repository" (or “Repository”) means the Git repository [https://github.com/omg-dds](https://github.com/omg-dds) and any repositories within it.
 
-    2. "Moderator" means an entity or individual responsible for authorizing changes to the Repository.  Moderators include representatives of Real-Time Innovations, Inc. and Twin Oaks, Inc.  Additional Moderators may be added at the discretion of the current Moderators.
+    2. "Moderator" means an entity or individual responsible for authorizing changes to the Repository.  Moderators include representatives of Real-Time Innovations, Inc. and Twin Oaks Computing, Inc.  Additional Moderators may be added at the discretion of the current Moderators.
 
     3. "Submit" (or “Submitted”) means any submission, including source code, binaries, code, pull requests, issue reports, comments, etc., made to the Moderators for inclusion in the Repository either through the Git repository interface or through electronic file transfer.   
 
