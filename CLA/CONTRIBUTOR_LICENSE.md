@@ -1,5 +1,4 @@
-# OMG DDS Interoperability Repository. 
-# CONTRIBUTOR LICENSE AGREEMENT
+# OMG DDS INTEROPERABILITY REPOSITORY - CONTRIBUTOR LICENSE AGREEMENT
 
 **This Contributor License Agreement ("Agreement") specifies the terms under which the individual or corporate entity specified in the signature block below (“You”) agree to make intellectual property contributions to the OMG DDS Interoperability Repository.   BY SIGNING BELOW YOU ARE AGREEING TO BE BOUND BY THE TERMS OF THIS AGREEMENT.  **
 
@@ -25,11 +24,11 @@
 
 3. License
 
-You grant Moderators a perpetual, worldwide, non-exclusive, assignable, paid-up license to publish, display, and redistribute the Contribution as part of the Repository.  You also license to Moderators under the same terms any other intellectual property rights required to publish, display, and redistribute the Contributions as part of the Repository.  You further grant all Users of the Repository a license to the Contribution under the terms of the [https://github.com/omg-dds/dds-security/LICENSE.md](Interoperability Testing License) included in the Repository.  Moderators are under no obligation to publish Contributions.
+    You grant Moderators a perpetual, worldwide, non-exclusive, assignable, paid-up license to publish, display, and redistribute the Contribution as part of the Repository.  You also license to Moderators under the same terms any other intellectual property rights required to publish, display, and redistribute the Contributions as part of the Repository.  You further grant all Users of the Repository a license to the Contribution under the terms of the [Interoperability Testing License](../LICENSE.md) included in the Repository.  Moderators are under no obligation to publish Contributions.
 
 4. No Warranty, Consequential Damages.  Limited Liability
 
-Other than explicitly stated herein, You provide the Contribution(s) "as is" with no warranty nor claims of fitness to any purpose.  Neither party shall be liable for consequential or special damages of any kind.  Other than for breach of warranty or representations herein, the liability of either party to the other shall be limited to $1000.
+    Other than explicitly stated herein, You provide the Contribution(s) "as is" with no warranty nor claims of fitness to any purpose.  Neither party shall be liable for consequential or special damages of any kind.  Other than for breach of warranty or representations herein, the liability of either party to the other shall be limited to $1000.
 
 5. General 
 
