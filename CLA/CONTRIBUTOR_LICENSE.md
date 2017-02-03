@@ -36,7 +36,9 @@
 
     10. A party may assign this Agreement to an entity acquiring essentially all of the party’s relevant business.
 
-6. "Electronic Signature" means any electronic sound, symbol, or process attached to or logically associated with a record and executed and adopted by a party with the intent to sign such record.
+6. Electronic Signatures
+
+    "Electronic Signature" means any electronic sound, symbol, or process attached to or logically associated with a record and executed and adopted by a party with the intent to sign such record.
 
     Each party agrees that the Electronic Signatures, whether digital or encrypted, of the parties included in this Agreement are intended to authenticate this writing and to have the same force and effect as manual signatures.
 
