@@ -1,0 +1,107 @@
+# ***************************************************************
+# 
+#   file:  Makefile
+#   desc:  Makefile for CoreDX DDS interop testing
+#  
+# ***************************************************************
+# 
+#    Copyright(C) 2006-2015 Twin Oaks Computing, Inc
+#    All rights reserved.   Castle Rock, CO 80108
+# 
+# ****************************************************************
+# 
+#   This file is provided by Twin Oaks Computing, Inc
+#   as an example. It is provided in the hope that it will be 
+#   useful but WITHOUT ANY WARRANTY; without even the implied 
+#   warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR 
+#   PURPOSE. TOC Inc assumes no liability or responsibilty for 
+#   the use of this information for any purpose.
+#   
+# ***************************************************************/
+
+##########################################################
+#
+# This Makefile uses the following environment variables:
+#  COREDX_TOP
+#  COREDX_HOST
+#  COREDX_TARGET
+# These variables can be set manually, or determined by
+# running the script  coredx/scripts/cdxenv.sh or cdxenv.bat
+#
+##########################################################
+
+# Define our sources and objects
+EXECUTABLE        = toc_coredx_dds_${COREDX_VERSION}_linux
+
+# Pub/Sub sources and objects
+ShapeType_pubsub_CSRCS   = ShapeType_main.cxx
+ShapeType_pubsub_COBJS   = ${ShapeType_pubsub_CSRCS:.cxx=.o}
+
+ShapeType_pubsub_GENSRCS = \
+	toc_coredx_dds/ShapeTypeTypeSupport.cc \
+	toc_coredx_dds/ShapeTypeDataWriter.cc \
+	toc_coredx_dds/ShapeTypeDataReader.cc \
+	toc_coredx_dds/ShapeType.cc
+
+ShapeType_pubsub_GENHDRS = \
+	toc_coredx_dds/ShapeTypeTypeSupport.hh \
+	toc_coredx_dds/ShapeTypeDataWriter.hh \
+	toc_coredx_dds/ShapeTypeDataReader.hh \
+	toc_coredx_dds/ShapeType.hh
+
+ShapeType_pubsub_GENOBJS = ${ShapeType_pubsub_GENSRCS:.cc=.o}
+ShapeType_pubsub_OBJS    = ${ShapeType_pubsub_GENOBJS} ${ShapeType_pubsub_COBJS} 
+
+##########################################################
+# Setup Compile Environment
+# We assume both g++ and coredx_ddl are in your path!
+CDXLIBS    = ${COREDX_TOP}/target/${COREDX_TARGET}/lib
+CXX        = g++
+DDL        = ${COREDX_TOP}/host/${COREDX_HOST}/bin/coredx_ddl -ip
+
+INC_PATH   = -I${COREDX_TOP}/target/include -I./
+LIB_PATH   = -L${COREDX_TOP}/target/${COREDX_TARGET}/lib
+LIBS       =	${CDXLIBS}/libdds_cpp_cf_log.a	\
+		${CDXLIBS}/libdds_cf_log.a	\
+                -Wl,-export-dynamic -Wl,--whole-archive ${CDXLIBS}/libdds_security.a -Wl,--no-whole-archive \
+		-lcrypto -ldl	
+
+CXXFLAGS   = -DTWINOAKS_COREDX -Wall -O2 -g ${INC_PATH} 
+LDFLAGS    = ${LIB_PATH} ${LIBS} -lpthread -lrt
+
+##########################################################
+
+all: ${EXECUTABLE} 
+
+${EXECUTABLE} : ${ShapeType_GENSRCS} ${ShapeType_pubsub_OBJS}
+	${CXX} -o $@ ${ShapeType_pubsub_OBJS} ${LDFLAGS} 
+
+#	strip $@
+
+##########################################################
+%.o: %.cxx
+	${CXX} ${CXXFLAGS} -c $<
+
+##########################################################
+# Rules for generating code from DDL
+
+toc_coredx_dds/%.cc toc_coredx_dds/%TypeSupport.cc toc_coredx_dds/%DataWriter.cc toc_coredx_dds/%DataReader.cc \
+toc_coredx_dds/%.hh toc_coredx_dds/%TypeSupport.hh toc_coredx_dds/%DataWriter.hh toc_coredx_dds/%DataReader.hh : %.idl
+	${DDL} -l cpp -d toc_coredx_dds -f $<
+
+##########################################################
+# Rules for cleaning
+
+clean:
+	\rm -f ${ShapeType_pubsub_OBJS} ${EXECUTABLE}
+
+reallyclean: clean
+	\rm -f ${ShapeType_pubsub_GENSRCS} ${ShapeType_pubsub_GENHDRS} 
+
+##########################################################
+# Additional Dependencies
+ShapeType_main.o: 	${ShapeType_pubsub_GENHDRS}  toc_coredx_dds/ShapeType_configurator_toc_coredx_dds.h
+toc_coredx_dds/ShapeTypeTypeSupport.o:  ${ShapeType_pubsub_GENHDRS}
+toc_coredx_dds/ShapeTypeDataReader.o: 	${ShapeType_pubsub_GENHDRS}
+toc_coredx_dds/ShapeTypeDataWriter.o: 	${ShapeType_pubsub_GENHDRS}
+toc_coredx_dds/ShapeType.o: 		${ShapeType_pubsub_GENHDRS}

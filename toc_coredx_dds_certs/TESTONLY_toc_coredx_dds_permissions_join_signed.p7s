@@ -1,17 +1,17 @@
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="----54936DB54B07DCABFED151A31EEB3161"
+Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="----4B31EFC25CBA413D1D1748455C9CD538"
 
 This is an S/MIME signed message
 
-------54936DB54B07DCABFED151A31EEB3161
+------4B31EFC25CBA413D1D1748455C9CD538
 Content-Type: text/plain
 
 <dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://www.omg.org/spec/DDS-SECURITY/20160303/omg_shared_ca_permissions.xsd">
 	<permissions>
-	    <grant name="RTI_grant_join_write_domain_0">
+	    <grant name="TWINOAKS_grant_join_domain_0">
 	    	<!--  only allow joining domain 0. No explicit permission to read or write any Topic -->
-	    	<subject_name>/C=US/ST=CA/O=Real Time Innovations/CN=CN_TEST_DDS-SECURITY_RTI_CONNEXT_DDS/emailAddress=support@rti.com</subject_name>
+	    	<subject_name>/C=US/ST=CO/O=Twin Oaks Computing/CN=CN_TEST_DDS-SECURITY_TWINOAKS_COREDX/emailAddress=support@twinoakscomputing.com</subject_name>
 	        <validity>
 	            <!-- Format is CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] in GMT -->
 	            <not_before>2015-09-15T01:00:00</not_before>
@@ -21,33 +21,13 @@ Content-Type: text/plain
 	            <domains>
                        <id>0</id>
                    </domains>
-	            <!--  Naming for Topics (see TESTONLY_governance.xml).
-	            	OD / PD             : Open / Protected Discovery
-	            	OA / RA / WA / RWA  : Open / Read / Write / ReadWrite Access
-	            	OM / SM / EM        : Open / Signed / Encrypted  Meta-data
-	            	OD / SD / ED        : Open / Signed / Encrypted  Data
-            	 -->	            
-	            <publish>
-                       <topics>
-	            	    <topic>PD_WA_OM_OD</topic>
-                           <topic>PD_RWA_OM_OD</topic>
-                           <topic>PD_RWA_SM_OD</topic>	
-                           <topic>PD_RWA_EM_OD</topic>
-                           <topic>PD_RWA_OM_SD</topic>
-                           <topic>PD_RWA_SM_SD</topic>
-                           <topic>PD_RWA_EM_SD</topic>
-                           <topic>PD_RWA_OM_ED</topic>
-                           <topic>PD_RWA_SM_ED</topic>
-                           <topic>PD_RWA_EM_ED</topic>
-                       </topics>
-	            </publish>
 	        </allow_rule>
 	        <default>DENY</default>
 	    </grant>
        </permissions>
 </dds>
 
-------54936DB54B07DCABFED151A31EEB3161
+------4B31EFC25CBA413D1D1748455C9CD538
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -77,16 +57,16 @@ MQswCQYDVQQIDAJNQTEPMA0GA1UEBwwGQm9zdG9uMSUwIwYDVQQKDBxPTUctRERT
 IFNJRyAoUGVybWlzc2lvbnMgQ0EpMRowGAYDVQQDDBFPTUctRERTIChQZXJtIENB
 KTEaMBgGCSqGSIb3DQEJARYLZGRzQG9tZy5vcmcCCQC/wQzInnMqEjANBglghkgB
 ZQMEAgEFAKCB5DAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJ
-BTEPFw0xNzAxMjUyMjExMzJaMC8GCSqGSIb3DQEJBDEiBCDsDutN3cn3SWnQgeEN
-9ENQDboRIssS3H5sqkAekRuz+TB5BgkqhkiG9w0BCQ8xbDBqMAsGCWCGSAFlAwQB
+BTEPFw0xNzAxMjYwMTIzMTlaMC8GCSqGSIb3DQEJBDEiBCACOT6hGCX2ss/5u1EF
+SF/p9c4SSdtY6unAv2qytZejSDB5BgkqhkiG9w0BCQ8xbDBqMAsGCWCGSAFlAwQB
 KjALBglghkgBZQMEARYwCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMHMA4GCCqGSIb3
 DQMCAgIAgDANBggqhkiG9w0DAgIBQDAHBgUrDgMCBzANBggqhkiG9w0DAgIBKDAN
-BgkqhkiG9w0BAQEFAASCAQANqbV2c05AsiKlwEtVf24JqdRmCsBZS3dgbVGxLMcX
-TjW5IJAhLvub2TFJiucUetMWJ4mCx/NFaYjRtB0BAMTwtmZzkCetknel5t2bY2ON
-0j/er5ddoYb0OTxz6DIn1rQG7MIvhb3iCZG9bD4qKudInXNoP/+Otz0b2jhoL3dl
-ufdtgcNP594K7gLeUp5FFohwWG04ApiM2b53e+57HrsqBO8fjNOIe9hSbZ9uGeTO
-JLnhXvVeGthDRUNok4fIeBn6+OMbZiGpNyDFrTxLBbDZBliQzTmg6VaSSFr8zFo8
-KHoFVehpQ/kCuMzQfXuo7b1GzexVBaAa3bp7P5lzMfUC
+BgkqhkiG9w0BAQEFAASCAQBnS0oW2LJeizdiKojCz5psLyMBqd97m0n4A04oXMXt
+IOK3Oe0eL/VXb7jyKgrAoUQwF1YjvwvlNoSdTkC9s3TzzrnWnE89f5bo+QZk6Fz+
+KVsei3Ze6CASozFssDnwDrRb5xx+/mKqi+5jRr98SQzoQkcnW59nk7w/5TMh7dA1
+v7qjAqHPSBT1rwPo8t21o0oTNg1VptndkStqZqnpoosTSirhKqPA1A44zWiRNizf
+pDvXzQSoILd+JXk3UqIqPw/TWnopoGgse6FBAHHqyXnoL+ADItt1CuMo7opq+qoF
+vJWmiieOzugdxxsz81N2s6XkcAyCYSySfvOj/BQkXmol
 
-------54936DB54B07DCABFED151A31EEB3161--
+------4B31EFC25CBA413D1D1748455C9CD538--
 
