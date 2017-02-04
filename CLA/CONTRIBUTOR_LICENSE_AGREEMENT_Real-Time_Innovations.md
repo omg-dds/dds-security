@@ -45,7 +45,7 @@
 
 IN WITNESS WHEREOF, You, intending to be legally bound, have caused Your proper and duly authorized officer to execute and deliver this agreement, for good and valuable consideration, the sufficiency of of which is hereby acknowledged, as of the day and year first written below.  
 
-*For:*
+**For:**
 
 Entity Name: 	_Real-Time Innovations, Inc._
 
@@ -53,7 +53,7 @@ Address:	       	_232 E. Java Dr. Sunnyvale, CA 94089, USA_
 
  ("**You**")
 
-*By:*							
+**By:**							
 
 Name:	Gerardo Pardo-Castellote
 
