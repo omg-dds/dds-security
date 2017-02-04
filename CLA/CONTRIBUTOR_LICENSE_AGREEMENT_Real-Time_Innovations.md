@@ -24,7 +24,7 @@
 
 3. License
 
-    You grant Moderators a perpetual, worldwide, non-exclusive, assignable, paid-up license to publish, display, and redistribute the Contribution as part of the Repository.  You also license to Moderators under the same terms any other intellectual property rights required to publish, display, and redistribute the Contributions as part of the Repository.  You further grant all Users of the Repository a license to the Contribution under the terms of the [Interoperability Testing License](../LICENSE.md) included in the Repository.  Moderators are under no obligation to publish Contributions.
+    You grant Moderators a perpetual, worldwide, non-exclusive, assignable, paid-up license to publish, display, and redistribute the Contribution as part of the Repository.  You also license to Moderators under the same terms any other intellectual property rights required to publish, display, and redistribute the Contributions as part of the Repository.  You further grant all Users of the Repository a license to the Contribution under the terms of the [OMG DDS Interoperability Testing License](../LICENSE.md) included in the Repository.  Moderators are under no obligation to publish Contributions.
 
 4. No Warranty, Consequential Damages.  Limited Liability
 
