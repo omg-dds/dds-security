@@ -48,13 +48,16 @@ IN WITNESS WHEREOF, You, intending to be legally bound, have caused Your proper 
 *For:*
 
 Entity Name: 	_Real-Time Innovations, Inc._
+
 Address:	       	_232 E. Java Dr. Sunnyvale, CA 94089, USA_
 
  ("**You**")
 
 *By:*							
 
-Name:	Gerardo Pardo-Castellote						
-Title: 	CTO					
+Name:	Gerardo Pardo-Castellote
+
+Title: 	CTO
+
 Date:    February 3rd, 2017			 
 

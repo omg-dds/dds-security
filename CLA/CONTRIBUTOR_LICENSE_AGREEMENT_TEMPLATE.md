@@ -45,23 +45,19 @@
 
 IN WITNESS WHEREOF, You, intending to be legally bound, have caused Your proper and duly authorized officer to execute and deliver this agreement, for good and valuable consideration, the sufficiency of of which is hereby acknowledged, as of the day and year first written below.  
 
-For:
+*For:*
 
-Entity Name: 	_____________________________
+Entity Name: _YourCompanyName_
 
-
-
-Type:		_____________________________
-
-Address:		_____________________________
+Address:	_YourCompanyAddress_
 
  ("**You**")
 
-By:							
+*By:*							
 
-Name:							
+Name:			Your Name				
 
-Title: 							
+Title: 			Your Title				
 
-Date:							 
+Date:			Fill in date				 
 
