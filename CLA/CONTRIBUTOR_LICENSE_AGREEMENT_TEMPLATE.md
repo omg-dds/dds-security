@@ -47,17 +47,17 @@ IN WITNESS WHEREOF, You, intending to be legally bound, have caused Your proper 
 
 **For:**
 
-Entity Name: _YourCompanyName_
+Entity Name:  _YourCompanyName_
 
-Address:	_YourCompanyAddress_
+Address:      _YourCompanyAddress_
 
  ("**You**")
 
 **By:**							
 
-Name:			_YourName_				
+Name:  _YourName_				
 
-Title: 			_YourTitle_				
+Title: _YourTitle_				
 
-Date:			_Fill in the date_		 
+Date:  _Fill in the date_		 
 
