@@ -11,7 +11,7 @@
             <enable_join_access_control>TRUE</enable_join_access_control>
             <discovery_protection_kind>ENCRYPT</discovery_protection_kind>
             <liveliness_protection_kind>ENCRYPT</liveliness_protection_kind>
-            <rtps_protection_kind>SIGN</rtps_protection_kind>
+            <rtps_protection_kind>NONE</rtps_protection_kind>
             
             <!--  Naming for Topics:
             	OD / PD             : Open / Protected Discovery
