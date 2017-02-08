@@ -16,8 +16,6 @@
 
 2. Allowable Contribution Representations
 
-    6. You represent that You have authored 100% of the content of the Contribution(s).
-
     7. You represent that You have the necessary rights to the Contribution(s) to meet the obligations of this Agreement.  If You are employed, Your employer has authorized Contribution(s) under this Agreement.
 
     8. You represent that you have no knowledge of third-party intellectual property rights that are likely to be infringed by the Contribution(s).  You represent that you have no knowledge that such infringement is likely to be claimed or has already been claimed.
@@ -55,9 +53,9 @@ Address:      _232 E. Java Dr. Sunnyvale, CA 94089, USA_
 
 **By:**							
 
-Name:  Gerardo Pardo-Castellote
+Name:  _Gerardo Pardo-Castellote_
 
-Title: CTO
+Title: _CTO_
 
-Date:  February 3rd, 2017			 
+Date:  _February 3rd, 2017_			 
 
