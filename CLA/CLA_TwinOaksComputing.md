@@ -1,6 +1,6 @@
 # OMG DDS INTEROPERABILITY REPOSITORY - CONTRIBUTOR LICENSE AGREEMENT
 
-**This Contributor License Agreement ("Agreement") specifies the terms under which the individual or corporate entity specified in the signature block below (“You”) agree to make intellectual property contributions to the OMG DDS Interoperability Repository.   BY SIGNING BELOW YOU ARE AGREEING TO BE BOUND BY THE TERMS OF THIS AGREEMENT.If You are signing this Agreement in Your capacity as an employee, THEN YOUR EMPLOYER AND YOU ARE BOTH BOUND BY THIS AGREEMENT.**
+**This Contributor License Agreement ("Agreement") specifies the terms under which the individual or corporate entity specified in the signature block below (“You”) agree to make intellectual property contributions to the OMG DDS Interoperability Repository.   BY SIGNING BELOW YOU ARE AGREEING TO BE BOUND BY THE TERMS OF THIS AGREEMENT. If You are signing this Agreement in Your capacity as an employee, THEN YOUR EMPLOYER AND YOU ARE BOTH BOUND BY THIS AGREEMENT.**
 
 1. Definitions
 
