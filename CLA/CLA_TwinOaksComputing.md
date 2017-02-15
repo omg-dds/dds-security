@@ -1,6 +1,6 @@
 # OMG DDS INTEROPERABILITY REPOSITORY - CONTRIBUTOR LICENSE AGREEMENT
 
-**This Contributor License Agreement ("Agreement") specifies the terms under which the individual or corporate entity specified in the signature block below (“You”) agree to make intellectual property contributions to the OMG DDS Interoperability Repository.   BY SIGNING BELOW YOU ARE AGREEING TO BE BOUND BY THE TERMS OF THIS AGREEMENT.**
+**This Contributor License Agreement ("Agreement") specifies the terms under which the individual or corporate entity specified in the signature block below (“You”) agree to make intellectual property contributions to the OMG DDS Interoperability Repository.   BY SIGNING BELOW YOU ARE AGREEING TO BE BOUND BY THE TERMS OF THIS AGREEMENT.If You are signing this Agreement in Your capacity as an employee, THEN YOUR EMPLOYER AND YOU ARE BOTH BOUND BY THIS AGREEMENT.**
 
 1. Definitions
 
@@ -18,7 +18,7 @@
 
     7. You represent that You have the necessary rights to the Contribution(s) to meet the obligations of this Agreement.  If You are employed, Your employer has authorized Contribution(s) under this Agreement.
 
-    8. You represent that you have no knowledge of third-party intellectual property rights that are likely to be infringed by the Contribution(s).  You represent that you have no knowledge that such infringement is likely to be claimed or has already been claimed.
+    8. You represent that you have no knowledge of third-party intellectual property rights that are likely to be infringed by the Contribution(s).  You represent that you have no knowledge that such infringement or any allegation of misappropriation of intellectual property rights is likely to be claimed or has already been claimed.
 
 3. License
 
@@ -41,7 +41,7 @@
     Each party agrees that the Electronic Signatures, whether digital or encrypted, of the parties included in this Agreement are intended to authenticate this writing and to have the same force and effect as manual signatures.
 
 
-IN WITNESS WHEREOF, You, intending to be legally bound, have caused Your proper and duly authorized officer to execute and deliver this agreement, for good and valuable consideration, the sufficiency of of which is hereby acknowledged, as of the day and year first written below.  
+IN WITNESS WHEREOF, You, intending to be legally bound, have executed this Agreement or caused Your employer's proper and duly authorized officer to execute and deliver this Agreement, for good and valuable consideration, the sufficiency of which is hereby acknowledged, as of the day and year first written below.  
 
 **For:**
 
