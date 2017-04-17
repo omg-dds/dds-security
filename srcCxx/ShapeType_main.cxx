@@ -69,17 +69,45 @@ Topic *create_topic(DomainParticipant *participant, const char *topic_name)
     return topic;
 }
 
-ShapeTypeDataWriter *create_writer(DomainParticipant *participant, Topic *topic)
+ShapeTypeDataWriter *create_writer(DomainParticipant *participant, Topic *topic,
+                                   const char * partition, float livelinessPeriod)
 
 {
-    Publisher *publisher = participant->create_publisher(PUBLISHER_QOS_DEFAULT,
-            NULL /* listener */, STATUS_MASK_NONE);
+    PublisherQos pub_qos;
+    participant->get_default_publisher_qos( pub_qos );
+
+    if (partition)
+      {
+        char * pname;
+        pname = new char[strlen(partition)+1];
+        if (pname)
+          {
+            strcpy(pname, partition);
+            pub_qos.partition.name.push_back(pname);
+          }
+        else
+          {
+            printf("error setting partition (oom)\n");
+            return NULL;
+          }
+      }
+
+    Publisher *publisher = participant->create_publisher( pub_qos, NULL /* listener */, STATUS_MASK_NONE);
     if (publisher == NULL) {
         printf("create_publisher error\n");
         return NULL;
     }
+
+    DataWriterQos dw_qos;
+    publisher->get_default_datawriter_qos( dw_qos );
+    if (livelinessPeriod > 0.0)
+      {
+        dw_qos.liveliness.lease_duration.sec     = (int)livelinessPeriod;
+        dw_qos.liveliness.lease_duration.nanosec = (livelinessPeriod - (int)livelinessPeriod) * 1000000000; // NSEC_PER_SEC;
+      }
+
     DataWriter *writer = publisher->create_datawriter(
-            topic, DATAWRITER_QOS_DEFAULT, NULL /* listener */, STATUS_MASK_NONE);
+            topic, dw_qos, NULL /* listener */, STATUS_MASK_NONE);
     if (writer == NULL) {
         printf("create_datawriter error\n");
         return NULL;
@@ -92,17 +120,45 @@ ShapeTypeDataWriter *create_writer(DomainParticipant *participant, Topic *topic)
     return shape_writer;
 }
 
-ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic)
+ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic,
+                                   const char * partition, float livelinessPeriod)
 
 {
-    Subscriber *subscriber = participant->create_subscriber(SUBSCRIBER_QOS_DEFAULT,
-            NULL /* listener */, STATUS_MASK_NONE);
+    SubscriberQos sub_qos;
+    participant->get_default_subscriber_qos( sub_qos );
+
+    if (partition)
+      {
+        char * pname;
+        pname = new char[strlen(partition)+1];
+        if (pname)
+          {
+            strcpy(pname, partition);
+            sub_qos.partition.name.push_back(pname);
+          }
+        else
+          {
+            printf("error setting partition (oom)\n");
+            return NULL;
+          }
+      }
+
+    Subscriber *subscriber = participant->create_subscriber( sub_qos, NULL /* listener */, STATUS_MASK_NONE);
     if (subscriber == NULL) {
         printf("create_publisher error\n");
         return NULL;
     }
+
+    DataReaderQos dr_qos;
+    subscriber->get_default_datareader_qos( dr_qos );
+    if (livelinessPeriod > 0.0)
+      {
+        dr_qos.liveliness.lease_duration.sec     = (int)livelinessPeriod;
+        dr_qos.liveliness.lease_duration.nanosec = (livelinessPeriod - (int)livelinessPeriod) * 1000000000; // NSEC_PER_SEC;
+      }
+
     DataReader *reader = subscriber->create_datareader(
-            topic, DATAREADER_QOS_DEFAULT, NULL /* listener */, STATUS_MASK_NONE);
+            topic, dr_qos, NULL /* listener */, STATUS_MASK_NONE);
     if (reader == NULL) {
         printf("create_datareader error\n");
         return NULL;
@@ -117,7 +173,8 @@ ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic)
 
 
 int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_name, const char *color,
-        const char *governance_file, const char *permissions_file)
+        const char *governance_file, const char *permissions_file,
+        const char *partition, float livelinessPeriod)
 {
     ShapeTypeDataWriter *writer = NULL;
     ShapeTypeDataReader *reader = NULL;
@@ -159,11 +216,11 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
 
 
     if ( pub_topic != NULL ) {
-        writer = create_writer(participant, pub_topic);
+        writer = create_writer(participant, pub_topic, partition, livelinessPeriod);
         if ( writer == NULL ) { return -1; }
     }
     if ( sub_topic != NULL ) {
-        reader = create_reader(participant, sub_topic);
+        reader = create_reader(participant, sub_topic, partition, livelinessPeriod);
         if ( reader == NULL ) { return -1; }
         retcode = wait_set->attach_condition(
                 reader->create_readcondition(ANY_SAMPLE_STATE, ANY_VIEW_STATE, ANY_INSTANCE_STATE));
@@ -272,10 +329,13 @@ int main(int argc, char *argv[])
     const char *color_name = NULL;
     const char *governance_file = NULL;
     const char *permissions_file = NULL;
+    const char *partition = NULL;
+    float livelinessPeriod = 0.0;
 
     if ( argc != 5 ) {
         fprintf(stderr, "Usage:  %s [-pub <pubTopic>] [-sub <subTopic>] [-domain <domainId>] [-color <colorName>]\n"
-                "\t\t [-governance <governanceFile>]  [-permissions <permissionsFile>]\n",
+                "\t\t [-governance <governanceFile>]  [-permissions <permissionsFile>] [-partition <partitionStr>]\n"
+                "\t\t [-livelinessPeriod <float>]\n",
                 argv[0]);
     }
     
@@ -322,7 +382,22 @@ int main(int argc, char *argv[])
             }
             permissions_file = argv[i];
         }
-        else if ( strcmp(argv[i], "-help") == 0 ) {
+        else if ( strcmp(argv[i], "-partition") == 0 ) {
+            if ( ++i == argc) {
+                fprintf(stderr, "Error: missing <partitionStr> after \"-parition\"\n");
+                return -1;
+            }
+            partition = argv[i];
+        }
+        else if ( strcmp(argv[i], "-livelinessPeriod") == 0 ) {
+            if ( ++i == argc) {
+                fprintf(stderr, "Error: missing <livelinessPeriod> after \"-livelinessPeriod\"\n");
+                return -1;
+            }
+            livelinessPeriod = atof(argv[i]);
+        }
+        else if ( ( strcmp(argv[i], "-help") == 0 )  ||
+                  ( strcmp(argv[i], "-h") == 0 )  ) {
             return -1;
         }
         else {
@@ -368,5 +443,7 @@ int main(int argc, char *argv[])
     if (subscribed_topic)
       printf("Subscribing: '%s'\n", subscribed_topic);
 
-    return run(domain_id, published_topic, subscribed_topic, color_name, governance_file, permissions_file);
+    return run(domain_id, published_topic, subscribed_topic, color_name,
+               governance_file, permissions_file,
+               partition, livelinessPeriod);
 }
