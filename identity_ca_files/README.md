@@ -22,3 +22,7 @@ Generation of RTI Identity Certificate by the Identity CA (signing of certificat
 Generation of TwinOaks Identity Certificate by the Identity CA (signing of certificate request)
 
     openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in toc_coredx_dds_files/identity_toc_coredx_dds.csr -out  toc_coredx_dds_files/TESTONLY_toc_coredx_dds_identity_cert.pem
+
+Generation of Kognsberg Identity Certificate by the Identity CA (signing of certificate request)
+
+    openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in kda_intercom_dds_certs/identity_kda_intercom_dds.csr -out kda_intercom_dds_certs/TESTONLY_kda_intercom_dds_identity_cert.pem
