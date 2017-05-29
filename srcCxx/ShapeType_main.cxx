@@ -10,6 +10,8 @@
 #include "rti_connext_dds/ShapeType_configurator_rti_connext_dds.h"
 #elif defined(TWINOAKS_COREDX)
 #include "toc_coredx_dds/ShapeType_configurator_toc_coredx_dds.h"
+#elif defined(INTERCOM_DDS)
+#include "intercom_dds/ShapeType_configurator_intercom_dds.h"
 #else
 #include "ShapeType_configurator_default.h"
 #endif
@@ -51,15 +53,21 @@ void setup_signal_handler()
 Topic *create_topic(DomainParticipant *participant, const char *topic_name)
 {
     /* Register the type before creating the topic */
+#ifdef INTERCOM_DDS
+    const ShapeTypeTypeSupport* typeSupport = ShapeTypeTypeSupport::get_instance();
+    const char *type_name = typeSupport->get_type_name();
+    ReturnCode_t retcode = typeSupport->register_type(participant, type_name);
+#else
     const char *type_name = ShapeTypeTypeSupport::get_type_name();
     ReturnCode_t retcode = ShapeTypeTypeSupport::register_type(
         participant, type_name);
+#endif
     if (retcode != RETCODE_OK) {
         printf("register_type error %d\n", (int)retcode);
         return NULL;
     }
 
-    Topic *topic = participant->create_topic(topic_name, ShapeTypeTypeSupport::get_type_name(),
+    Topic *topic = participant->create_topic(topic_name, type_name,
             TOPIC_QOS_DEFAULT, NULL /* listener */, STATUS_MASK_NONE);
     if ( topic == NULL ) {
         printf("create_topic error for topic '%s'\n", topic_name);
@@ -112,7 +120,11 @@ ShapeTypeDataWriter *create_writer(DomainParticipant *participant, Topic *topic,
         printf("create_datawriter error\n");
         return NULL;
     }
+#ifdef INTERCOM_DDS
+    ShapeTypeDataWriter *shape_writer = ShapeTypeDataWriter::_narrow(writer);
+#else
     ShapeTypeDataWriter *shape_writer = ShapeTypeDataWriter::narrow(writer);
+#endif
     if (shape_writer == NULL) {
         printf("ShapeTypeDataWriter narrow error\n");
         return NULL;
@@ -163,7 +175,11 @@ ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic,
         printf("create_datareader error\n");
         return NULL;
     }
+#ifdef INTERCOM_DDS
+    ShapeTypeDataReader *shape_reader = ShapeTypeDataReader::_narrow(reader);
+#else
     ShapeTypeDataReader *shape_reader = ShapeTypeDataReader::narrow(reader);
+#endif
     if (shape_reader == NULL) {
         printf("ShapeTypeDataReader narrow error\n");
         return NULL;
@@ -270,6 +286,8 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
                     recv_count++;
 #if defined(TWINOAKS_COREDX)
                     ShapeType::print(stdout, &shape);
+#elif defined(INTERCOM_DDS)
+                    std::cout << shape << std::endl;
 #else
                     ShapeTypeTypeSupport::print_data(&shape);
 #endif
