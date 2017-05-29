@@ -1,0 +1,54 @@
+# To compile, type:
+# 	gmake -f makefile_intercom
+#
+# This makefile assumes that your build environment is already correctly
+# configured. (For example, the correct version of your compiler and
+# linker should be on your PATH.)
+######################################################################
+
+COMPILER = g++
+COMPILER_FLAGS = -O2 -Wall
+LINKER = g++
+LINKER_FLAGS = -static-libgcc -static-libstdc++ -Wl,--no-as-needed
+SYSLIBS      = -ldl -lm -lpthread -lrt
+DEFINES      = 
+
+INCLUDES = -I.
+MAIN    = ShapeType_main.cxx
+SOURCES = $(MAIN)
+
+#These are for InterCOM
+INTERCOM_LIB_DIR = ${INTERCOM_INSTALL}/lib
+INTERCOM_BIN_DIR = ${INTERCOM_INSTALL}/bin
+INTERCOM_INCLUDE_DIR = ${INTERCOM_INSTALL}/include
+
+GEN_SOURCES  = intercom_dds/ShapeType.cpp
+GEN_HEADERS  = intercom_dds/ShapeType.h
+LIBS         += -L$(INTERCOM_LIB_DIR) -Wl,-Bstatic -lintercom -lcrypto -Wl,-Bdynamic
+INCLUDES     += -I$(INTERCOM_INCLUDE_DIR) -Iintercom_dds
+DEFINES      += -DINTERCOM_DDS
+EXEC         = intercom_dds_linux
+#End of InterCOM
+
+MAIN_OBJ = $(MAIN:%.cxx=%.o) 
+OBJS    =  $(MAIN_OBJ) $(GEN_SOURCES:%.cpp=%.o)
+
+all : $(EXEC)
+
+clean :
+	rm -f $(EXEC) $(OBJS) $(GEN_SOURCES) $(GEN_HEADERS)
+
+$(EXEC) : $(OBJS)
+	$(LINKER) $(LINKER_FLAGS)  -o $@ $(OBJS) $(LIBS) $(SYSLIBS)
+
+$(MAIN_OBJ) : $(MAIN) $(GEN_HEADERS)
+	$(COMPILER) $(COMPILER_FLAGS)  -o $@ $(DEFINES) $(INCLUDES) -c $<
+
+%.o : %.cpp
+	$(COMPILER) $(COMPILER_FLAGS)  -o $@ $(DEFINES) $(INCLUDES) -c $<
+
+#These are for InterCOM
+$(GEN_SOURCES) : ShapeType.idl $(INTERCOM_BIN_DIR)/cidl
+	$(INTERCOM_BIN_DIR)/cidl +c intercom_dds ShapeType.idl
+$(GEN_HEADERS) : $(GEN_SOURCES)
+#End of InterCOM
