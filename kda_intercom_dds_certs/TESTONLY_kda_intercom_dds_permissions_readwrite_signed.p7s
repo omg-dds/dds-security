@@ -1,9 +1,9 @@
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="----0CF9350B8B328A9CD907AAFE062BAAF0"
+Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="----8CDE47D56C0F4F4AF50C6CBC008DF1FD"
 
 This is an S/MIME signed message
 
-------0CF9350B8B328A9CD907AAFE062BAAF0
+------8CDE47D56C0F4F4AF50C6CBC008DF1FD
 Content-Type: text/plain
 
 <dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -11,7 +11,7 @@ Content-Type: text/plain
 	<permissions>
 	    <grant name="KDA_grant_readwrite_domain_0">
 	    	<!--  only allow joining domain 0. No explicit permission to read or write any Topic -->
-         <subject_name>C=NO, O=Kongsberg Defence & Aerospace, CN=kda_intercom_dds</subject_name>
+         <subject_name>/C=NO/O=Kongsberg Defence and Aerospace/CN=kda_intercom_dds</subject_name>
 	        <validity>
 	            <!-- Format is CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] in GMT -->
 	            <not_before>2015-09-15T01:00:00</not_before>
@@ -29,6 +29,8 @@ Content-Type: text/plain
             	 -->
 	            <publish>
                        <topics>
+                           <topic>OD_OA_OM_OD</topic>
+                           <topic>PD_OA_OM_OD</topic>
                            <topic>PD_WA_OM_OD</topic>
                            <topic>PD_RWA_OM_OD</topic>
                            <topic>PD_RWA_SM_OD</topic>
@@ -43,6 +45,8 @@ Content-Type: text/plain
 	            </publish>
 	            <subscribe>
                        <topics>
+                           <topic>OD_OA_OM_OD</topic>
+                           <topic>PD_OA_OM_OD</topic>
                            <topic>PD_RA_OM_OD</topic>
                            <topic>PD_RWA_OM_OD</topic>
                            <topic>PD_RWA_SM_OD</topic>
@@ -61,7 +65,7 @@ Content-Type: text/plain
        </permissions>
 </dds>
 
-------0CF9350B8B328A9CD907AAFE062BAAF0
+------8CDE47D56C0F4F4AF50C6CBC008DF1FD
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -91,16 +95,16 @@ MQswCQYDVQQIDAJNQTEPMA0GA1UEBwwGQm9zdG9uMSUwIwYDVQQKDBxPTUctRERT
 IFNJRyAoUGVybWlzc2lvbnMgQ0EpMRowGAYDVQQDDBFPTUctRERTIChQZXJtIENB
 KTEaMBgGCSqGSIb3DQEJARYLZGRzQG9tZy5vcmcCCQC/wQzInnMqEjANBglghkgB
 ZQMEAgEFAKCB5DAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJ
-BTEPFw0xNzA1MjgwNzM0MThaMC8GCSqGSIb3DQEJBDEiBCDMB2YmRe245bUT2X3a
-L2iBY6o1H/0RBjk3ToeygNQMCjB5BgkqhkiG9w0BCQ8xbDBqMAsGCWCGSAFlAwQB
+BTEPFw0xNzA1MzEwODA3NTNaMC8GCSqGSIb3DQEJBDEiBCCa1gb9gFWzLZlW8qLe
+NWZuDaxmKOtHGwKMHdA4bEK6eDB5BgkqhkiG9w0BCQ8xbDBqMAsGCWCGSAFlAwQB
 KjALBglghkgBZQMEARYwCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMHMA4GCCqGSIb3
 DQMCAgIAgDANBggqhkiG9w0DAgIBQDAHBgUrDgMCBzANBggqhkiG9w0DAgIBKDAN
-BgkqhkiG9w0BAQEFAASCAQBHfChQ+J3EfQH01EBdfUCNSDtAuDwcJEREQ7aMAmI1
-tJfM2ry0L21V150sAPhLYQkaP/MrdGvn+TWahatrOW3xY4nJOgFyLrpVu+9Ud3kd
-f5t1YVdint7m6T5heXCxNM6CY6qGtEkskL6+OB7ZamR/GeMzYZiL+3KvN4LwGMv0
-FxBS3LgsJ20IZDvF6MVLCrfwLjWFOzsSbp622QWAQsukOdzvCSarXcUf/GO+dvwu
-41fz0DBV1GuV6wLqC60WTsWbv+HefDgtjugVyiM/vRxgUfXkPXY8aInpTyWHl/Eu
-yIxKEe2wbZQ9VsbEw+VwBNtssTRQEsm7mfNX/MNeDrjh
+BgkqhkiG9w0BAQEFAASCAQAdDy7RPpK/TUSbxi6TMgaTI3v/0NEPvaqhcFsCnOFR
+KSvFjheXCT0/St4lKkUtAWE0UgV/vQm1sYORzvOJl+DYC1F7C8EqDLfDXgXW9Jq6
+DbBWoPGu7LHIzydHSYgwGrrNDyfRvNNG3x1N7nIFZbvnoAViK2nLi93oOchzPLpY
+Pbv/D7jp2CHE1ISVNx46I8jT5cNJwVnMdl85H1Cabs+K4QYn7LbmcZDvvNj5DBtY
+8wWmazyyPSUsMTqZUKazK19HVWBVGDiItOFt67FxoJqwhnqmE0Ni2zb3Gj5idHlU
+l1LG94JGIL5tFA9tU1RdzRBRGuHGQ81wd+X52tyjOCSB
 
-------0CF9350B8B328A9CD907AAFE062BAAF0--
+------8CDE47D56C0F4F4AF50C6CBC008DF1FD--
 

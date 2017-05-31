@@ -1,9 +1,9 @@
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="----445F5845C3ABB37C8D88351B372F3B80"
+Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="----DC37145368D64080C6E5643ECC708F50"
 
 This is an S/MIME signed message
 
-------445F5845C3ABB37C8D88351B372F3B80
+------DC37145368D64080C6E5643ECC708F50
 Content-Type: text/plain
 
 <dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -11,7 +11,7 @@ Content-Type: text/plain
 	<permissions>
 	    <grant name="KDA_grant_read_domain_0">
 	    	<!--  only allow joining domain 0. No explicit permission to read or write any Topic -->
-         <subject_name>C=NO, O=Kongsberg Defence & Aerospace, CN=kda_intercom_dds</subject_name>
+         <subject_name>/C=NO/O=Kongsberg Defence and Aerospace/CN=kda_intercom_dds</subject_name>
 	        <validity>
 	            <!-- Format is CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] in GMT -->
 	            <not_before>2015-09-15T01:00:00</not_before>
@@ -29,6 +29,8 @@ Content-Type: text/plain
             	 -->
 	            <subscribe>
                        <topics>
+                           <topic>OD_OA_OM_OD</topic>
+                           <topic>PD_OA_OM_OD</topic>
                            <topic>PD_RA_OM_OD</topic>
                            <topic>PD_RWA_OM_OD</topic>
                            <topic>PD_RWA_SM_OD</topic>
@@ -47,7 +49,7 @@ Content-Type: text/plain
        </permissions>
 </dds>
 
-------445F5845C3ABB37C8D88351B372F3B80
+------DC37145368D64080C6E5643ECC708F50
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -77,16 +79,16 @@ MQswCQYDVQQIDAJNQTEPMA0GA1UEBwwGQm9zdG9uMSUwIwYDVQQKDBxPTUctRERT
 IFNJRyAoUGVybWlzc2lvbnMgQ0EpMRowGAYDVQQDDBFPTUctRERTIChQZXJtIENB
 KTEaMBgGCSqGSIb3DQEJARYLZGRzQG9tZy5vcmcCCQC/wQzInnMqEjANBglghkgB
 ZQMEAgEFAKCB5DAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJ
-BTEPFw0xNzA1MjgwNzM0MThaMC8GCSqGSIb3DQEJBDEiBCCzxLQQq8FUQkyP537H
-3VqtZ3lTOh+MDEhOHNG44CGNXTB5BgkqhkiG9w0BCQ8xbDBqMAsGCWCGSAFlAwQB
+BTEPFw0xNzA1MzEwODA3NTNaMC8GCSqGSIb3DQEJBDEiBCB7V3mDdozJ3iF0s0Pb
+fpD9pR3vLVpHDpWZ/hssPWD9yDB5BgkqhkiG9w0BCQ8xbDBqMAsGCWCGSAFlAwQB
 KjALBglghkgBZQMEARYwCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMHMA4GCCqGSIb3
 DQMCAgIAgDANBggqhkiG9w0DAgIBQDAHBgUrDgMCBzANBggqhkiG9w0DAgIBKDAN
-BgkqhkiG9w0BAQEFAASCAQALp+XxwzjT3HL07/mGyoq2LF+ErgYdux26hJg72KXt
-2/AXlQuBrdUbItcl1OW9k+PPmMD5L69Chr5q8RGnKva8euE7CKw2lEuRxje262/7
-rP0GK/fIuqyLQvDuYn+iNlzxRplcvf/o8J1bJFcfg0zWtatZ8CwNcDLBSiWaEZp6
-eq/CWBoTQMeo4SvXvlgjAAP4aglsQh0/JVKfv0NlEJ/aZNqua4mnxVsPW/4lppc8
-SIFuxIeKFWQd+3BFfxTAkxdldkvgz/FxWYX/VPEZc8OK4A5REblgDg156wguKTHA
-kV0/hOjdhmCjIaV4PB6R9krjOgOnGbIulHWgcVn1WWdu
+BgkqhkiG9w0BAQEFAASCAQCT6zKFqqLHlgFEmvL+r6P5TnypCmd4SE5GWz/iQxYR
+oRmLIlTKGI7GbK7TeA/PyawV+ooMCVJbuXT85Lf/KdYKxRBpMT57LWdI9NTcqX+3
+aDiwmEA1czcrqntZmi3hjzggxLVTAYgdZicND0QpGUUnzDPWqH6+ANnaJFkcfDgi
+pHTMu9CIi9lg+gTjPEH6Wyc3F3f0sFRjISjxOo0ZvvVjlLmx/A6xYP57J83NQFco
+TbDhoqKUTYnAsLnPR17ePYjzLCPMA55V/ipSCR/Uc5h/tvzQ9Ji7R8YxhwZdTu/f
+JXA5CqApfnMfX/tqd7pi1jk/VIhl0KeTskKlPhvs5Yn7
 
-------445F5845C3ABB37C8D88351B372F3B80--
+------DC37145368D64080C6E5643ECC708F50--
 

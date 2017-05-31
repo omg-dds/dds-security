@@ -3,7 +3,7 @@
 	<permissions>
 	    <grant name="KDA_grant_join_domain_0">
 	    	<!--  only allow joining domain 0. No explicit permission to read or write any Topic -->
-         <subject_name>C=NO, O=Kongsberg Defence & Aerospace, CN=kda_intercom_dds</subject_name>
+         <subject_name>/C=NO/O=Kongsberg Defence and Aerospace/CN=kda_intercom_dds</subject_name>
 	        <validity>
 	            <!-- Format is CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] in GMT -->
 	            <not_before>2015-09-15T01:00:00</not_before>
