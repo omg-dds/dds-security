@@ -55,6 +55,7 @@ class ShapeTypeConfigurator {
    ********************************************************************/
   static DomainParticipant *
     create_participant(int         domain_id,
+                       bool        use_security,
                        const char *governance_uri,
                        const char *permissions_uri)
   {
@@ -74,27 +75,30 @@ class ShapeTypeConfigurator {
     
     dpf->get_default_participant_qos(dp_qos);
 
-    DDS::PropertySeq * properties = &dp_qos.properties.value;
+    if ( use_security )
+      {
+        DDS::PropertySeq * properties = &dp_qos.properties.value;
     
-    /* AUTHENTICATION: */
-    set_property( properties, DDSSEC_PROP_IDENTITY_CA,      auth_ca_file );
-    set_property( properties, DDSSEC_PROP_IDENTITY_CERT,    id_cert_file );
-    set_property( properties, DDSSEC_PROP_IDENTITY_PRIVKEY, id_key_file );
-    /* (optional) passphrase to acces 'private key' */
-    // set_property(properties, DDSSEC_PROP_IDENTITY_PASSWORD, "data:,thereisnopassword");          
+        /* AUTHENTICATION: */
+        set_property( properties, DDSSEC_PROP_IDENTITY_CA,      auth_ca_file );
+        set_property( properties, DDSSEC_PROP_IDENTITY_CERT,    id_cert_file );
+        set_property( properties, DDSSEC_PROP_IDENTITY_PRIVKEY, id_key_file );
+        /* (optional) passphrase to acces 'private key' */
+        // set_property(properties, DDSSEC_PROP_IDENTITY_PASSWORD, "data:,thereisnopassword");
 
-    /* ACCESS CONTROL: */
-    set_property( properties, DDSSEC_PROP_PERM_CA,       perm_ca_file );
-    set_property( properties, DDSSEC_PROP_PERM_GOV_DOC,  governance_uri );
-    set_property( properties, DDSSEC_PROP_PERM_DOC,      permissions_uri );
+        /* ACCESS CONTROL: */
+        set_property( properties, DDSSEC_PROP_PERM_CA,       perm_ca_file );
+        set_property( properties, DDSSEC_PROP_PERM_GOV_DOC,  governance_uri );
+        set_property( properties, DDSSEC_PROP_PERM_DOC,      permissions_uri );
 
-    /* use DynamicLoad to get function */
-    set_property(properties,
-                 "com.toc.sec.create_plugins",
-                 ":DSREF_create_plugins");                    /* this loads from 'main' executable */
-                 // "dds_security_log:DSREF_create_plugins"); /* this loads from dynamic library 'dds_security_log' */
+        /* use DynamicLoad to get function */
+        set_property(properties,
+                     "com.toc.sec.create_plugins",
+                     // ":DSREF_create_plugins");                    /* this loads from 'main' executable */
+                     "dds_security_log:DSREF_create_plugins"); /* this loads from dynamic library 'dds_security_log' */
 
-    
+      }
+
     participant = dpf->create_participant(domain_id, dp_qos,
                                           NULL, STATUS_MASK_NONE);
     if ( participant == NULL ) 

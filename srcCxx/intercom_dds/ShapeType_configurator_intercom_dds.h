@@ -73,6 +73,7 @@ class ShapeTypeConfigurator
    public:
       static DomainParticipant *create_participant(
       int domain_id,
+      bool use_security,
       const char *governance_file,
       const char *permissions_file )
       {
@@ -84,6 +85,9 @@ class ShapeTypeConfigurator
          governance_str += governance_file;
          std::string permissions_str = "file:";
          permissions_str += permissions_file;
+
+         if (!use_security)
+           printf("TODO: Handle !use_security...\n");
 
          participantQos.property.value.push_back( Property_t("InterCOM.sec.log_file", "intercom_security_log.txt", false ) );
          participantQos.property.value.push_back( Property_t("InterCOM.sec.distribute", "false", false ) );

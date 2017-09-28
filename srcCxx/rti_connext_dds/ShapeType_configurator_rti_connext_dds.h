@@ -45,6 +45,7 @@ class ShapeTypeConfigurator {
     public:
     static DomainParticipant *create_participant(
             int domain_id,
+            bool use_security,
             const char *governance_file,
             const char *permissions_file )
     {
@@ -53,6 +54,9 @@ class ShapeTypeConfigurator {
         DDS_DomainParticipantQos pQos;
         TheParticipantFactory->get_participant_qos_from_profile(pQos, "BuiltinQosLib", "Generic.Security");
         //get_default_participant_qos(pQos);
+
+         if (!use_security)
+           printf("TODO: Handle !use_security...\n");
 
         pQos.transport_builtin.mask = DDS_TRANSPORTBUILTIN_UDPv4;
 

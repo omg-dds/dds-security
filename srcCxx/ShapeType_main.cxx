@@ -22,8 +22,9 @@ const char *DEFAULT_GOVERNANCE_FILE     = "TESTONLY_governance_signed.p7s";
 const char *DEFAULT_PERMISSIONS_FILE    = "TESTONLY_permissions_signed.p7s";
 const char *DEFAULT_PUBLISH_TOPIC       = "OD_OA_OM_OD";
 const char *DEFAULT_SUBSCRIBE_TOPIC     = "OD_OA_OM_OD";
-const char *DEFAULT_COLOR     = "BLACK";
-const int DAFAULT_DOMAIN_ID   = 0;
+const char *DEFAULT_COLOR               = "BLACK";
+const float DEFAULT_LIVELINESS_PERIOD   = 0.0;
+const int   DEFAULT_DOMAIN_ID           = 0;
 
 // Keeps main thread iterating until a signal changes its value to false
 bool exit_application = false;
@@ -188,7 +189,8 @@ ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic,
 }
 
 
-int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_name, const char *color,
+int run(DomainId_t domain_id, bool use_security,
+        const char *pub_topic_name, const char *sub_topic_name, const char *color,
         const char *governance_file, const char *permissions_file,
         const char *partition, float livelinessPeriod)
 {
@@ -198,7 +200,7 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
     Topic *sub_topic = NULL;
     ReturnCode_t retcode;
     
-    DomainParticipant *participant = ShapeTypeConfigurator::create_participant(domain_id, governance_file, permissions_file);
+    DomainParticipant *participant = ShapeTypeConfigurator::create_participant(domain_id, use_security, governance_file, permissions_file);
 
     if ( participant == NULL ) { return -1; }
 
@@ -338,6 +340,19 @@ int run(DomainId_t domain_id, const char *pub_topic_name, const char *sub_topic_
     delete wait_set;
     return 0;
 }
+void print_usage( const char * name )
+{
+  printf( "Usage:  %s\n", name );
+  printf( "    [-pub <pubTopic>]                :  default: '%s'\n", DEFAULT_PUBLISH_TOPIC );
+  printf( "    [-sub <subTopic>]                :  default: '%s'\n", DEFAULT_SUBSCRIBE_TOPIC );
+  printf( "    [-domain <domainId>]             :  default: '%d'\n", DEFAULT_DOMAIN_ID );
+  printf( "    [-color <colorName>]             :  default: '%s'\n", DEFAULT_COLOR );
+  printf( "    [-governance <governanceFile>]   :  default: '%s'\n", DEFAULT_GOVERNANCE_FILE );
+  printf( "    [-permissions <permissionsFile>] :  default: '%s'\n", DEFAULT_PERMISSIONS_FILE );
+  printf( "    [-partition <partitionStr>]      :  default: '%s'\n", "<empty>" );
+  printf( "    [-livelinessPeriod <float>]      :  default: %f\n",   DEFAULT_LIVELINESS_PERIOD );
+  printf( "    [-disableSecurity]               :  default: %s\n",   "false" );
+}
 
 int main(int argc, char *argv[])
 {
@@ -348,15 +363,9 @@ int main(int argc, char *argv[])
     const char *governance_file = NULL;
     const char *permissions_file = NULL;
     const char *partition = NULL;
-    float livelinessPeriod = 0.0;
+    float livelinessPeriod = DEFAULT_LIVELINESS_PERIOD;
+    bool        use_security = true;
 
-    if ( argc != 5 ) {
-        fprintf(stderr, "Usage:  %s [-pub <pubTopic>] [-sub <subTopic>] [-domain <domainId>] [-color <colorName>]\n"
-                "\t\t [-governance <governanceFile>]  [-permissions <permissionsFile>] [-partition <partitionStr>]\n"
-                "\t\t [-livelinessPeriod <float>]\n",
-                argv[0]);
-    }
-    
     for (int i=1; i<argc; ++i) {
         if ( strcmp(argv[i], "-domain") == 0 ) {
             if ( ++i == argc) {
@@ -414,9 +423,13 @@ int main(int argc, char *argv[])
             }
             livelinessPeriod = atof(argv[i]);
         }
+        else if ( strcmp(argv[i], "-disableSecurity") == 0 ) {
+          use_security = false;
+        }
         else if ( ( strcmp(argv[i], "-help") == 0 )  ||
                   ( strcmp(argv[i], "-h") == 0 )  ) {
-            return -1;
+          print_usage( argv[0] );
+          return -1;
         }
         else {
            fprintf(stderr, "Error: unrecognized option: \"%s\"\n", argv[i]);
@@ -424,17 +437,18 @@ int main(int argc, char *argv[])
         }
     }
 
-
-    if ( governance_file == NULL ){
+    if ( use_security ) {
+      if ( governance_file == NULL ){
         governance_file  = DEFAULT_GOVERNANCE_FILE;
         fprintf(stderr, "Info: \"-governance\" unspecified. Default to \"%s\"\n",
                 governance_file);
-    }
+      }
 
-    if ( permissions_file == NULL ){
+      if ( permissions_file == NULL ){
         permissions_file  = DEFAULT_PERMISSIONS_FILE;
         fprintf(stderr, "Info: \"-permissions\" unspecified. Default to \"%s\"\n",
                 permissions_file);
+      }
     }
 
     if ( ( published_topic == NULL ) && ( subscribed_topic == NULL) ){
@@ -450,7 +464,7 @@ int main(int argc, char *argv[])
     }
 
     if ( (int)domain_id == -1 ) {
-        domain_id = DAFAULT_DOMAIN_ID;
+        domain_id = DEFAULT_DOMAIN_ID;
         fprintf(stderr, "Info: \"-domain\" unspecified. Default to: %d\n", domain_id);
     }
  
@@ -461,7 +475,7 @@ int main(int argc, char *argv[])
     if (subscribed_topic)
       printf("Subscribing: '%s'\n", subscribed_topic);
 
-    return run(domain_id, published_topic, subscribed_topic, color_name,
+    return run(domain_id, use_security, published_topic, subscribed_topic, color_name,
                governance_file, permissions_file,
                partition, livelinessPeriod);
 }
