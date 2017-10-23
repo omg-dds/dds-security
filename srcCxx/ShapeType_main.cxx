@@ -12,6 +12,8 @@
 #include "toc_coredx_dds/ShapeType_configurator_toc_coredx_dds.h"
 #elif defined(INTERCOM_DDS)
 #include "intercom_dds/ShapeType_configurator_intercom_dds.h"
+#elif defined(OPENDDS)
+#include "opendds/ShapeType_configurator_opendds.h"
 #else
 #include "ShapeType_configurator_default.h"
 #endif
@@ -31,7 +33,7 @@ bool exit_application = false;
 GuardCondition *exit_guard = NULL;
 
 // Signal handler changes the sets exit_service to true.
-void signal_handler(int signal)
+void signal_handler(int)
 {
     exit_application = true;
     if ( exit_guard != NULL ) {
@@ -58,6 +60,11 @@ Topic *create_topic(DomainParticipant *participant, const char *topic_name)
     const ShapeTypeTypeSupport* typeSupport = ShapeTypeTypeSupport::get_instance();
     const char *type_name = typeSupport->get_type_name();
     ReturnCode_t retcode = typeSupport->register_type(participant, type_name);
+#elif defined OPENDDS
+    org::omg::dds::demo::ShapeTypeTypeSupport_var ts =
+      new org::omg::dds::demo::ShapeTypeTypeSupportImpl;
+    const char type_name[] = "ShapeType";
+    const ReturnCode_t retcode = ts->register_type(participant, type_name);
 #else
     const char *type_name = ShapeTypeTypeSupport::get_type_name();
     ReturnCode_t retcode = ShapeTypeTypeSupport::register_type(
@@ -92,7 +99,13 @@ ShapeTypeDataWriter *create_writer(DomainParticipant *participant, Topic *topic,
         if (pname)
           {
             strcpy(pname, partition);
+#ifdef OPENDDS
+            const unsigned int i = pub_qos.partition.name.length();
+            pub_qos.partition.name.length(i + 1);
+            pub_qos.partition.name[i] = pname;
+#else
             pub_qos.partition.name.push_back(pname);
+#endif
           }
         else
           {
@@ -121,7 +134,7 @@ ShapeTypeDataWriter *create_writer(DomainParticipant *participant, Topic *topic,
         printf("create_datawriter error\n");
         return NULL;
     }
-#ifdef INTERCOM_DDS
+#if defined INTERCOM_DDS || defined OPENDDS
     ShapeTypeDataWriter *shape_writer = ShapeTypeDataWriter::_narrow(writer);
 #else
     ShapeTypeDataWriter *shape_writer = ShapeTypeDataWriter::narrow(writer);
@@ -147,7 +160,13 @@ ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic,
         if (pname)
           {
             strcpy(pname, partition);
+#ifdef OPENDDS
+            const unsigned int i = sub_qos.partition.name.length();
+            sub_qos.partition.name.length(i + 1);
+            sub_qos.partition.name[i] = pname;
+#else
             sub_qos.partition.name.push_back(pname);
+#endif
           }
         else
           {
@@ -176,7 +195,7 @@ ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic,
         printf("create_datareader error\n");
         return NULL;
     }
-#ifdef INTERCOM_DDS
+#if defined INTERCOM_DDS || defined OPENDDS
     ShapeTypeDataReader *shape_reader = ShapeTypeDataReader::_narrow(reader);
 #else
     ShapeTypeDataReader *shape_reader = ShapeTypeDataReader::narrow(reader);
@@ -199,7 +218,7 @@ int run(DomainId_t domain_id, bool use_security,
     Topic *pub_topic = NULL;
     Topic *sub_topic = NULL;
     ReturnCode_t retcode;
-    
+
     DomainParticipant *participant = ShapeTypeConfigurator::create_participant(domain_id, use_security, governance_file, permissions_file);
 
     if ( participant == NULL ) { return -1; }
@@ -272,15 +291,15 @@ int run(DomainId_t domain_id, bool use_security,
     int recv_count = 0;
     while  ( exit_application == false ) {
         printf("\nLoop: wait count = %d, sent count = %d, "
-	       "received count = %d\n", 
+	       "received count = %d\n",
 	       wait_count++, sent_count, recv_count);
         wait_set->wait(active_cond, wait_timeout);
 
         if ( reader != NULL ) {
 #if defined(TWINOAKS_COREDX)
-            while ( reader->take_next_sample(&shape, &info) == DDS_RETCODE_OK ) 
+            while ( reader->take_next_sample(&shape, &info) == DDS_RETCODE_OK )
 #else
-            while ( reader->take_next_sample(shape, info) == DDS_RETCODE_OK ) 
+            while ( reader->take_next_sample(shape, info) == DDS_RETCODE_OK )
 #endif
               {
                 printf("Received sample...\n");
@@ -290,6 +309,8 @@ int run(DomainId_t domain_id, bool use_security,
                     ShapeType::print(stdout, &shape);
 #elif defined(INTERCOM_DDS)
                     std::cout << shape << std::endl;
+#elif defined OPENDDS
+                    ShapeTypeConfigurator::print_data(shape);
 #else
                     ShapeTypeTypeSupport::print_data(&shape);
 #endif
@@ -304,9 +325,13 @@ int run(DomainId_t domain_id, bool use_security,
                 last_send_time = current_time;
                 next_send_time = last_send_time + send_time;
 
-                printf("Time: %d:%u -- Sending sample: count = %d\n", 
+                printf("Time: %d:%u -- Sending sample: count = %d\n",
 		       current_time.sec, current_time.nanosec, sent_count++);
+#ifdef OPENDDS
+                shape.color = ShapeTypeConfigurator::strdup(color);
+#else
                 strcpy(shape.color, color);
+#endif
                 shape.x = 5*(sent_count%50);
                 shape.y = (4 * (color[0] - 'A')) % 250;
                 shape.shapesize = 30;
@@ -332,7 +357,7 @@ int run(DomainId_t domain_id, bool use_security,
         }
     }
 
-    // clean up 
+    // clean up
     ShapeTypeConfigurator::destroy_participant( participant );
     fprintf(stderr, "Done...\n");
 
@@ -467,9 +492,9 @@ int main(int argc, char *argv[])
         domain_id = DEFAULT_DOMAIN_ID;
         fprintf(stderr, "Info: \"-domain\" unspecified. Default to: %d\n", domain_id);
     }
- 
+
     setup_signal_handler();
-    
+
     if (published_topic)
       printf("Publishing:  '%s'\n", published_topic);
     if (subscribed_topic)

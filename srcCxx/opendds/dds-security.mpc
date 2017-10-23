@@ -1,0 +1,22 @@
+project: dcps, dcps_rtps_udp {
+  exename = opendds_shape_main
+  macros += OPENDDS
+  includes += ..
+  idlflags += -I$(DDS_ROOT)/examples/DCPS/ishapes -SS
+
+  Modify_Custom(IDL) {
+    output_follows_input = 0
+  }
+
+  TypeSupport_Files {
+    $(DDS_ROOT)/examples/DCPS/ishapes/ShapeType.idl
+  }
+
+  IDL_Files {
+    $(DDS_ROOT)/examples/DCPS/ishapes/ShapeType.idl
+  }
+
+  Source_Files {
+    ../ShapeType_main.cxx
+  }
+}
