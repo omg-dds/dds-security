@@ -328,7 +328,7 @@ int run(DomainId_t domain_id, bool use_security,
                 printf("Time: %d:%u -- Sending sample: count = %d\n",
 		       current_time.sec, current_time.nanosec, sent_count++);
 #ifdef OPENDDS
-                shape.color = ShapeTypeConfigurator::strdup(color);
+                shape.color = color;
 #else
                 strcpy(shape.color, color);
 #endif

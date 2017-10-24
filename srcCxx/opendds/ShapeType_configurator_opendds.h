@@ -44,11 +44,6 @@ DDS::Duration_t operator-(const DDS::Duration_t& lhs,
 namespace ShapeTypeConfigurator
 {
 
-char* strdup(const char* str)
-{
-  return CORBA::string_dup(str);
-}
-
 void print_data(const ShapeType& shape)
 {
   std::printf("%-10s %03d %03d [%d]\n", shape.color.in(), shape.x, shape.y,
