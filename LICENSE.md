@@ -1,6 +1,6 @@
-# OMG-DDS INTEROPERABILITY TESTING LICENSE
+# OMG DDS INTEROPERABILITY TESTING LICENSE
 
-**Use in source and binary forms, with or without modification, is permitted solely for the testing and debugging of interoperability between implementations of the OMG DDS standard under the restrictions below.  No other use of the software is permitted.**
+**Use in source and binary forms, with or without modification, is permitted solely for the testing and debugging of interoperability between implementations of OMG DDS standards under the restrictions below.  No other use of the software is permitted.**
 
 *Restrictions:*
 
