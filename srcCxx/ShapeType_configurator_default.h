@@ -9,8 +9,10 @@ class ShapeTypeConfigurator {
     public:
     static DomainParticipant *create_participant(
             int domain_id,
+            bool use_security,
             const char *governance_file,
-            const char *permissions_file )
+            const char *permissions_file,
+            bool enable_logging)
     {
         DomainParticipant *participant = NULL;
 

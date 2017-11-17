@@ -99,7 +99,7 @@ ShapeTypeDataWriter *create_writer(DomainParticipant *participant, Topic *topic,
         if (pname)
           {
             strcpy(pname, partition);
-#ifdef OPENDDS
+#if defined(OPENDDS) || defined(RTI_CONNEXT_DDS)
             const unsigned int i = pub_qos.partition.name.length();
             pub_qos.partition.name.length(i + 1);
             pub_qos.partition.name[i] = pname;
@@ -160,7 +160,7 @@ ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic,
         if (pname)
           {
             strcpy(pname, partition);
-#ifdef OPENDDS
+#if defined(OPENDDS) || defined(RTI_CONNEXT_DDS)
             const unsigned int i = sub_qos.partition.name.length();
             sub_qos.partition.name.length(i + 1);
             sub_qos.partition.name[i] = pname;
@@ -211,7 +211,7 @@ ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic,
 int run(DomainId_t domain_id, bool use_security,
         const char *pub_topic_name, const char *sub_topic_name, const char *color,
         const char *governance_file, const char *permissions_file,
-        const char *partition, float livelinessPeriod)
+        const char *partition, float livelinessPeriod, bool enable_logging)
 {
     ShapeTypeDataWriter *writer = NULL;
     ShapeTypeDataReader *reader = NULL;
@@ -219,7 +219,7 @@ int run(DomainId_t domain_id, bool use_security,
     Topic *sub_topic = NULL;
     ReturnCode_t retcode;
 
-    DomainParticipant *participant = ShapeTypeConfigurator::create_participant(domain_id, use_security, governance_file, permissions_file);
+    DomainParticipant *participant = ShapeTypeConfigurator::create_participant(domain_id, use_security, governance_file, permissions_file, enable_logging);
 
     if ( participant == NULL ) { return -1; }
 
@@ -377,6 +377,7 @@ void print_usage( const char * name )
   printf( "    [-partition <partitionStr>]      :  default: '%s'\n", "<empty>" );
   printf( "    [-livelinessPeriod <float>]      :  default: %f\n",   DEFAULT_LIVELINESS_PERIOD );
   printf( "    [-disableSecurity]               :  default: %s\n",   "false" );
+  printf( "    [-logging]                       :  default: %s\n",   "false" );
 }
 
 int main(int argc, char *argv[])
@@ -390,6 +391,7 @@ int main(int argc, char *argv[])
     const char *partition = NULL;
     float livelinessPeriod = DEFAULT_LIVELINESS_PERIOD;
     bool        use_security = true;
+    bool        enable_logging = false;
 
     for (int i=1; i<argc; ++i) {
         if ( strcmp(argv[i], "-domain") == 0 ) {
@@ -451,6 +453,9 @@ int main(int argc, char *argv[])
         else if ( strcmp(argv[i], "-disableSecurity") == 0 ) {
           use_security = false;
         }
+        else if ( strcmp(argv[i], "-logging") == 0 ) {
+          enable_logging = true;
+        }
         else if ( ( strcmp(argv[i], "-help") == 0 )  ||
                   ( strcmp(argv[i], "-h") == 0 )  ) {
           print_usage( argv[0] );
@@ -502,5 +507,5 @@ int main(int argc, char *argv[])
 
     return run(domain_id, use_security, published_topic, subscribed_topic, color_name,
                governance_file, permissions_file,
-               partition, livelinessPeriod);
+               partition, livelinessPeriod, enable_logging);
 }
