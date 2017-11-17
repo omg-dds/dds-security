@@ -2,6 +2,7 @@
 #include "ShapeTypeSupport.h"
 #include "ndds/ndds_namespace_cpp.h"
 #include "security/security_default.h"
+#include "pres/pres_log.h"
 
 using namespace DDS;
 /*
@@ -47,7 +48,8 @@ class ShapeTypeConfigurator {
             int domain_id,
             bool use_security,
             const char *governance_file,
-            const char *permissions_file )
+            const char *permissions_file,
+            bool enable_logging)
     {
         DomainParticipant *participant = NULL;
 
@@ -91,7 +93,9 @@ class ShapeTypeConfigurator {
                 "com.rti.serv.secure.authentication.private_key_file",
                 "../rti_connext_dds_certs/private/TESTONLY_rti_connext_dds_identity_private_key.pem", DDS_BOOLEAN_FALSE);
 
-
+        if (enable_logging) {
+            PRESLog_setBitmaps(PRES_SUBMODULE_MASK_PARTICIPANT | PRES_SUBMODULE_MASK_PS_SERVICE, 0x00ff);
+        }
 
         participant = TheParticipantFactory->create_participant(
             domain_id, pQos,
