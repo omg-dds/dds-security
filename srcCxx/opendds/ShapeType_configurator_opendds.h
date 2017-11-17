@@ -52,7 +52,8 @@ void print_data(const ShapeType& shape)
 
 DDS::DomainParticipant* create_participant(int domain, bool use_security,
                                            const char* /*governance*/,
-                                           const char* /*permissions*/)
+                                           const char* /*permissions*/,
+                                           bool /*enable_logging*/)
 {
   if (use_security) {
     printf("ERROR: security options are not yet supported\n");
