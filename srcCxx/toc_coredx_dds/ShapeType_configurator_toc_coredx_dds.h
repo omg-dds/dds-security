@@ -57,7 +57,8 @@ class ShapeTypeConfigurator {
     create_participant(int         domain_id,
                        bool        use_security,
                        const char *governance_uri,
-                       const char *permissions_uri)
+                       const char *permissions_uri,
+                       bool        enable_logging)
   {
     static const char *auth_ca_file  = "file:../TESTONLY_identity_ca_cert.pem";
     static const char *perm_ca_file  = "file:../TESTONLY_permissions_ca_cert.pem";
