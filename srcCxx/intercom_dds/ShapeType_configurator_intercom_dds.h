@@ -75,7 +75,8 @@ class ShapeTypeConfigurator
       int domain_id,
       bool use_security,
       const char *governance_file,
-      const char *permissions_file )
+      const char *permissions_file,
+      bool enable_logging)
       {
          DomainParticipantFactory* factory = DomainParticipantFactory::get_instance();
          DomainParticipantQos participantQos;
