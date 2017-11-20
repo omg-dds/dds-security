@@ -92,12 +92,23 @@ class ShapeTypeConfigurator {
         set_property( properties, DDSSEC_PROP_PERM_GOV_DOC,  governance_uri );
         set_property( properties, DDSSEC_PROP_PERM_DOC,      permissions_uri );
 
-        /* use DynamicLoad to get function */
+        /* PLUGIN CREATION: */
         set_property(properties,
                      "com.toc.sec.create_plugins",
-                     // ":DSREF_create_plugins");                    /* this loads from 'main' executable */
-                     "dds_security_log:DSREF_create_plugins"); /* this loads from dynamic library 'dds_security_log' */
+                     ":DSREF_create_plugins");                    /* this loads from 'main' executable */
+                     // "dds_security_log:DSREF_create_plugins"); /* this loads from dynamic library 'dds_security_log' */
 
+        if (enable_logging)
+          {
+            /* defaults are just fine: very similar to this, but writes to a file in /tmp/ */
+            /* SECURITY LOGGING: */
+            char buf[16];
+            sprintf(buf, "%d", DDS_Security_NOTICE_LEVEL );
+            set_property( properties, "com.toc.sec.log_level", buf );
+            set_property( properties, "com.toc.sec.log_file", "./toc_coredx_security_log.txt" );
+            sprintf(buf, "%d", 0);
+            set_property( properties, "com.toc.sec.log_publish", buf );
+          }
       }
 
     participant = dpf->create_participant(domain_id, dp_qos,
