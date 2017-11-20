@@ -6,7 +6,6 @@
 namespace {
   const bool BOOLEAN_TRUE = true;
   const bool BOOLEAN_FALSE = false;
-  const DDS::StatusMask STATUS_MASK_NONE = 0;
   const DDS::InstanceHandle_t DDS_HANDLE_NIL = DDS::HANDLE_NIL;
 }
 
@@ -82,24 +81,28 @@ class ShapeTypeConfigurator
          DomainParticipantQos participantQos;
          factory->get_default_participant_qos(participantQos);
 
-         std::string governance_str = "file:";
-         governance_str += governance_file;
-         std::string permissions_str = "file:";
-         permissions_str += permissions_file;
+         if (use_security)
+         {
+           if (!governance_file) { printf("Missing governance file\n"); return NULL; }
+           if (!permissions_file) { printf("Missing permissions file\n"); return NULL; }
+           if (enable_logging)
+           {
+             participantQos.property.value.push_back( Property_t("InterCOM.sec.log_level", "7", false ) );
+             participantQos.property.value.push_back( Property_t("InterCOM.sec.log_file", "intercom_security_log.txt", false ) );
+             participantQos.property.value.push_back( Property_t("InterCOM.sec.distribute", "false", false ) );
+           }
 
-         if (!use_security)
-           printf("TODO: Handle !use_security...\n");
+           std::string governance_str = std::string("file:") + governance_file;
+           std::string permissions_str = std::string("file:") + permissions_file;
 
-         participantQos.property.value.push_back( Property_t("InterCOM.sec.log_file", "intercom_security_log.txt", false ) );
-         participantQos.property.value.push_back( Property_t("InterCOM.sec.distribute", "false", false ) );
-
-         participantQos.property.value.push_back(Property_t("dds.sec.auth.identity_ca", "file:../TESTONLY_identity_ca_cert.pem", false));
-         participantQos.property.value.push_back(Property_t("dds.sec.auth.identity_certificate", "file:../kda_intercom_dds_certs/TESTONLY_kda_intercom_dds_identity_cert.pem", false));
-         participantQos.property.value.push_back(Property_t("dds.sec.auth.private_key", "file:../kda_intercom_dds_certs/private/TESTONLY_kda_intercom_dds_identity_cert.key.pem", false));
-         participantQos.property.value.push_back(Property_t("dds.sec.auth.password", "intercom", false));
-         participantQos.property.value.push_back(Property_t("dds.sec.access.permissions_ca", "file:../TESTONLY_permissions_ca_cert.pem", false));
-         participantQos.property.value.push_back(Property_t("dds.sec.access.governance", governance_str.c_str(), false));
-         participantQos.property.value.push_back(Property_t("dds.sec.access.permissions", permissions_str.c_str(), false));
+           participantQos.property.value.push_back(Property_t("dds.sec.auth.identity_ca", "file:../TESTONLY_identity_ca_cert.pem", false));
+           participantQos.property.value.push_back(Property_t("dds.sec.auth.identity_certificate", "file:../kda_intercom_dds_certs/TESTONLY_kda_intercom_dds_identity_cert.pem", false));
+           participantQos.property.value.push_back(Property_t("dds.sec.auth.private_key", "file:../kda_intercom_dds_certs/private/TESTONLY_kda_intercom_dds_identity_cert.key.pem", false));
+           participantQos.property.value.push_back(Property_t("dds.sec.auth.password", "intercom", false));
+           participantQos.property.value.push_back(Property_t("dds.sec.access.permissions_ca", "file:../TESTONLY_permissions_ca_cert.pem", false));
+           participantQos.property.value.push_back(Property_t("dds.sec.access.governance", governance_str.c_str(), false));
+           participantQos.property.value.push_back(Property_t("dds.sec.access.permissions", permissions_str.c_str(), false));
+         }
 
          DomainParticipant* participant = factory->create_participant(domain_id, participantQos, NULL, 0);
          if ( participant == NULL )
