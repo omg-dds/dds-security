@@ -1,0 +1,10 @@
+struct ShapeType {
+    string color; //@Key
+    long x;
+    long y;
+    long shapesize;
+};
+#pragma keylist ShapeType color
+
+
+
