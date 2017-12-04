@@ -53,3 +53,16 @@ Signing the permissions documents for Kongsberg Defence & Aerospace
     openssl smime -sign -in kda_intercom_dds_certs/TESTONLY_kda_intercom_dds_permissions_readwrite.xml -text -out kda_intercom_dds_certs/TESTONLY_kda_intercom_dds_permissions_readwrite_signed.p7s -signer TESTONLY_permissions_ca_cert.pem -inkey permissions_ca_files/private/TESTONLY_permissions_ca_private_key.pem
 
     openssl smime -sign -in kda_intercom_dds_certs/TESTONLY_kda_intercom_dds_permissions_allowall.xml -text -out kda_intercom_dds_certs/TESTONLY_kda_intercom_dds_permissions_allowall_signed.p7s -signer TESTONLY_permissions_ca_cert.pem -inkey permissions_ca_files/private/TESTONLY_permissions_ca_private_key.pem
+
+Signing the permissions documents for Kongsberg Defence & Aerospace
+
+    openssl smime -sign -in ad_vortex_dds_certs/TESTONLY_ad_vortex_dds_permissions_join.xml -text -out ad_vortex_dds_certs/TESTONLY_ad_vortex_dds_permissions_join_signed.p7s -signer TESTONLY_permissions_ca_cert.pem -inkey permissions_ca_files/private/TESTONLY_permissions_ca_private_key.pem
+
+    openssl smime -sign -in ad_vortex_dds_certs/TESTONLY_ad_vortex_dds_permissions_read.xml -text -out ad_vortex_dds_certs/TESTONLY_ad_vortex_dds_permissions_read_signed.p7s -signer TESTONLY_permissions_ca_cert.pem -inkey permissions_ca_files/private/TESTONLY_permissions_ca_private_key.pem
+
+    openssl smime -sign -in ad_vortex_dds_certs/TESTONLY_ad_vortex_dds_permissions_write.xml -text -out ad_vortex_dds_certs/TESTONLY_ad_vortex_dds_permissions_write_signed.p7s -signer TESTONLY_permissions_ca_cert.pem -inkey permissions_ca_files/private/TESTONLY_permissions_ca_private_key.pem
+
+    openssl smime -sign -in ad_vortex_dds_certs/TESTONLY_ad_vortex_dds_permissions_readwrite.xml -text -out ad_vortex_dds_certs/TESTONLY_ad_vortex_dds_permissions_readwrite_signed.p7s -signer TESTONLY_permissions_ca_cert.pem -inkey permissions_ca_files/private/TESTONLY_permissions_ca_private_key.pem
+
+    openssl smime -sign -in ad_vortex_dds_certs/TESTONLY_ad_vortex_dds_permissions_allowall.xml -text -out ad_vortex_dds_certs/TESTONLY_ad_vortex_dds_permissions_allowall_signed.p7s -signer TESTONLY_permissions_ca_cert.pem -inkey permissions_ca_files/private/TESTONLY_permissions_ca_private_key.pem
+    
