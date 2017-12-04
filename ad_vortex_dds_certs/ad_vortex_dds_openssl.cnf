@@ -1,0 +1,10 @@
+prompt=no
+distinguished_name	= DN_TEST_DDS-SECURITY_AD_VORTEX_DDS
+
+[ DN_TEST_DDS-SECURITY_AD_VORTEX_DDS ]
+countryName=FR
+stateOrProvinceName=FR
+localityName=Orsay
+organizationName=ADLINK
+emailAddress=support@adlinktech.com
+commonName=CN_TEST_DDS-SECURITY_AD_VORTEX_DDS
