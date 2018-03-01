@@ -21,6 +21,18 @@ using org::omg::dds::demo::ShapeTypeTypeSupport;
 
 using OpenDDS::DCPS::operator>=; // for Time_t
 
+const char auth_ca_file[] = "file:../TESTONLY_identity_ca_cert.pem";
+const char perm_ca_file[] = "file:../TESTONLY_permissions_ca_cert.pem";
+const char id_cert_file[] = "file:../opendds_certs/TESTONLY_opendds_identity_cert.pem";
+const char id_key_file[] = "file:../opendds_certs/private/TESTONLY_opendds_identity_private_key.pem";
+
+const char DDSSEC_PROP_IDENTITY_CA[] = "dds.sec.auth.identity_ca";
+const char DDSSEC_PROP_IDENTITY_CERT[] = "dds.sec.auth.identity_certificate";
+const char DDSSEC_PROP_IDENTITY_PRIVKEY[] = "dds.sec.auth.private_key";
+const char DDSSEC_PROP_PERM_CA[] = "dds.sec.access.permissions_ca";
+const char DDSSEC_PROP_PERM_GOV_DOC[] = "dds.sec.access.governance";
+const char DDSSEC_PROP_PERM_DOC[] = "dds.sec.access.permissions";
+
 const DDS::Duration_t DURATION_INFINITE = {DDS::DURATION_INFINITE_SEC,
                                            DDS::DURATION_INFINITE_NSEC};
 
@@ -50,16 +62,19 @@ void print_data(const ShapeType& shape)
               shape.shapesize);
 }
 
+void append(DDS::PropertySeq& props, const char* name, const char* value)
+{
+  const DDS::Property_t prop = {name, value, false /*propagate*/};
+  const unsigned int len = props.length();
+  props.length(len + 1);
+  props[len] = prop;
+}
+
 DDS::DomainParticipant* create_participant(int domain, bool use_security,
-                                           const char* /*governance*/,
-                                           const char* /*permissions*/,
+                                           const char* governance,
+                                           const char* permissions,
                                            bool /*enable_logging*/)
 {
-  if (use_security) {
-    printf("ERROR: security options are not yet supported\n");
-    return 0;
-  }
-
   using namespace OpenDDS::DCPS;
   using namespace OpenDDS::RTPS;
   TransportConfig_rch config =
@@ -74,7 +89,20 @@ DDS::DomainParticipant* create_participant(int domain, bool use_security,
   TheServiceParticipant->set_default_discovery(disc->key());
 
   DDS::DomainParticipantFactory_var factory = TheParticipantFactory;
-  return factory->create_participant(domain, PARTICIPANT_QOS_DEFAULT, 0, 0);
+  DDS::DomainParticipantQos part_qos;
+  factory->get_default_participant_qos(part_qos);
+
+  if (use_security) {
+    DDS::PropertySeq& props = part_qos.property.value;
+    append(props, DDSSEC_PROP_IDENTITY_CA, auth_ca_file);
+    append(props, DDSSEC_PROP_IDENTITY_CERT, id_cert_file);
+    append(props, DDSSEC_PROP_IDENTITY_PRIVKEY, id_key_file);
+    append(props, DDSSEC_PROP_PERM_CA, perm_ca_file);
+    append(props, DDSSEC_PROP_PERM_GOV_DOC, governance);
+    append(props, DDSSEC_PROP_PERM_DOC, permissions);
+  }
+
+  return factory->create_participant(domain, part_qos, 0, 0);
 }
 
 void destroy_participant(DDS::DomainParticipant* dp)
