@@ -26,3 +26,7 @@ Generation of TwinOaks Identity Certificate by the Identity CA (signing of certi
 Generation of Kognsberg Identity Certificate by the Identity CA (signing of certificate request)
 
     openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in kda_intercom_dds_certs/identity_kda_intercom_dds.csr -out kda_intercom_dds_certs/TESTONLY_kda_intercom_dds_identity_cert.pem
+
+Generation of Object Computing, Inc. Certificate by the Identity CA (signing of certificate request)
+
+    openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in oci_opendds_dds_certs/identity_oci_opendds_dds.csr -out oci_opendds_dds_certs/TESTONLY_oci_opendds_dds_identity_cert.pem
