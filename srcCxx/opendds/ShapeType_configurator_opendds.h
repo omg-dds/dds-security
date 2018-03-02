@@ -23,8 +23,8 @@ using OpenDDS::DCPS::operator>=; // for Time_t
 
 const char auth_ca_file[] = "file:../TESTONLY_identity_ca_cert.pem";
 const char perm_ca_file[] = "file:../TESTONLY_permissions_ca_cert.pem";
-const char id_cert_file[] = "file:../opendds_certs/TESTONLY_opendds_identity_cert.pem";
-const char id_key_file[] = "file:../opendds_certs/private/TESTONLY_opendds_identity_private_key.pem";
+const char id_cert_file[] = "file:../oci_opendds_dds_certs/TESTONLY_oci_opendds_dds_identity_cert.pem";
+const char id_key_file[] = "file:../oci_opendds_dds_certs/private/TESTONLY_oci_opendds_dds_identity_private_key.pem";
 
 const char DDSSEC_PROP_IDENTITY_CA[] = "dds.sec.auth.identity_ca";
 const char DDSSEC_PROP_IDENTITY_CERT[] = "dds.sec.auth.identity_certificate";
