@@ -93,13 +93,15 @@ DDS::DomainParticipant* create_participant(int domain, bool use_security,
   factory->get_default_participant_qos(part_qos);
 
   if (use_security) {
+    TheServiceParticipant->set_security(true);
     DDS::PropertySeq& props = part_qos.property.value;
     append(props, DDSSEC_PROP_IDENTITY_CA, auth_ca_file);
     append(props, DDSSEC_PROP_IDENTITY_CERT, id_cert_file);
     append(props, DDSSEC_PROP_IDENTITY_PRIVKEY, id_key_file);
     append(props, DDSSEC_PROP_PERM_CA, perm_ca_file);
-    append(props, DDSSEC_PROP_PERM_GOV_DOC, governance);
-    append(props, DDSSEC_PROP_PERM_DOC, permissions);
+    static const std::string file("file:");
+    append(props, DDSSEC_PROP_PERM_GOV_DOC, (file + governance).c_str());
+    append(props, DDSSEC_PROP_PERM_DOC, (file + permissions).c_str());
   }
 
   return factory->create_participant(domain, part_qos, 0, 0);
