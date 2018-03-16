@@ -1,5 +1,6 @@
-project: dcps, dcps_rtps_udp {
-  exename = opendds_shape_main
+project: dcps, dcps_rtps_udp, opendds_security {
+  exename = opendds_security_beta
+  exeout = ..
   macros += OPENDDS
   includes += ..
   idlflags += -I$(DDS_ROOT)/examples/DCPS/ishapes -SS
@@ -18,5 +19,9 @@ project: dcps, dcps_rtps_udp {
 
   Source_Files {
     ../ShapeType_main.cxx
+  }
+
+  verbatim(gnuace, local, 1) {
+    LDFLAGS += '-Wl,-rpath,$$ORIGIN/opendds/lib'
   }
 }
