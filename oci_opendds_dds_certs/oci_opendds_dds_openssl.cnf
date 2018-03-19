@@ -5,6 +5,6 @@ distinguished_name	= DN_TEST_DDS-SECURITY_OCI_OPENDDS
 countryName=US
 stateOrProvinceName=MO
 localityName=St. Louis
-organizationName=Object Computing, Inc.
+organizationName=Object Computing
 emailAddress=support@objectcomputing.com
 commonName=CN_TEST_DDS-SECURITY_OCI_OPENDDS

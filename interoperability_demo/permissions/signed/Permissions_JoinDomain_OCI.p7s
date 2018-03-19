@@ -1,43 +1,43 @@
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="----7CFFBE575B6E47A364E4CE41BA8154CA"
+Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="----78E875B43EF49795F55F023D1966CB68"
 
 This is an S/MIME signed message
 
-------7CFFBE575B6E47A364E4CE41BA8154CA
-Content-Type: text/plain
+------78E875B43EF49795F55F023D1966CB68
+Content-Type: text/plain
+
+<?xml version="1.0" encoding="utf-8"?>
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://www.omg.org/spec/DDS-SECURITY/20170901/omg_shared_ca_permissions.xsd">
+    <permissions>
+        <grant name="ShapesPermissionOCI">
+	    	<subject_name>/C=US/ST=MO/O=Object Computing/CN=CN_TEST_DDS-SECURITY_OCI_OPENDDS/emailAddress=support@objectcomputing.com</subject_name>
+            <validity>
+                <!-- Format is CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] in GMT -->
+                <not_before>2015-09-15T01:00:00</not_before>
+                <not_after>2025-09-15T01:00:00</not_after>
+            </validity>
+            <allow_rule>
+                <domains>
+                    <id>0</id>
+                </domains>
+                <publish>
+                    <topics>
+                        <topic>*</topic>
+                    </topics>
+                </publish>
+                <subscribe>
+                    <topics>
+                        <topic>*</topic>
+                    </topics>
+                </subscribe>
+            </allow_rule>
+            <default>DENY</default>
+        </grant>
+    </permissions>
+</dds>
 
-<?xml version="1.0" encoding="utf-8"?>
-<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://www.omg.org/spec/DDS-SECURITY/20170901/omg_shared_ca_permissions.xsd">
-    <permissions>
-        <grant name="ShapesPermissionOCI">
-	    	<subject_name>/C=US/ST=MO/O=Object Computing, Inc./CN=CN_TEST_DDS-SECURITY_OCI_OPENDDS/emailAddress=support@objectcomputing.com</subject_name>
-            <validity>
-                <!-- Format is CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] in GMT -->
-                <not_before>2015-09-15T01:00:00</not_before>
-                <not_after>2025-09-15T01:00:00</not_after>
-            </validity>
-            <allow_rule>
-                <domains>
-                    <id>0</id>
-                </domains>
-                <publish>
-                    <topics>
-                        <topic>*</topic>
-                    </topics>
-                </publish>
-                <subscribe>
-                    <topics>
-                        <topic>*</topic>
-                    </topics>
-                </subscribe>
-            </allow_rule>
-            <default>DENY</default>
-        </grant>
-    </permissions>
-</dds>
-
-------7CFFBE575B6E47A364E4CE41BA8154CA
+------78E875B43EF49795F55F023D1966CB68
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -67,16 +67,16 @@ MQswCQYDVQQIDAJNQTEPMA0GA1UEBwwGQm9zdG9uMSUwIwYDVQQKDBxPTUctRERT
 IFNJRyAoUGVybWlzc2lvbnMgQ0EpMRowGAYDVQQDDBFPTUctRERTIChQZXJtIENB
 KTEaMBgGCSqGSIb3DQEJARYLZGRzQG9tZy5vcmcCCQC/wQzInnMqEjANBglghkgB
 ZQMEAgEFAKCB5DAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJ
-BTEPFw0xODAzMTQxNjQxMTFaMC8GCSqGSIb3DQEJBDEiBCDbWyOHlPWPTAIvas0C
-D3sNN6IjVJ0hwg37qTrXGspZnzB5BgkqhkiG9w0BCQ8xbDBqMAsGCWCGSAFlAwQB
+BTEPFw0xODAzMTgyMjQ5MzhaMC8GCSqGSIb3DQEJBDEiBCCA0BIMmJoH19iFiVCg
+utOpAAett5zK/bEtWUtyWeRlEDB5BgkqhkiG9w0BCQ8xbDBqMAsGCWCGSAFlAwQB
 KjALBglghkgBZQMEARYwCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMHMA4GCCqGSIb3
 DQMCAgIAgDANBggqhkiG9w0DAgIBQDAHBgUrDgMCBzANBggqhkiG9w0DAgIBKDAN
-BgkqhkiG9w0BAQEFAASCAQBWEgRZqkjPoOwJTOzXvoIRTmnwTB27j6AfTT4cxBeM
-+AHU9Y6M4REhOADwu4pn8YrHnUE1fCmITlIkpjeCEUmH7baUi4fZLbdd5VG7PPcy
-QfZUBuXzoABQtVPH/Rxg1fwT4zD00pSP59xxTOy/AuNAD+QiYFQ72JtOOtatufl6
-2xIWDaX20HwKb7Bh1tAzMBcX4hyeN1Cu3vMt3n8u+NQ3MyncFs3J4w+6rZMzj8H9
-kdd1adk5GWBfjiW9AqCdM6K1a8+B2QZZ6nNqjBYAmz8xNMkre9ZQzG/vgxWBs98v
-HDTI0I4S9p2BcHIy9k2AmfyykYueKIIxf4JuqHjx/+1b
+BgkqhkiG9w0BAQEFAASCAQA7FoK0/A4YAYw7060T6xuGSnErGJnBB6Vmbarz6eXm
+dBjYypNGnL8P7ix7thHxeA5KzMjPmDvlg6rIgi5gRXGoG63s/RvDLsko601jXPFX
+CsdNwGXaBjdemcP7+MgzvItt2Gg42Smrv2AcLgyzMMxpjxDNDbB0ko3WmfwqaN3J
+CLD5xtw8Xc40smvxk4bXDo0MR8Ivk/qrZU9lVC0CrFkPMVoJbrecI+sA/AwWaxwG
+rgoOqouO6GcQ4V8f4Phvb9890fb4SBQz5lV5GQIe5HycjQiMBcSWeMC+TG8gk8lt
+Cvh8ZRSt8+xCGudFydp9/WxMIXYGkKEr9+aJyDxUJSLt
 
-------7CFFBE575B6E47A364E4CE41BA8154CA--
+------78E875B43EF49795F55F023D1966CB68--
 

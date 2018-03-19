@@ -1,45 +1,45 @@
 MIME-Version: 1.0
-Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="----B4B84B72B9C6BA1D37CA11B393942096"
+Content-Type: multipart/signed; protocol="application/x-pkcs7-signature"; micalg="sha-256"; boundary="----5EA5702CFC01C1126E0699B54D59F872"
 
 This is an S/MIME signed message
 
-------B4B84B72B9C6BA1D37CA11B393942096
-Content-Type: text/plain
+------5EA5702CFC01C1126E0699B54D59F872
+Content-Type: text/plain
+
+<?xml version="1.0" encoding="utf-8"?>
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://www.omg.org/spec/DDS-SECURITY/20170901/omg_shared_ca_permissions.xsd">
+    <permissions>
+        <grant name="ShapesPermissionOCI">
+	    	<subject_name>/C=US/ST=MO/O=Object Computing/CN=CN_TEST_DDS-SECURITY_OCI_OPENDDS/emailAddress=support@objectcomputing.com</subject_name>
+            <validity>
+                <!-- Format is CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] in GMT -->
+                <not_before>2015-09-15T01:00:00</not_before>
+                <not_after>2025-09-15T01:00:00</not_after>
+            </validity>
+            <allow_rule>
+                <domains>
+                    <id>0</id>
+                </domains>
+                <publish>
+                    <topics>
+                        <topic>Square</topic>
+                    </topics>
+                </publish>
+                <subscribe>
+                    <topics>
+                        <topic>Circle</topic>
+                        <topic>Triangle</topic>
+                    </topics>
+                </subscribe>
+            </allow_rule>
+            <default>DENY</default>
+        </grant>
+
+    </permissions>
+</dds>
 
-<?xml version="1.0" encoding="utf-8"?>
-<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://www.omg.org/spec/DDS-SECURITY/20170901/omg_shared_ca_permissions.xsd">
-    <permissions>
-        <grant name="ShapesPermissionOCI">
-	    	<subject_name>/C=US/ST=MO/O=Object Computing, Inc./CN=CN_TEST_DDS-SECURITY_OCI_OPENDDS/emailAddress=support@objectcomputing.com</subject_name>
-            <validity>
-                <!-- Format is CCYY-MM-DDThh:mm:ss[Z|(+|-)hh:mm] in GMT -->
-                <not_before>2015-09-15T01:00:00</not_before>
-                <not_after>2025-09-15T01:00:00</not_after>
-            </validity>
-            <allow_rule>
-                <domains>
-                    <id>0</id>
-                </domains>
-                <publish>
-                    <topics>
-                        <topic>Square</topic>
-                    </topics>
-                </publish>
-                <subscribe>
-                    <topics>
-                        <topic>Circle</topic>
-                        <topic>Triangle</topic>
-                    </topics>
-                </subscribe>
-            </allow_rule>
-            <default>DENY</default>
-        </grant>
-
-    </permissions>
-</dds>
-
-------B4B84B72B9C6BA1D37CA11B393942096
+------5EA5702CFC01C1126E0699B54D59F872
 Content-Type: application/x-pkcs7-signature; name="smime.p7s"
 Content-Transfer-Encoding: base64
 Content-Disposition: attachment; filename="smime.p7s"
@@ -69,16 +69,16 @@ MQswCQYDVQQIDAJNQTEPMA0GA1UEBwwGQm9zdG9uMSUwIwYDVQQKDBxPTUctRERT
 IFNJRyAoUGVybWlzc2lvbnMgQ0EpMRowGAYDVQQDDBFPTUctRERTIChQZXJtIENB
 KTEaMBgGCSqGSIb3DQEJARYLZGRzQG9tZy5vcmcCCQC/wQzInnMqEjANBglghkgB
 ZQMEAgEFAKCB5DAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJ
-BTEPFw0xODAzMTQxNjQxMTFaMC8GCSqGSIb3DQEJBDEiBCCt0VDDSRlTfK0oV0FS
-Hxf44RFko8yxqTwWnJ8umuxibTB5BgkqhkiG9w0BCQ8xbDBqMAsGCWCGSAFlAwQB
+BTEPFw0xODAzMTgyMjUwMTdaMC8GCSqGSIb3DQEJBDEiBCBoAxyhMvowz5BXUEd9
+jn3VwtCTgEWesdMPYxoziApDYTB5BgkqhkiG9w0BCQ8xbDBqMAsGCWCGSAFlAwQB
 KjALBglghkgBZQMEARYwCwYJYIZIAWUDBAECMAoGCCqGSIb3DQMHMA4GCCqGSIb3
 DQMCAgIAgDANBggqhkiG9w0DAgIBQDAHBgUrDgMCBzANBggqhkiG9w0DAgIBKDAN
-BgkqhkiG9w0BAQEFAASCAQATfdZ1BkBxw+s0oFh8zRGeoSEsYwpTINWk25Gagb7K
-D61CqN2W9PeZneIY/X9gtzTE+K2cbW/m+KRlqLkXtye4mtPd54m+jIKbgVD9GROQ
-ZeMOMjbUW3ngoKAz2/BlbH4+UkGXWmDHzE4Ck8vjHNY2YZAkDJLtKu2QdYJpA1cB
-yE1Kr8xuWmqGmXFAPCE6XVy9bHn3tjFMREeQttYvrGoimZWlgrhQaBuOpmU/pqFo
-UWowU+otG0i7rVwUDyqxX4CX9r4IHx4OLVx/aO2PUx4Iwe32kUqGirpWc9qisnJR
-x+vCSkbeDQ8Qu2VITT/z/2/OeAnlj9aoXPivPT3Yyvml
+BgkqhkiG9w0BAQEFAASCAQBGz/KD7O0NjsjRgKRXsqEtzcjKmx3ge8Eq4F1shJUQ
+YZDd/PmVkzxE4wcJ5KEypLu1ORHCE71DnPuCBS/yH8RJJ0Gu/sY89Xfk8ve/64/9
+CW4NH5FAnMfU68qN3EtFmHzfMSwylgpR6clREC9lkYwECiwyPW+7gCDqiPjwePt4
+dgZeOFXzHElYUS7xBmjshJ1Fa71fD3tw2JZeeTl3UK045szU8Z6MzuHvsmNW5Gi5
+KV0E1a7sag5rUb40NsAw+8YqZGNBU96BT92TP1OUbpvnZTSReMlhIgEkY6iKb83e
+efIhn00HTogOkecVsJtf/V7fVMUJynzWIiPJP4xWIiuc
 
-------B4B84B72B9C6BA1D37CA11B393942096--
+------5EA5702CFC01C1126E0699B54D59F872--
 
