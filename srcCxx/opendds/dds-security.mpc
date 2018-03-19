@@ -14,6 +14,7 @@ project: dcps, dcps_rtps_udp, opendds_security {
   }
 
   IDL_Files {
+    gendir = .
     $(DDS_ROOT)/examples/DCPS/ishapes/ShapeType.idl
   }
 
