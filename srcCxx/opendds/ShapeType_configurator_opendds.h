@@ -6,6 +6,8 @@
 
 #include "dds/DCPS/RTPS/RtpsDiscovery.h"
 
+#include "dds/DCPS/security/BuiltInPlugins.h"
+
 #include "dds/DCPS/transport/framework/TransportConfig_rch.h"
 #include "dds/DCPS/transport/framework/TransportRegistry.h"
 #include "dds/DCPS/transport/rtps_udp/RtpsUdp.h"
@@ -25,6 +27,10 @@ const char auth_ca_file[] = "file:../TESTONLY_identity_ca_cert.pem";
 const char perm_ca_file[] = "file:../TESTONLY_permissions_ca_cert.pem";
 const char id_cert_file[] = "file:../oci_opendds_dds_certs/TESTONLY_oci_opendds_dds_identity_cert.pem";
 const char id_key_file[] = "file:../oci_opendds_dds_certs/private/TESTONLY_oci_opendds_dds_identity_private_key.pem";
+
+// set these environment variables to override the defaults above:
+const char ID_CERT[] = "OPENDDS_ID_CERTIFICATE";
+const char ID_KEY[] = "OPENDDS_ID_PRIVATE_KEY";
 
 const char DDSSEC_PROP_IDENTITY_CA[] = "dds.sec.auth.identity_ca";
 const char DDSSEC_PROP_IDENTITY_CERT[] = "dds.sec.auth.identity_certificate";
@@ -70,6 +76,17 @@ void append(DDS::PropertySeq& props, const char* name, const char* value)
   props[len] = prop;
 }
 
+void append(DDS::PropertySeq& props, const char* name, std::string value)
+{
+  append(props, name, value.c_str());
+}
+
+std::string use_env(const char* key, const char* default_val)
+{
+  const char* const env = getenv(key);
+  return env ? env : default_val;
+}
+
 DDS::DomainParticipant* create_participant(int domain, bool use_security,
                                            const char* governance,
                                            const char* permissions,
@@ -96,12 +113,12 @@ DDS::DomainParticipant* create_participant(int domain, bool use_security,
     TheServiceParticipant->set_security(true);
     DDS::PropertySeq& props = part_qos.property.value;
     append(props, DDSSEC_PROP_IDENTITY_CA, auth_ca_file);
-    append(props, DDSSEC_PROP_IDENTITY_CERT, id_cert_file);
-    append(props, DDSSEC_PROP_IDENTITY_PRIVKEY, id_key_file);
+    append(props, DDSSEC_PROP_IDENTITY_CERT, use_env(ID_CERT, id_cert_file));
+    append(props, DDSSEC_PROP_IDENTITY_PRIVKEY, use_env(ID_KEY, id_key_file));
     append(props, DDSSEC_PROP_PERM_CA, perm_ca_file);
     static const std::string file("file:");
-    append(props, DDSSEC_PROP_PERM_GOV_DOC, (file + governance).c_str());
-    append(props, DDSSEC_PROP_PERM_DOC, (file + permissions).c_str());
+    append(props, DDSSEC_PROP_PERM_GOV_DOC, file + governance);
+    append(props, DDSSEC_PROP_PERM_DOC, file + permissions);
   }
 
   return factory->create_participant(domain, part_qos, 0, 0);

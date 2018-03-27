@@ -22,7 +22,12 @@ project: dcps, dcps_rtps_udp, opendds_security {
     ../ShapeType_main.cxx
   }
 
-  verbatim(gnuace, local, 1) {
-    LDFLAGS += '-Wl,-rpath,$$ORIGIN/opendds/lib'
+  verbatim(gnuace, extension, 1) {
+    ifeq ($(static_libs),1)
+      LDLIBS := $(filter-out -lcrypto,$(LDLIBS))
+      LDLIBS += $(SSL_ROOT)/lib/libcrypto.a -ldl
+    else
+      LDFLAGS += '-Wl,-rpath,$$ORIGIN/opendds/lib'
+    endif
   }
 }
