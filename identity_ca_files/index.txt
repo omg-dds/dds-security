@@ -2,3 +2,4 @@ V	250909015952Z		01	unknown	/C=US/ST=CA/O=Real Time Innovations/CN=CN_TEST_DDS-S
 V	250909020040Z		02	unknown	/C=US/ST=CO/O=Twin Oaks Computing/CN=CN_TEST_DDS-SECURITY_TWINOAKS_COREDX/emailAddress=support@twinoakscomputing.com
 V	280228161339Z		03	unknown	/C=US/ST=MO/O=Object Computing, Inc./CN=CN_TEST_DDS-SECURITY_OCI_OPENDDS/emailAddress=support@objectcomputing.com
 V	280315224637Z		04	unknown	/C=US/ST=MO/O=Object Computing/CN=CN_TEST_DDS-SECURITY_OCI_OPENDDS/emailAddress=support@objectcomputing.com
+V	281016063421Z		05	unknown	/C=ES/ST=MA/O=eProsima/CN=CN_TEST_DDS-SECURITY_EPROSIMA_FASTRTPS/emailAddress=support@eprosima.com
