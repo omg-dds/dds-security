@@ -1,0 +1,74 @@
+# Copyright 2016 Proyectos y Sistemas de Mantenimiento SL (eProsima).
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+CXX=g++
+LN=g++
+AR=ar
+SYSLIBS= -ldl -lnsl -lm -lpthread -lrt
+DEFINES=
+COMMON_CFLAGS= -c -Wall -D__LITTLE_ENDIAN__ -std=c++11
+
+## CHOOSE HERE BETWEEN 32 and 64 bit architecture
+
+##32 BIT ARCH:
+#COMMON_CFLAGS+= -m32 -fpic
+#LDFLAGS=-m32
+
+#64BIT ARCH:
+COMMON_CFLAGS+= -m64 -fpic
+LDFLAGS=-m64
+
+CFLAGS = $(COMMON_CFLAGS) -O2
+
+EPROSIMA_DIR=eprosima_fastrtps
+
+INCLUDES= -I${EPROSIMA_DIR}
+
+DEFINES+=-DEPROSIMA_FASTRTPS
+
+LIBS = -lfastcdr -lfastrtps $(SYSLIBS)
+
+EPROSIMA_TARGET= eprosima_fastrtps_linux
+
+EPROSIMA_SRC_CXXFILES= $(EPROSIMA_DIR)/ShapeType_main.cpp $(EPROSIMA_DIR)/ShapeType.cpp $(EPROSIMA_DIR)/ShapeTypePubSubTypes.cpp
+
+EPROSIMA_SRC_CXXFILES=
+
+all: $(EPROSIMA_TARGET)
+
+debug: COMMON_CFLAGS += -DDEBUG -g
+debug: all
+
+
+# Project sources are copied to the current directory
+EPROSIMA_SRCS= $(EPROSIMA_SRC_CXXFILES) $(EPROSIMA_SRC_CXXFILES)
+
+# Source directories
+EPROSIMA_OBJS = $(EPROSIMA_DIR)/ShapeType_main.cpp.o $(EPROSIMA_DIR)/ShapeType.cpp.o $(EPROSIMA_DIR)/ShapeTypePubSubTypes.cpp.o
+
+eprosima_fastrtps: $(EPROSIMA_TARGET)
+
+$(EPROSIMA_TARGET): $(EPROSIMA_OBJS)
+	$(LN) $(LDFLAGS) -o $(EPROSIMA_TARGET) $(DEFINES) $(EPROSIMA_OBJS) $(LIBS)
+
+$(EPROSIMA_DIR)/%.cpp.o:$(EPROSIMA_DIR)/%.cpp
+	$(CXX) $(CFLAGS) $(INCLUDES) $< -o $@ $(DEFINES)
+
+$(EPROSIMA_DIR)/%.cpp.o:$(EPROSIMA_DIR)/%.cpp
+	$(CXX) $(CFLAGS) $(INCLUDES) $< -o $@ $(DEFINES)
+
+clean:
+	rm -f $(EPROSIMA_OBJS) $(EPROSIMA_TARGET)
+
+

@@ -1,0 +1,8 @@
+const long COLOR_MAX_LENGTH=64;
+
+struct ShapeType {
+    @Key string<COLOR_MAX_LENGTH> color;
+    long x;
+    long y;
+    long shapesize;
+};
