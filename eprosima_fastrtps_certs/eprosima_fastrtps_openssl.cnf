@@ -1,0 +1,10 @@
+prompt=no
+distinguished_name	= DN_TEST_DDS-SECURITY_EPROSIMA_FASTRTPS
+
+[ DN_TEST_DDS-SECURITY_EPROSIMA_FASTRTPS ]
+countryName=ES
+stateOrProvinceName=MA
+localityName=Tres Cantos
+organizationName=eProsima
+emailAddress=support@eprosima.com
+commonName=CN_TEST_DDS-SECURITY_EPROSIMA_FASTRTPS

@@ -30,3 +30,7 @@ Generation of Kognsberg Identity Certificate by the Identity CA (signing of cert
 Generation of Object Computing, Inc. Certificate by the Identity CA (signing of certificate request)
 
     openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in oci_opendds_dds_certs/identity_oci_opendds_dds.csr -out oci_opendds_dds_certs/TESTONLY_oci_opendds_dds_identity_cert.pem
+
+Generation of eProsima Fast-RTPS Certificate by the Identity CA (signing of certificate request)
+
+    openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in eprosima_fastrtps_certs/identity_eprosima_fastrtps.csr -out eprosima_fastrtps_certs/TESTONLY_eprosima_fastrtps_identity_cert.pem
