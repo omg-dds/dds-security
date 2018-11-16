@@ -169,7 +169,7 @@ int run(int domain_id, bool use_security,
         if (pub_topic == NULL ) {   error = true;  }
     }
     if ( !error && sub_topic_name != NULL ) {
-        if ( sub_topic_name != pub_topic_name ) {
+        if ( (pub_topic_name == NULL) || strcmp(sub_topic_name, pub_topic_name) != 0 ) {
             sub_topic = create_topic(participant, sub_topic_name);
         }
         else {
