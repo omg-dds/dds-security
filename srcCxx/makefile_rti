@@ -50,18 +50,15 @@ RTI_DDSGEN_CMD = $(shell \
 	-example $(TARGET_ARCH) \
 	-language C++ \
 	-d $(RTI_SRC_DIR) \
-	-replace))
+	-verbosity 1))
 
-all: $(EXEC)
+all: $(RTI_SRC_DIR) $(EXEC)
 
-$(EXEC) : $(RTI_SRC_DIR) $(OBJS)
+$(EXEC) : $(OBJS)
 	$(LINKER) $(LINKER_FLAGS)  -o $@ $(OBJS) $(LIBS)
 
 %.o : %.cxx 
 	$(COMPILER) $(COMPILER_FLAGS)  -o $@ $(DEFINES) $(INCLUDES) -c $<
 
 $(RTI_SRC_DIR):
-	# @echo "RTI source directory does not exist. Creating one with rtiddsgen..."
-	$(info $(shell mkdir $(RTI_SRC_DIR)))
-	cp ShapeType_configurator_rti_connext_dds.h $(RTI_SRC_DIR)
 	$(info $(RTI_DDSGEN_CMD))
