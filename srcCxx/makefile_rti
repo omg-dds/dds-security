@@ -8,19 +8,19 @@
 
 # If undefined in the environment default NDDSHOME to install dir
 ifndef NDDSHOME
-NDDSHOME := /local/preship/ndds/ndds.6.0.1/unlicensed/rti_connext_dds-6.0.1
+NDDSHOME := /opt/rti_connext_dds-6.0.1
 endif
 
 ifndef RTI_OPENSSLHOME
-RTI_OPENSSLHOME := /local/preship/openssl/openssl-1.1.1d
+RTI_OPENSSLHOME := /opt/openssl-1.1.1d
 endif
 
-TARGET_ARCH = i86Linux3gcc4.8.2
+TARGET_ARCH = x64Linux3gcc4.8.2
 
 COMPILER = g++
-COMPILER_FLAGS = -ggdb -m32 -Wall
+COMPILER_FLAGS = -ggdb -Wall
 LINKER = g++
-LINKER_FLAGS = -m32 -static-libgcc -Wl,--no-as-needed
+LINKER_FLAGS = -static-libgcc -Wl,--no-as-needed
 SYSLIBS      = -ldl -lnsl -lm -lpthread -lrt
 DEFINES      = 
 
@@ -30,8 +30,8 @@ SOURCES = $(MAIN)
 
 
 #These are for RTI
-RTISRCDIR = rti_connext_dds
-SOURCES  += $(RTISRCDIR)/ShapeTypeSupport.cxx $(RTISRCDIR)/ShapeTypePlugin.cxx $(RTISRCDIR)/ShapeType.cxx 
+RTI_SRC_DIR = rti_connext_dds
+SOURCES  += $(RTI_SRC_DIR)/ShapeTypeSupport.cxx $(RTI_SRC_DIR)/ShapeTypePlugin.cxx $(RTI_SRC_DIR)/ShapeType.cxx 
 LIBS     +=  -L$(NDDSHOME)/lib/$(TARGET_ARCH) \
              -lnddssecurityzd -lnddscppzd -lnddsczd -lnddscorezd \
              -L$(RTI_OPENSSLHOME)/$(TARGET_ARCH)/debug/lib \
@@ -44,23 +44,21 @@ INCLUDES += -I$(NDDSHOME)/include -I$(NDDSHOME)/include/ndds
 OBJS    = $(SOURCES:%.cxx=%.o)
 EXEC    = rti_connext_dds_6.0.1_linux
 
-RTIDDSGENCMD = $(shell \
+RTI_DDSGEN_CMD = $(shell \
 	$(NDDSHOME)/bin/rtiddsgen \
 	ShapeType.idl \
 	-example $(TARGET_ARCH) \
 	-language C++ \
-	-d $(RTISRCDIR) \
-	-replace))
+	-d $(RTI_SRC_DIR) \
+	-verbosity 1))
 
-all: $(EXEC)
+all: $(RTI_SRC_DIR) $(EXEC)
 
-$(EXEC) : $(RTISRCDIR) $(OBJS)
+$(EXEC) : $(OBJS)
 	$(LINKER) $(LINKER_FLAGS)  -o $@ $(OBJS) $(LIBS)
 
 %.o : %.cxx 
 	$(COMPILER) $(COMPILER_FLAGS)  -o $@ $(DEFINES) $(INCLUDES) -c $<
 
-$(RTISRCDIR):
-	@echo "RTI source directory does not exist. Creating one with rtiddsgen..."
-	$(info $(shell mkdir $(RTISRCDIR)))
-	$(info $(RTIDDSGENCMD))
+$(RTI_SRC_DIR):
+	$(info $(RTI_DDSGEN_CMD))
