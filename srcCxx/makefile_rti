@@ -22,12 +22,11 @@ COMPILER_FLAGS = -ggdb -Wall
 LINKER = g++
 LINKER_FLAGS = -static-libgcc -Wl,--no-as-needed
 SYSLIBS      = -ldl -lnsl -lm -lpthread -lrt
-DEFINES      = 
+DEFINES      =
 
-INCLUDES = -I. 
+INCLUDES = -I.
 MAIN    = ShapeType_main.cxx
 SOURCES = $(MAIN)
-
 
 #These are for RTI
 RTI_SRC_DIR = rti_connext_dds
@@ -36,10 +35,9 @@ LIBS     +=  -L$(NDDSHOME)/lib/$(TARGET_ARCH) \
              -lnddssecurityzd -lnddscppzd -lnddsczd -lnddscorezd \
              -L$(RTI_OPENSSLHOME)/$(TARGET_ARCH)/debug/lib \
              -lsslz -lcryptoz $(SYSLIBS)
-DEFINES  += -DRTI_CONNEXT_DDS -DRTI_UNIX -DRTI_LINUX 
-INCLUDES += -I$(NDDSHOME)/include -I$(NDDSHOME)/include/ndds 
+DEFINES  += -DRTI_CONNEXT_DDS -DRTI_UNIX -DRTI_LINUX
+INCLUDES += -I$(NDDSHOME)/include -I$(NDDSHOME)/include/ndds
 #End of RTI
-       
 
 OBJS    = $(SOURCES:%.cxx=%.o)
 EXEC    = rti_connext_dds_6.0.1_linux
@@ -57,7 +55,7 @@ all: $(RTI_SRC_DIR) $(EXEC)
 $(EXEC) : $(OBJS)
 	$(LINKER) $(LINKER_FLAGS)  -o $@ $(OBJS) $(LIBS)
 
-%.o : %.cxx 
+%.o : %.cxx
 	$(COMPILER) $(COMPILER_FLAGS)  -o $@ $(DEFINES) $(INCLUDES) -c $<
 
 $(RTI_SRC_DIR):
