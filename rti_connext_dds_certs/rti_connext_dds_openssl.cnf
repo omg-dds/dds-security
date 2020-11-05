@@ -7,4 +7,4 @@ stateOrProvinceName=CA
 localityName=Sunnyvale
 organizationName=Real Time Innovations
 emailAddress=support@rti.com
-commonName=CN_TEST_DDS-SECURITY_RTI_CONNEXT_DDS
+commonName=CN_TEST_DDS-SECURITY_RTI_CONNEXT_DDS-LOW_GUID_DH_TEST_54300
