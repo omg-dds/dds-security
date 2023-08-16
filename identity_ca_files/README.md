@@ -12,16 +12,17 @@ Generation of Certificate for the Identity/Authentication CA (signing of certifi
 
 Initialization of Index and Serial number files
 
-    touch identity_ca_files/index.txt echo "01" > identity_ca_files/serial
+    touch identity_ca_files/index.txt
+    echo "01" > identity_ca_files/serial
 
 
 Generation of RTI Identity Certificate by the Identity CA (signing of certificate request)
 
-    openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in rti_connext_files/identity_rti_connext_dds.csr -out  rti_connext_files/TESTONLY_rti_connext_dds_identity_cert.pem		
+    openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in rti_connext_dds_certs/identity_rti_connext_dds.csr -out  rti_connext_dds_certs/TESTONLY_rti_connext_dds_identity_cert.pem		
 
 Generation of TwinOaks Identity Certificate by the Identity CA (signing of certificate request)
 
-    openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in toc_coredx_dds_files/identity_toc_coredx_dds.csr -out  toc_coredx_dds_files/TESTONLY_toc_coredx_dds_identity_cert.pem
+    openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in toc_coredx_dds_certs/identity_twinoaks_coredx.csr -out  toc_coredx_dds_certs/TESTONLY_toc_coredx_dds_identity_cert.pem
 
 Generation of Kognsberg Identity Certificate by the Identity CA (signing of certificate request)
 
