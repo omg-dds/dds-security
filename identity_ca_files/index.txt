@@ -1,5 +1,5 @@
-V	250909015952Z		01	unknown	/C=US/ST=CA/O=Real Time Innovations/CN=CN_TEST_DDS-SECURITY_RTI_CONNEXT_DDS-LOW_GUID_DH_TEST_54300/emailAddress=support@rti.com
-V	250909020040Z		02	unknown	/C=US/ST=CO/O=Twin Oaks Computing/CN=CN_TEST_DDS-SECURITY_TWINOAKS_COREDX/emailAddress=support@twinoakscomputing.com
-V	280228161339Z		03	unknown	/C=US/ST=MO/O=Object Computing, Inc./CN=CN_TEST_DDS-SECURITY_OCI_OPENDDS/emailAddress=support@objectcomputing.com
-V	280315224637Z		04	unknown	/C=US/ST=MO/O=Object Computing/CN=CN_TEST_DDS-SECURITY_OCI_OPENDDS/emailAddress=support@objectcomputing.com
-V	281016063421Z		05	unknown	/C=ES/ST=MA/O=eProsima/CN=CN_TEST_DDS-SECURITY_EPROSIMA_FASTRTPS/emailAddress=support@eprosima.com
+V	330813173920Z		01	unknown	/C=US/ST=CA/O=Real Time Innovations/CN=CN_TEST_DDS-SECURITY_RTI_CONNEXT_DDS/emailAddress=support@rti.com
+V	330813173935Z		02	unknown	/C=US/ST=CO/O=Twin Oaks Computing/CN=CN_TEST_DDS-SECURITY_TWINOAKS_COREDX/emailAddress=support@twinoakscomputing.com
+V	330813173937Z		03	unknown	/C=NO/O=Kongsberg Defence and Aerospace/CN=kda_intercom_dds
+V	330813173938Z		04	unknown	/C=US/ST=MO/O=Object Computing/CN=CN_TEST_DDS-SECURITY_OCI_OPENDDS/emailAddress=support@objectcomputing.com
+V	330813173939Z		05	unknown	/C=ES/ST=MA/O=eProsima/CN=CN_TEST_DDS-SECURITY_EPROSIMA_FASTRTPS/emailAddress=support@eprosima.com

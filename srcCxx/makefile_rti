@@ -8,11 +8,11 @@
 
 # If undefined in the environment default NDDSHOME to install dir
 ifndef NDDSHOME
-NDDSHOME := /opt/rti_connext_dds-6.0.1
+NDDSHOME := /opt/rti_connext_dds-6.1.0
 endif
 
 ifndef RTI_OPENSSLHOME
-RTI_OPENSSLHOME := /opt/openssl-1.1.1d
+RTI_OPENSSLHOME := $(NDDSHOME)/third_party/openssl-1.1.1k
 endif
 
 TARGET_ARCH = x64Linux3gcc4.8.2
@@ -34,13 +34,13 @@ SOURCES  += $(RTI_SRC_DIR)/ShapeTypeSupport.cxx $(RTI_SRC_DIR)/ShapeTypePlugin.c
 LIBS     +=  -L$(NDDSHOME)/lib/$(TARGET_ARCH) \
              -lnddssecurityzd -lnddscppzd -lnddsczd -lnddscorezd \
              -L$(RTI_OPENSSLHOME)/$(TARGET_ARCH)/debug/lib \
-             -lsslz -lcryptoz $(SYSLIBS)
-DEFINES  += -DRTI_CONNEXT_DDS -DRTI_UNIX -DRTI_LINUX
-INCLUDES += -I$(NDDSHOME)/include -I$(NDDSHOME)/include/ndds
+             -lssl -lcrypto $(SYSLIBS)
+DEFINES  += -DRTI_CONNEXT_DDS -DRTI_UNIX -DRTI_LINUX 
+INCLUDES += -I$(NDDSHOME)/include -I$(NDDSHOME)/include/ndds 
 #End of RTI
 
 OBJS    = $(SOURCES:%.cxx=%.o)
-EXEC    = rti_connext_dds_6.0.1_linux
+EXEC    = rti_connext_dds_6.1.0_linux
 
 RTI_DDSGEN_CMD = $(shell \
 	$(NDDSHOME)/bin/rtiddsgen \
