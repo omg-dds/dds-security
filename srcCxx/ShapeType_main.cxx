@@ -24,7 +24,7 @@ const char *DEFAULT_GOVERNANCE_FILE     = "TESTONLY_governance_signed.p7s";
 const char *DEFAULT_PERMISSIONS_FILE    = "TESTONLY_permissions_signed.p7s";
 const char *DEFAULT_PUBLISH_TOPIC       = "OD_OA_OM_OD";
 const char *DEFAULT_SUBSCRIBE_TOPIC     = "OD_OA_OM_OD";
-const char *DEFAULT_KEY_AGREEMENT_ALG   = "ecdh";
+const char *DEFAULT_KEY_EST_ALGORITHM   = "ecdh";
 const char *DEFAULT_COLOR               = "BLACK";
 const float DEFAULT_LIVELINESS_PERIOD   = 0.0;
 const int   DEFAULT_DOMAIN_ID           = 0;
@@ -212,7 +212,7 @@ ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic,
 int run(DomainId_t domain_id, bool use_security,
         const char *pub_topic_name, const char *sub_topic_name, const char *color,
         const char *governance_file, const char *permissions_file,
-        const char *key_agreement_algorithm,
+        const char *key_establishment_algorithm,
         const char *partition, float livelinessPeriod, bool enable_logging)
 {
     ShapeTypeDataWriter *writer = NULL;
@@ -221,7 +221,7 @@ int run(DomainId_t domain_id, bool use_security,
     Topic *sub_topic = NULL;
     ReturnCode_t retcode;
 
-    DomainParticipant *participant = ShapeTypeConfigurator::create_participant(domain_id, use_security, governance_file, permissions_file, key_agreement_algorithm, enable_logging);
+    DomainParticipant *participant = ShapeTypeConfigurator::create_participant(domain_id, use_security, governance_file, permissions_file, key_establishment_algorithm, enable_logging);
 
     if ( participant == NULL ) { return -1; }
 
@@ -376,7 +376,7 @@ void print_usage( const char * name )
   printf( "    [-color <colorName>]              :  default: '%s'\n", DEFAULT_COLOR );
   printf( "    [-governance <governanceFile>]    :  default: '%s'\n", DEFAULT_GOVERNANCE_FILE );
   printf( "    [-permissions <permissionsFile>]  :  default: '%s'\n", DEFAULT_PERMISSIONS_FILE );
-  printf( "    [-kagree <keyAgreementAlgorithm>] :  default: '%s'\n", DEFAULT_KEY_AGREEMENT_ALG);
+  printf( "    [-kest <keyEstablishmentAlgo>]    :  default: '%s'\n", DEFAULT_KEY_EST_ALGORITHM);
   printf( "    [-partition <partitionStr>]       :  default: '%s'\n", "<empty>" );
   printf( "    [-livelinessPeriod <float>]       :  default: %f\n",   DEFAULT_LIVELINESS_PERIOD );
   printf( "    [-disableSecurity]                :  default: %s\n",   "false" );
@@ -391,7 +391,7 @@ int main(int argc, char *argv[])
     const char *color_name = NULL;
     const char *governance_file = NULL;
     const char *permissions_file = NULL;
-    const char *key_agreement_algorithm = NULL;
+    const char *key_establishment_algorithm = NULL;
     const char *partition = NULL;
     float livelinessPeriod = DEFAULT_LIVELINESS_PERIOD;
     bool        use_security = true;
@@ -440,12 +440,12 @@ int main(int argc, char *argv[])
             }
             permissions_file = argv[i];
         }
-        else if ( strcmp(argv[i], "-kagree") == 0 ) {
+        else if ( strcmp(argv[i], "-kest") == 0 ) {
             if ( ++i == argc) {
-                fprintf(stderr, "Error: missing <keyAgreementAlgorithm> after \"-kagree\"\n");
+                fprintf(stderr, "Error: missing <keyEstablishmentAlgo> after \"-kest\"\n");
                 return -1;
             }
-            key_agreement_algorithm = argv[i];
+            key_establishment_algorithm = argv[i];
         }
         else if ( strcmp(argv[i], "-partition") == 0 ) {
             if ( ++i == argc) {
@@ -491,10 +491,10 @@ int main(int argc, char *argv[])
                 permissions_file);
       }
 
-      if ( key_agreement_algorithm == NULL ){
-        key_agreement_algorithm  = DEFAULT_KEY_AGREEMENT_ALG;
-        fprintf(stderr, "Info: \"-kagree\" unspecified. Default to \"%s\"\n",
-                key_agreement_algorithm);
+      if ( key_establishment_algorithm == NULL ){
+        key_establishment_algorithm  = DEFAULT_KEY_EST_ALGORITHM;
+        fprintf(stderr, "Info: \"-kest\" unspecified. Default to \"%s\"\n",
+                key_establishment_algorithm);
       }
     }
 
@@ -523,6 +523,6 @@ int main(int argc, char *argv[])
       printf("Subscribing: '%s'\n", subscribed_topic);
 
     return run(domain_id, use_security, published_topic, subscribed_topic, color_name,
-               governance_file, permissions_file, key_agreement_algorithm,
+               governance_file, permissions_file, key_establishment_algorithm,
                partition, livelinessPeriod, enable_logging);
 }

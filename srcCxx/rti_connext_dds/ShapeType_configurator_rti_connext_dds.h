@@ -49,7 +49,7 @@ class ShapeTypeConfigurator {
             bool use_security,
             const char *governance_file,
             const char *permissions_file,
-            const char *key_agreement_algorithm,
+            const char *key_establishment_algorithm,
             bool enable_logging)
     {
         DomainParticipant *participant = NULL;
@@ -80,8 +80,8 @@ class ShapeTypeConfigurator {
                 permissions_file, DDS_BOOLEAN_FALSE);
 
         DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
-                "com.rti.serv.secure.authentication.shared_secret_algorithm",
-                key_agreement_algorithm, DDS_BOOLEAN_FALSE);
+                "com.rti.serv.secure.authentication.key_establishment_algorithm",
+                key_establishment_algorithm, DDS_BOOLEAN_FALSE);
 
         DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
                 "com.rti.serv.secure.authentication.ca_file",
