@@ -34,7 +34,6 @@ RTI_SRC_DIR = rti_connext_dds
 SOURCES  += $(RTI_SRC_DIR)/ShapeTypeSupport.cxx $(RTI_SRC_DIR)/ShapeTypePlugin.cxx $(RTI_SRC_DIR)/ShapeType.cxx 
 LIBS     +=  -L$(NDDSHOME)/lib/$(TARGET_ARCH) \
              -lnddssecurityzd -lnddscppzd -lnddsczd -lnddscorezd \
-             -L$(RTI_OPENSSLHOME)/$(TARGET_ARCH)/debug/lib \
              $(RTI_OPENSSLHOME)/$(TARGET_ARCH)/debug/lib/libssl.a \
              $(RTI_OPENSSLHOME)/$(TARGET_ARCH)/debug/lib/libcrypto.a \
              $(SYSLIBS)
