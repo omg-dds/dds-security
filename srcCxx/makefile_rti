@@ -8,11 +8,11 @@
 
 # If undefined in the environment default NDDSHOME to install dir
 ifndef NDDSHOME
-NDDSHOME := /opt/rti_connext_dds-6.1.0
+NDDSHOME := /opt/rti_connext_dds-7.3.0
 endif
 
 ifndef RTI_OPENSSLHOME
-RTI_OPENSSLHOME := $(NDDSHOME)/third_party/openssl-1.1.1k
+RTI_OPENSSLHOME := $(NDDSHOME)/third_party/openssl-3.0.12
 endif
 
 TARGET_ARCH = x64Linux3gcc4.8.2
@@ -22,9 +22,9 @@ COMPILER_FLAGS = -ggdb -Wall
 LINKER = g++
 LINKER_FLAGS = -static-libgcc -Wl,--no-as-needed
 SYSLIBS      = -ldl -lnsl -lm -lpthread -lrt
-DEFINES      = 
+DEFINES      =
 
-INCLUDES = -I. 
+INCLUDES = -I.
 MAIN    = ShapeType_main.cxx
 SOURCES = $(MAIN)
 
@@ -34,15 +34,16 @@ RTI_SRC_DIR = rti_connext_dds
 SOURCES  += $(RTI_SRC_DIR)/ShapeTypeSupport.cxx $(RTI_SRC_DIR)/ShapeTypePlugin.cxx $(RTI_SRC_DIR)/ShapeType.cxx 
 LIBS     +=  -L$(NDDSHOME)/lib/$(TARGET_ARCH) \
              -lnddssecurityzd -lnddscppzd -lnddsczd -lnddscorezd \
-             -L$(RTI_OPENSSLHOME)/$(TARGET_ARCH)/debug/lib \
-             -lssl -lcrypto $(SYSLIBS)
+             $(RTI_OPENSSLHOME)/$(TARGET_ARCH)/debug/lib/libssl.a \
+             $(RTI_OPENSSLHOME)/$(TARGET_ARCH)/debug/lib/libcrypto.a \
+             $(SYSLIBS)
 DEFINES  += -DRTI_CONNEXT_DDS -DRTI_UNIX -DRTI_LINUX 
 INCLUDES += -I$(NDDSHOME)/include -I$(NDDSHOME)/include/ndds 
 #End of RTI
        
 
 OBJS    = $(SOURCES:%.cxx=%.o)
-EXEC    = rti_connext_dds_6.1.0_linux
+EXEC    = rti_connext_dds_7.3.0_linux
 
 RTI_DDSGEN_CMD = $(shell \
 	$(NDDSHOME)/bin/rtiddsgen \
@@ -57,7 +58,7 @@ all: $(RTI_SRC_DIR) $(EXEC)
 $(EXEC) : $(OBJS)
 	$(LINKER) $(LINKER_FLAGS)  -o $@ $(OBJS) $(LIBS)
 
-%.o : %.cxx 
+%.o : %.cxx
 	$(COMPILER) $(COMPILER_FLAGS)  -o $@ $(DEFINES) $(INCLUDES) -c $<
 
 $(RTI_SRC_DIR):
