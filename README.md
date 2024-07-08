@@ -7,9 +7,9 @@ The executables in this repository test mutual autentication of each *DDS Domain
 Example publisher execution from CWD  srcCxx:
 
 ```
-ubuntu:srcCxx$ ./rti_connext_dds_5.2_linux -pub PD_RWA_OM_OD -permissions ../rti_connext_dds_certs/TESTONLY_rti_connext_dds_permissions_write_signed.p7s -governance ../TESTONLY_governance_signed.p7s
+ubuntu:srcCxx$ ./rti_connext_dds_7.3.0_linux -pub PD_RWA_OM_OD -permissions ../rti_connext_dds_certs/TESTONLY_rti_connext_dds_permissions_write_signed.p7s -governance ../TESTONLY_governance_signed.p7s
 
-Usage:  ./rti_connext_dds_5.2_linux [-pub <pubTopic>] [-sub <subTopic>] [-domain <domainId>] [-color <colorName>] [-governance <governanceFile>]  [-permissions <permissionsFile>]
+Usage:  ./rti_connext_dds_7.3.0_linux [-pub <pubTopic>] [-sub <subTopic>] [-domain <domainId>] [-color <colorName>] [-governance <governanceFile>]  [-permissions <permissionsFile>]
 
 Info: "-color" unspecified. Default to: "BLACK"
 Info: "-domain" unspecified. Default to: 0
@@ -30,9 +30,9 @@ Loop: wait count = 2, sent count = 2, received count = 0
 Example subscriber execution from CWD  srcCxx:
 
 ```
-ubuntu:srcCxx$ ./rti_connext_dds_5.2_linux -sub PD_RWA_OM_OD -permissions ../rti_connext_dds_certs/TESTONLY_rti_connext_dds_permissions_read_signed.p7s -governance ../TESTONLY_governance_signed.p7s
+ubuntu:srcCxx$ ./rti_connext_dds_7.3.0_linux -sub PD_RWA_OM_OD -permissions ../rti_connext_dds_certs/TESTONLY_rti_connext_dds_permissions_read_signed.p7s -governance ../TESTONLY_governance_signed.p7s
 
-Usage:  ./rti_connext_dds_5.2_linux [-pub <pubTopic>] [-sub <subTopic>] [-domain <domainId>] [-color <colorName>]
+Usage:  ./rti_connext_dds_7.3.0_linux [-pub <pubTopic>] [-sub <subTopic>] [-domain <domainId>] [-color <colorName>]
                  [-governance <governanceFile>]  [-permissions <permissionsFile>]
 Info: "-color" unspecified. Default to: "BLACK"
 Info: "-domain" unspecified. Default to: 0
