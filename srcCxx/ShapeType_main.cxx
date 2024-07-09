@@ -522,7 +522,16 @@ int main(int argc, char *argv[])
     if (subscribed_topic)
       printf("Subscribing: '%s'\n", subscribed_topic);
 
-    return run(domain_id, use_security, published_topic, subscribed_topic, color_name,
-               governance_file, permissions_file, key_establishment_algorithm,
-               partition, livelinessPeriod, enable_logging);
+    return run(
+            domain_id,
+            use_security,
+            published_topic,
+            subscribed_topic,
+            color_name,
+            governance_file,
+            permissions_file,
+            key_establishment_algorithm,
+            partition,
+            livelinessPeriod,
+            enable_logging);
 }
