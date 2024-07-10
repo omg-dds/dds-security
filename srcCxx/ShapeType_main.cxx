@@ -370,17 +370,17 @@ int run(DomainId_t domain_id, bool use_security,
 void print_usage( const char * name )
 {
   printf( "Usage:  %s\n", name );
-  printf( "    [-pub <pubTopic>]                 :  default: '%s'\n", DEFAULT_PUBLISH_TOPIC );
-  printf( "    [-sub <subTopic>]                 :  default: '%s'\n", DEFAULT_SUBSCRIBE_TOPIC );
-  printf( "    [-domain <domainId>]              :  default: '%d'\n", DEFAULT_DOMAIN_ID );
-  printf( "    [-color <colorName>]              :  default: '%s'\n", DEFAULT_COLOR );
-  printf( "    [-governance <governanceFile>]    :  default: '%s'\n", DEFAULT_GOVERNANCE_FILE );
-  printf( "    [-permissions <permissionsFile>]  :  default: '%s'\n", DEFAULT_PERMISSIONS_FILE );
-  printf( "    [-kest <keyEstablishmentAlgo>]    :  default: '%s'\n", DEFAULT_KEY_EST_ALGORITHM);
-  printf( "    [-partition <partitionStr>]       :  default: '%s'\n", "<empty>" );
-  printf( "    [-livelinessPeriod <float>]       :  default: %f\n",   DEFAULT_LIVELINESS_PERIOD );
-  printf( "    [-disableSecurity]                :  default: %s\n",   "false" );
-  printf( "    [-logging]                        :  default: %s\n",   "false" );
+  printf( "    [-pub <pubTopic>]                                  :  default: '%s'\n", DEFAULT_PUBLISH_TOPIC );
+  printf( "    [-sub <subTopic>]                                  :  default: '%s'\n", DEFAULT_SUBSCRIBE_TOPIC );
+  printf( "    [-domain <domainId>]                               :  default: '%d'\n", DEFAULT_DOMAIN_ID );
+  printf( "    [-color <colorName>]                               :  default: '%s'\n", DEFAULT_COLOR );
+  printf( "    [-governance <governanceFile>]                     :  default: '%s'\n", DEFAULT_GOVERNANCE_FILE );
+  printf( "    [-permissions <permissionsFile>]                   :  default: '%s'\n", DEFAULT_PERMISSIONS_FILE );
+  printf( "    [-kest <dds.sec.auth.key_establishment_algorithm>] :  default: '%s'\n", DEFAULT_KEY_EST_ALGORITHM);
+  printf( "    [-partition <partitionStr>]                        :  default: '%s'\n", "<empty>" );
+  printf( "    [-livelinessPeriod <float>]                        :  default: %f\n",   DEFAULT_LIVELINESS_PERIOD );
+  printf( "    [-disableSecurity]                                 :  default: %s\n",   "false" );
+  printf( "    [-logging]                                         :  default: %s\n",   "false" );
 }
 
 int main(int argc, char *argv[])
