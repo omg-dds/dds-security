@@ -74,7 +74,7 @@ enum Verbosity
 
 class Logger{
 public:
-    Logger(enum Verbosity v)
+    explicit Logger(enum Verbosity v)
     {
         verbosity_ = v;
     }
