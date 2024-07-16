@@ -355,10 +355,12 @@ int run(DomainId_t domain_id, bool use_security,
     int recv_count = 0;
     while  ( exit_application == false ) {
         char msg[256];
-        snprintf(msg, 256, "\nLoop: wait count = %d, sent count = %d, "
-	         "received count = %d\n",
-	         wait_count, sent_count, recv_count);
+        int nw = snprintf(msg, 256, "\nLoop: wait count = %d, sent count = %d, "
+	          "received count = %d\n",
+	          wait_count, sent_count, recv_count);
         logger.log_message(msg, Verbosity::DEBUG);
+	if ( nw >= 256 ) 
+		logger.log_message( "[output truncated]\n", Verbosity::DEBUG );
         
         wait_count++;
         wait_set->wait(active_cond, wait_timeout);
@@ -387,9 +389,11 @@ int run(DomainId_t domain_id, bool use_security,
 
                 {
                   char msg[256];
-                  snprintf(msg, 256, "Time: %d:%u -- Sending sample: count = %d\n",
-                           current_time.sec, current_time.nanosec, sent_count );
+                  int nw = snprintf(msg, 256, "Time: %d:%u -- Sending sample: count = %d\n",
+                            current_time.sec, current_time.nanosec, sent_count );
                   logger.log_message(msg, Verbosity::DEBUG);
+		  if ( nw >= 256 ) 
+			logger.log_message( "[output truncated]\n", Verbosity::DEBUG );
                 }
                 
                 sent_count++;
