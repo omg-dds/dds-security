@@ -142,9 +142,9 @@ Topic *create_topic(DomainParticipant *participant, const char *topic_name)
 /*************************************************************/
 ShapeTypeDataWriter *create_writer(DomainParticipant *participant,
                                    Topic *topic,
-                                   const char * partition,
+                                   const char *partition,
                                    float livelinessPeriod,
-                                   const char * color )
+                                   const char *color )
 
 {
     logger.log_message("Running create_writer() function", Verbosity::DEBUG);
