@@ -75,7 +75,8 @@ class ShapeTypeConfigurator {
             return NULL;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.logging.log_level",
                 "4",
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
@@ -83,7 +84,8 @@ class ShapeTypeConfigurator {
             return NULL;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.access_control.governance_file",
                 governance_file,
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
@@ -94,7 +96,8 @@ class ShapeTypeConfigurator {
             return NULL;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.access_control.permissions_file",
                 permissions_file,
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
@@ -105,10 +108,11 @@ class ShapeTypeConfigurator {
             return NULL;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.authentication.key_establishment_algorithm",
                 key_establishment_algorithm,
-                DDS_BOOLEAN_FALSE)!= DDS_RETCODE_OK) {
+                DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
             fprintf(
                     stderr,
                     "Error asserting authentication.key_establishment_algorithm "
@@ -116,7 +120,8 @@ class ShapeTypeConfigurator {
             return NULL;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.authentication.ca_file",
                 "../TESTONLY_identity_ca_cert.pem",
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
@@ -126,7 +131,8 @@ class ShapeTypeConfigurator {
             return NULL;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.access_control.permissions_authority_file",
                 "../TESTONLY_permissions_ca_cert.pem",
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
@@ -137,7 +143,8 @@ class ShapeTypeConfigurator {
             return NULL;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.authentication.certificate_file",
                 "../rti_connext_dds_certs/TESTONLY_rti_connext_dds_identity_cert.pem",
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
@@ -148,7 +155,8 @@ class ShapeTypeConfigurator {
             return NULL;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.authentication.private_key_file",
                 "../rti_connext_dds_certs/private/TESTONLY_rti_connext_dds_identity_private_key.pem",
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {

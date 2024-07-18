@@ -155,8 +155,13 @@ int run(int domain_id, bool use_security,
     TopicDataType *pub_topic = NULL;
     TopicDataType *sub_topic = NULL;
 
-    Participant *participant = ShapeTypeConfigurator::create_participant(domain_id, use_security, governance_file,
-        permissions_file, enable_logging);
+    Participant *participant = ShapeTypeConfigurator::create_participant(
+            domain_id,
+            use_security,
+            governance_file,
+            permissions_file,
+            key_establishment_algorithm,
+            enable_logging);
 
     if ( participant == NULL ) { return -1; }
 

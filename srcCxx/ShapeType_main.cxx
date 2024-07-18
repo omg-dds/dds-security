@@ -221,7 +221,13 @@ int run(DomainId_t domain_id, bool use_security,
     Topic *sub_topic = NULL;
     ReturnCode_t retcode;
 
-    DomainParticipant *participant = ShapeTypeConfigurator::create_participant(domain_id, use_security, governance_file, permissions_file, key_establishment_algorithm, enable_logging);
+    DomainParticipant *participant = ShapeTypeConfigurator::create_participant(
+            domain_id,
+            use_security,
+            governance_file,
+            permissions_file,
+            key_establishment_algorithm,
+            enable_logging);
 
     if ( participant == NULL ) { return -1; }
 
@@ -442,7 +448,7 @@ int main(int argc, char *argv[])
         }
         else if ( strcmp(argv[i], "-kest") == 0 ) {
             if ( ++i == argc) {
-                fprintf(stderr, "Error: missing <keyEstablishmentAlgo> after \"-kest\"\n");
+                fprintf(stderr, "Error: missing <value of dds.sec.auth.key_establishment_algorithm> after \"-kest\"\n");
                 return -1;
             }
             key_establishment_algorithm = argv[i];
