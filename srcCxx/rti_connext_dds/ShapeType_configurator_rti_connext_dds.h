@@ -189,10 +189,11 @@ class ShapeTypeConfigurator {
 
     done:
 
+        if (DDS_DomainParticipantQos_finalize(&pQos) != DDS_RETCODE_OK) {
+            fprintf(stderr, "Error finalizing participant QoS.\n");
+        }
         if (participant == NULL) {
-            if (DDS_DomainParticipantQos_finalize(&pQos) != DDS_RETCODE_OK) {
-                fprintf(stderr, "Error finalizing participant QoS.\n");
-            }
+            /* finalize the factory before the example exits with errors. */
             TheParticipantFactory->finalize_instance();
         }
         return participant;
@@ -205,11 +206,11 @@ class ShapeTypeConfigurator {
         if (dp != NULL) {
             dp->delete_contained_entities();
             dpf->delete_participant(dp);
-            /*
-             * destroy_participant is called at the end of our example, so let's
-             * finalize the participant factory here.
-             */
-            dpf->finalize_instance();
         }
+        /*
+         * destroy_participant is called at the end of our example, so let's
+         * finalize the participant factory here.
+         */
+        dpf->finalize_instance();
     }
 };

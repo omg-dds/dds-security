@@ -367,6 +367,9 @@ int run(DomainId_t domain_id, bool use_security,
 
     // clean up
     ShapeTypeConfigurator::destroy_participant( participant );
+#if defined(RTI_CONNEXT_DDS)
+    ShapeType_finalize(&shape);
+#endif
     fprintf(stderr, "Done...\n");
 
     delete exit_guard;
