@@ -72,7 +72,7 @@ class ShapeTypeConfigurator {
                         ".create_function_ptr",
                 (void *) RTI_Security_PluginSuite_create) != DDS_RETCODE_OK) {
             fprintf(stderr, "Error asserting .create_function_ptr property.\n");
-            return NULL;
+            goto done;
         }
 
         if (DDS_PropertyQosPolicyHelper_assert_property(
@@ -81,7 +81,7 @@ class ShapeTypeConfigurator {
                 "4",
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
             fprintf(stderr, "Error asserting logging.log_level property.\n");
-            return NULL;
+            goto done;
         }
 
         if (DDS_PropertyQosPolicyHelper_assert_property(
@@ -93,7 +93,7 @@ class ShapeTypeConfigurator {
                     stderr,
                     "Error asserting access_control.governance_file "
                     "property.\n");
-            return NULL;
+            goto done;
         }
 
         if (DDS_PropertyQosPolicyHelper_assert_property(
@@ -105,7 +105,7 @@ class ShapeTypeConfigurator {
                     stderr,
                     "Error asserting access_control.permissions_file "
                     "property.\n");
-            return NULL;
+            goto done;
         }
 
         if (DDS_PropertyQosPolicyHelper_assert_property(
@@ -117,7 +117,7 @@ class ShapeTypeConfigurator {
                     stderr,
                     "Error asserting authentication.key_establishment_algorithm "
                     "property.\n");
-            return NULL;
+            goto done;
         }
 
         if (DDS_PropertyQosPolicyHelper_assert_property(
@@ -128,7 +128,7 @@ class ShapeTypeConfigurator {
             fprintf(
                     stderr,
                     "Error asserting authentication.ca_file property.\n");
-            return NULL;
+            goto done;
         }
 
         if (DDS_PropertyQosPolicyHelper_assert_property(
@@ -140,7 +140,7 @@ class ShapeTypeConfigurator {
                     stderr,
                     "Error asserting access_control.permissions_authority_file "
                     "property.\n");
-            return NULL;
+            goto done;
         }
 
         if (DDS_PropertyQosPolicyHelper_assert_property(
@@ -152,7 +152,7 @@ class ShapeTypeConfigurator {
                     stderr,
                     "Error asserting authentication.certificate_file "
                     "property.\n");
-            return NULL;
+            goto done;
         }
 
         if (DDS_PropertyQosPolicyHelper_assert_property(
@@ -164,7 +164,7 @@ class ShapeTypeConfigurator {
                     stderr,
                     "Error asserting authentication.private_key_file "
                     "property.\n");
-            return NULL;
+            goto done;
         }
 
         if (enable_logging) {
@@ -184,7 +184,16 @@ class ShapeTypeConfigurator {
                     stderr,
                     "create_participant error for domain_id '%d'\n",
                     domain_id);
-            return NULL;
+            goto done;
+        }
+
+    done:
+
+        if (participant == NULL) {
+            if (DDS_DomainParticipantQos_finalize(&pQos) != DDS_RETCODE_OK) {
+                fprintf(stderr, "Error finalizing participant QoS.\n");
+            }
+            TheParticipantFactory->finalize_instance();
         }
         return participant;
     }
@@ -196,6 +205,11 @@ class ShapeTypeConfigurator {
         if (dp != NULL) {
             dp->delete_contained_entities();
             dpf->delete_participant(dp);
+            /*
+             * destroy_participant is called at the end of our example, so let's
+             * finalize the participant factory here.
+             */
+            dpf->finalize_instance();
         }
     }
 };
