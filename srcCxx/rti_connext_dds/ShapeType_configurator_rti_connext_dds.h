@@ -72,18 +72,20 @@ class ShapeTypeConfigurator {
                         ".create_function_ptr",
                 (void *) RTI_Security_PluginSuite_create) != DDS_RETCODE_OK) {
             fprintf(stderr, "Error asserting .create_function_ptr property.\n");
-            return NULL;
+            goto done;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.logging.log_level",
                 "4",
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
             fprintf(stderr, "Error asserting logging.log_level property.\n");
-            return NULL;
+            goto done;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.access_control.governance_file",
                 governance_file,
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
@@ -91,10 +93,11 @@ class ShapeTypeConfigurator {
                     stderr,
                     "Error asserting access_control.governance_file "
                     "property.\n");
-            return NULL;
+            goto done;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.access_control.permissions_file",
                 permissions_file,
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
@@ -102,31 +105,34 @@ class ShapeTypeConfigurator {
                     stderr,
                     "Error asserting access_control.permissions_file "
                     "property.\n");
-            return NULL;
+            goto done;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.authentication.key_establishment_algorithm",
                 key_establishment_algorithm,
-                DDS_BOOLEAN_FALSE)!= DDS_RETCODE_OK) {
+                DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
             fprintf(
                     stderr,
                     "Error asserting authentication.key_establishment_algorithm "
                     "property.\n");
-            return NULL;
+            goto done;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.authentication.ca_file",
                 "../TESTONLY_identity_ca_cert.pem",
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
             fprintf(
                     stderr,
                     "Error asserting authentication.ca_file property.\n");
-            return NULL;
+            goto done;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.access_control.permissions_authority_file",
                 "../TESTONLY_permissions_ca_cert.pem",
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
@@ -134,10 +140,11 @@ class ShapeTypeConfigurator {
                     stderr,
                     "Error asserting access_control.permissions_authority_file "
                     "property.\n");
-            return NULL;
+            goto done;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.authentication.certificate_file",
                 "../rti_connext_dds_certs/TESTONLY_rti_connext_dds_identity_cert.pem",
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
@@ -145,10 +152,11 @@ class ShapeTypeConfigurator {
                     stderr,
                     "Error asserting authentication.certificate_file "
                     "property.\n");
-            return NULL;
+            goto done;
         }
 
-        if (DDS_PropertyQosPolicyHelper_assert_property(&pQos.property,
+        if (DDS_PropertyQosPolicyHelper_assert_property(
+                &pQos.property,
                 "com.rti.serv.secure.authentication.private_key_file",
                 "../rti_connext_dds_certs/private/TESTONLY_rti_connext_dds_identity_private_key.pem",
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
@@ -156,7 +164,7 @@ class ShapeTypeConfigurator {
                     stderr,
                     "Error asserting authentication.private_key_file "
                     "property.\n");
-            return NULL;
+            goto done;
         }
 
         if (enable_logging) {
@@ -176,7 +184,17 @@ class ShapeTypeConfigurator {
                     stderr,
                     "create_participant error for domain_id '%d'\n",
                     domain_id);
-            return NULL;
+            goto done;
+        }
+
+    done:
+
+        if (DDS_DomainParticipantQos_finalize(&pQos) != DDS_RETCODE_OK) {
+            fprintf(stderr, "Error finalizing participant QoS.\n");
+        }
+        if (participant == NULL) {
+            /* finalize the factory before the example exits with errors. */
+            TheParticipantFactory->finalize_instance();
         }
         return participant;
     }
@@ -189,5 +207,10 @@ class ShapeTypeConfigurator {
             dp->delete_contained_entities();
             dpf->delete_participant(dp);
         }
+        /*
+         * destroy_participant is called at the end of our example, so let's
+         * finalize the participant factory here.
+         */
+        dpf->finalize_instance();
     }
 };

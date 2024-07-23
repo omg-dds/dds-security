@@ -87,10 +87,12 @@ std::string use_env(const char* key, const char* default_val)
   return env ? env : default_val;
 }
 
-DDS::DomainParticipant* create_participant(int domain, bool use_security,
-                                           const char* governance,
-                                           const char* permissions,
-                                           bool /*enable_logging*/)
+DDS::DomainParticipant* create_participant(
+        int domain, bool use_security,
+        const char* governance,
+        const char* permissions,
+        const char *key_establishment_algorithm,
+        bool /*enable_logging*/)
 {
   using namespace OpenDDS::DCPS;
   using namespace OpenDDS::RTPS;

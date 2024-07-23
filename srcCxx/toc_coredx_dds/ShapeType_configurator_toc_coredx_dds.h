@@ -190,7 +190,7 @@ class ShapeTypeConfigurator {
                        bool        use_security,
                        const char *governance_uri,
                        const char *permissions_uri,
-                       const char *key_establishment_algo,
+                       const char *key_establishment_algorithm,
                        bool        enable_logging)
   {
     static const char *auth_ca_file  = "file:../TESTONLY_identity_ca_cert.pem";
@@ -221,7 +221,7 @@ class ShapeTypeConfigurator {
         // set_property(properties, DDSSEC_PROP_IDENTITY_PASSWORD, "data:,thereisnopassword");
         
         /* AUTH DH algo: */
-        set_property( properties, CDXSEC_PROP_SHARED_SECRET_ALGO, key_establishment_algo );
+        set_property( properties, CDXSEC_PROP_SHARED_SECRET_ALGO, key_establishment_algorithm );
         
         /* ACCESS CONTROL: */
         set_property( properties, DDSSEC_PROP_PERM_CA,       perm_ca_file );

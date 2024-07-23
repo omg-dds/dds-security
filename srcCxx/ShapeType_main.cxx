@@ -288,7 +288,13 @@ int run(DomainId_t domain_id, bool use_security,
 
     logger.log_message("Running create_participant() function", Verbosity::DEBUG);
     
-    DomainParticipant *participant = ShapeTypeConfigurator::create_participant(domain_id, use_security, governance_file, permissions_file, key_establishment_algorithm, enable_logging);
+    DomainParticipant *participant = ShapeTypeConfigurator::create_participant(
+            domain_id,
+            use_security,
+            governance_file,
+            permissions_file,
+            key_establishment_algorithm,
+            enable_logging);
 
     if ( participant == NULL ) {
       logger.log_message("failed to create participant", Verbosity::ERROR);
@@ -419,6 +425,9 @@ int run(DomainId_t domain_id, bool use_security,
 
     // clean up
     ShapeTypeConfigurator::destroy_participant( participant );
+#if defined(RTI_CONNEXT_DDS)
+    ShapeType_finalize(&shape);
+#endif
     fprintf(stderr, "Done...\n");
 
     delete exit_guard;
@@ -430,17 +439,17 @@ int run(DomainId_t domain_id, bool use_security,
 void print_usage( const char * name )
 {
   printf( "Usage:  %s\n", name );
-  printf( "    [-pub <pubTopic>]                 :  default: '%s'\n", DEFAULT_PUBLISH_TOPIC );
-  printf( "    [-sub <subTopic>]                 :  default: '%s'\n", DEFAULT_SUBSCRIBE_TOPIC );
-  printf( "    [-domain <domainId>]              :  default: '%d'\n", DEFAULT_DOMAIN_ID );
-  printf( "    [-color <colorName>]              :  default: '%s'\n", DEFAULT_COLOR );
-  printf( "    [-governance <governanceFile>]    :  default: '%s'\n", DEFAULT_GOVERNANCE_FILE );
-  printf( "    [-permissions <permissionsFile>]  :  default: '%s'\n", DEFAULT_PERMISSIONS_FILE );
-  printf( "    [-kest <keyEstablishmentAlgo>]    :  default: '%s'\n", DEFAULT_KEY_EST_ALGORITHM);
-  printf( "    [-partition <partitionStr>]       :  default: '%s'\n", "<empty>" );
-  printf( "    [-livelinessPeriod <float>]       :  default: %f\n",   DEFAULT_LIVELINESS_PERIOD );
-  printf( "    [-disableSecurity]                :  default: %s\n",   "false" );
-  printf( "    [-logging]                        :  default: %s\n",   "false" );
+  printf( "    [-pub <pubTopic>]                                  :  default: '%s'\n", DEFAULT_PUBLISH_TOPIC );
+  printf( "    [-sub <subTopic>]                                  :  default: '%s'\n", DEFAULT_SUBSCRIBE_TOPIC );
+  printf( "    [-domain <domainId>]                               :  default: '%d'\n", DEFAULT_DOMAIN_ID );
+  printf( "    [-color <colorName>]                               :  default: '%s'\n", DEFAULT_COLOR );
+  printf( "    [-governance <governanceFile>]                     :  default: '%s'\n", DEFAULT_GOVERNANCE_FILE );
+  printf( "    [-permissions <permissionsFile>]                   :  default: '%s'\n", DEFAULT_PERMISSIONS_FILE );
+  printf( "    [-kest <dds.sec.auth.key_establishment_algorithm>] :  default: '%s'\n", DEFAULT_KEY_EST_ALGORITHM);
+  printf( "    [-partition <partitionStr>]                        :  default: '%s'\n", "<empty>" );
+  printf( "    [-livelinessPeriod <float>]                        :  default: %f\n",   DEFAULT_LIVELINESS_PERIOD );
+  printf( "    [-disableSecurity]                                 :  default: %s\n",   "false" );
+  printf( "    [-logging]                                         :  default: %s\n",   "false" );
 }
 
 /*************************************************************/
@@ -531,7 +540,7 @@ int main(int argc, char *argv[])
         }
         else if ( strcmp(argv[i], "-kest") == 0 ) {
             if ( ++i == argc) {
-                fprintf(stderr, "Error: missing <keyEstablishmentAlgo> after \"-kest\"\n");
+                fprintf(stderr, "Error: missing <value of dds.sec.auth.key_establishment_algorithm> after \"-kest\"\n");
                 return -1;
             }
             key_establishment_algorithm = argv[i];
