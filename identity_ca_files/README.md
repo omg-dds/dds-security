@@ -18,7 +18,7 @@ Initialization of Index and Serial number files
 
 Generation of RTI Identity Certificate by the Identity CA (signing of certificate request)
 
-    openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in rti_connext_dds_certs/identity_rti_connext_dds.csr -out  rti_connext_dds_certs/TESTONLY_rti_connext_dds_identity_cert.pem		
+    openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in rti_connext_dds_certs/identity_rti_connext_dds.csr -out  rti_connext_dds_certs/TESTONLY_rti_connext_dds_identity_cert.pem
 
 Generation of TwinOaks Identity Certificate by the Identity CA (signing of certificate request)
 

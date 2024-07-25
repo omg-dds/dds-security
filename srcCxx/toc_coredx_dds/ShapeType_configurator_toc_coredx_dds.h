@@ -58,6 +58,7 @@ class ShapeTypeConfigurator {
                        bool        use_security,
                        const char *governance_uri,
                        const char *permissions_uri,
+                       const char *key_establishment_algorithm,
                        bool        enable_logging)
   {
     static const char *auth_ca_file  = "file:../TESTONLY_identity_ca_cert.pem";

@@ -15,7 +15,9 @@ ifndef RTI_OPENSSLHOME
 RTI_OPENSSLHOME := $(NDDSHOME)/third_party/openssl-3.0.12
 endif
 
+ifndef TARGET_ARCH
 TARGET_ARCH = x64Linux3gcc4.8.2
+endif
 
 COMPILER = g++
 COMPILER_FLAGS = -ggdb -Wall
@@ -28,7 +30,6 @@ INCLUDES = -I.
 MAIN    = ShapeType_main.cxx
 SOURCES = $(MAIN)
 
-
 #These are for RTI
 RTI_SRC_DIR = rti_connext_dds
 SOURCES  += $(RTI_SRC_DIR)/ShapeTypeSupport.cxx $(RTI_SRC_DIR)/ShapeTypePlugin.cxx $(RTI_SRC_DIR)/ShapeType.cxx 
@@ -40,7 +41,6 @@ LIBS     +=  -L$(NDDSHOME)/lib/$(TARGET_ARCH) \
 DEFINES  += -DRTI_CONNEXT_DDS -DRTI_UNIX -DRTI_LINUX 
 INCLUDES += -I$(NDDSHOME)/include -I$(NDDSHOME)/include/ndds 
 #End of RTI
-       
 
 OBJS    = $(SOURCES:%.cxx=%.o)
 EXEC    = rti_connext_dds_7.3.0_linux

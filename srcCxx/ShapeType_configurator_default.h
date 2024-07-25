@@ -12,6 +12,7 @@ class ShapeTypeConfigurator {
             bool use_security,
             const char *governance_file,
             const char *permissions_file,
+            const char *key_establishment_algorithm,
             bool enable_logging)
     {
         DomainParticipant *participant = NULL;
