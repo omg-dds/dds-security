@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
+#include <string>
+#include <iostream>
 
 #if defined(RTI_CONNEXT_DDS)
 #include "rti_connext_dds/ShapeType_configurator_rti_connext_dds.h"
@@ -16,6 +18,13 @@
 #include "opendds/ShapeType_configurator_opendds.h"
 #else
 #include "ShapeType_configurator_default.h"
+#endif
+
+#ifndef STRING_IN
+#define STRING_IN
+#endif
+#ifndef STRING_INOUT
+#define STRING_INOUT
 #endif
 
 using namespace DDS;
@@ -33,6 +42,7 @@ const int   DEFAULT_DOMAIN_ID           = 0;
 bool exit_application = false;
 GuardCondition *exit_guard = NULL;
 
+/*************************************************************/
 // Signal handler changes the sets exit_service to true.
 void signal_handler(int)
 {
@@ -42,6 +52,7 @@ void signal_handler(int)
     }
 }
 
+/*************************************************************/
 // Assign all the exit signals to signal handler
 void setup_signal_handler()
 {
@@ -54,8 +65,50 @@ void setup_signal_handler()
     signal(SIGABRT, signal_handler); //Abort
 }
 
+/*************************************************************/
+enum Verbosity
+{
+    ERROR=1,
+    DEBUG=2,
+};
+
+class Logger{
+public:
+    explicit Logger(enum Verbosity v)
+    {
+        verbosity_ = v;
+    }
+
+    void verbosity(enum Verbosity v)
+    {
+        verbosity_ = v;
+    }
+
+    enum Verbosity verbosity()
+    {
+        return verbosity_;
+    }
+
+    void log_message(std::string message, enum Verbosity level_verbosity)
+    {
+        if (level_verbosity <= verbosity_) {
+            std::cout << message << std::endl;
+        }
+    }
+
+private:
+    enum Verbosity verbosity_;
+};
+
+/*************************************************************/
+Logger logger(ERROR);
+
+
+/*************************************************************/
 Topic *create_topic(DomainParticipant *participant, const char *topic_name)
 {
+    printf("Create topic: %s\n", topic_name );
+
     /* Register the type before creating the topic */
 #ifdef INTERCOM_DDS
     const ShapeTypeTypeSupport* typeSupport = ShapeTypeTypeSupport::get_instance();
@@ -79,17 +132,22 @@ Topic *create_topic(DomainParticipant *participant, const char *topic_name)
     Topic *topic = participant->create_topic(topic_name, type_name,
             TOPIC_QOS_DEFAULT, NULL /* listener */, STATUS_MASK_NONE);
     if ( topic == NULL ) {
-        printf("create_topic error for topic '%s'\n", topic_name);
+        logger.log_message("failed to create topic: " + std::string(topic_name), Verbosity::ERROR);
         return NULL;
     }
 
     return topic;
 }
 
-ShapeTypeDataWriter *create_writer(DomainParticipant *participant, Topic *topic,
-                                   const char * partition, float livelinessPeriod)
+/*************************************************************/
+ShapeTypeDataWriter *create_writer(DomainParticipant *participant,
+                                   Topic *topic,
+                                   const char *partition,
+                                   float livelinessPeriod,
+                                   const char *color )
 
 {
+    logger.log_message("Running create_writer() function", Verbosity::DEBUG);
     PublisherQos pub_qos;
     participant->get_default_publisher_qos( pub_qos );
 
@@ -110,14 +168,14 @@ ShapeTypeDataWriter *create_writer(DomainParticipant *participant, Topic *topic,
           }
         else
           {
-            printf("error setting partition (oom)\n");
+            logger.log_message("error setting partition (oom)", Verbosity::ERROR);
             return NULL;
           }
       }
 
     Publisher *publisher = participant->create_publisher( pub_qos, NULL /* listener */, STATUS_MASK_NONE);
     if (publisher == NULL) {
-        printf("create_publisher error\n");
+        logger.log_message("failed to create publisher", Verbosity::ERROR);
         return NULL;
     }
 
@@ -129,10 +187,11 @@ ShapeTypeDataWriter *create_writer(DomainParticipant *participant, Topic *topic,
         dw_qos.liveliness.lease_duration.nanosec = (livelinessPeriod - (int)livelinessPeriod) * 1000000000; // NSEC_PER_SEC;
       }
 
+    printf("Create writer for topic: %s color: %s\n", topic->get_name(), color );
     DataWriter *writer = publisher->create_datawriter(
             topic, dw_qos, NULL /* listener */, STATUS_MASK_NONE);
     if (writer == NULL) {
-        printf("create_datawriter error\n");
+        logger.log_message("failed to create datawriter " + std::string(topic->get_name()), Verbosity::ERROR);
         return NULL;
     }
 #if defined INTERCOM_DDS || defined OPENDDS
@@ -147,10 +206,14 @@ ShapeTypeDataWriter *create_writer(DomainParticipant *participant, Topic *topic,
     return shape_writer;
 }
 
-ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic,
-                                   const char * partition, float livelinessPeriod)
+/*************************************************************/
+ShapeTypeDataReader *create_reader(DomainParticipant *participant,
+                                   Topic *topic,
+                                   const char * partition,
+                                   float livelinessPeriod)
 
 {
+    logger.log_message("Running create_reader() function", Verbosity::DEBUG);
     SubscriberQos sub_qos;
     participant->get_default_subscriber_qos( sub_qos );
 
@@ -171,14 +234,14 @@ ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic,
           }
         else
           {
-            printf("error setting partition (oom)\n");
+            logger.log_message("error setting partition (oom)", Verbosity::ERROR);
             return NULL;
           }
       }
 
     Subscriber *subscriber = participant->create_subscriber( sub_qos, NULL /* listener */, STATUS_MASK_NONE);
     if (subscriber == NULL) {
-        printf("create_publisher error\n");
+        logger.log_message("failed to create subscriber", Verbosity::ERROR);
         return NULL;
     }
 
@@ -190,10 +253,11 @@ ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic,
         dr_qos.liveliness.lease_duration.nanosec = (livelinessPeriod - (int)livelinessPeriod) * 1000000000; // NSEC_PER_SEC;
       }
 
+    printf("Create reader for topic: %s\n", topic->get_name() );
     DataReader *reader = subscriber->create_datareader(
             topic, dr_qos, NULL /* listener */, STATUS_MASK_NONE);
     if (reader == NULL) {
-        printf("create_datareader error\n");
+        logger.log_message("failed to create datareader " + std::string(topic->get_name()), Verbosity::ERROR);
         return NULL;
     }
 #if defined INTERCOM_DDS || defined OPENDDS
@@ -202,13 +266,14 @@ ShapeTypeDataReader *create_reader(DomainParticipant *participant, Topic *topic,
     ShapeTypeDataReader *shape_reader = ShapeTypeDataReader::narrow(reader);
 #endif
     if (shape_reader == NULL) {
-        printf("ShapeTypeDataReader narrow error\n");
+        logger.log_message("ShapeTypeDataReader narrow error", Verbosity::ERROR);
         return NULL;
     }
     return shape_reader;
 }
 
 
+/*************************************************************/
 int run(DomainId_t domain_id, bool use_security,
         const char *pub_topic_name, const char *sub_topic_name, const char *color,
         const char *governance_file, const char *permissions_file,
@@ -221,6 +286,8 @@ int run(DomainId_t domain_id, bool use_security,
     Topic *sub_topic = NULL;
     ReturnCode_t retcode;
 
+    logger.log_message("Running create_participant() function", Verbosity::DEBUG);
+    
     DomainParticipant *participant = ShapeTypeConfigurator::create_participant(
             domain_id,
             use_security,
@@ -229,15 +296,15 @@ int run(DomainId_t domain_id, bool use_security,
             key_establishment_algorithm,
             enable_logging);
 
-    if ( participant == NULL ) { return -1; }
-
-#if defined(TWINOAKS_COREDX)
-    Duration_t send_period(1, 0);
-    Time_t current_time(0, 0);
-#else
-    Duration_t send_period = {1, 0};
+    if ( participant == NULL ) {
+      logger.log_message("failed to create participant", Verbosity::ERROR);
+      return -1;
+    }
+    
+    logger.log_message("Participant created", Verbosity::DEBUG);
+    
+    Duration_t send_period = {0, 100000000};
     Time_t current_time = {0, 0};
-#endif
 
     WaitSet *wait_set = new WaitSet();
     exit_guard = new GuardCondition();
@@ -261,7 +328,7 @@ int run(DomainId_t domain_id, bool use_security,
 
 
     if ( pub_topic != NULL ) {
-        writer = create_writer(participant, pub_topic, partition, livelinessPeriod);
+        writer = create_writer(participant, pub_topic, partition, livelinessPeriod, color);
         if ( writer == NULL ) { return -1; }
     }
     if ( sub_topic != NULL ) {
@@ -270,20 +337,15 @@ int run(DomainId_t domain_id, bool use_security,
         retcode = wait_set->attach_condition(
                 reader->create_readcondition(ANY_SAMPLE_STATE, ANY_VIEW_STATE, ANY_INSTANCE_STATE));
         if ( retcode != RETCODE_OK ) {
-            printf("attach_condition error. Retcode: %d\n", (int)retcode);
+            logger.log_message("attach_condition error", Verbosity::ERROR);
             return -1;
         }
     }
 
     participant->get_current_time(current_time);
 
-#if defined(TWINOAKS_COREDX)
-    Time_t last_send_time(0, 0);
-    Time_t send_time(send_period.sec, send_period.nanosec);
-#else
     Time_t last_send_time    = {0, 0};
     Time_t send_time = { send_period.sec, send_period.nanosec};
-#endif
 
     Time_t next_send_time    = current_time + send_time;
     Duration_t wait_timeout  = (writer==NULL)?DURATION_INFINITE:send_period;
@@ -298,30 +360,28 @@ int run(DomainId_t domain_id, bool use_security,
     int sent_count = 0;
     int recv_count = 0;
     while  ( exit_application == false ) {
-        printf("\nLoop: wait count = %d, sent count = %d, "
-	       "received count = %d\n",
-	       wait_count++, sent_count, recv_count);
+        char msg[256];
+        int nw = snprintf(msg, 256, "\nLoop: wait count = %d, sent count = %d, "
+	          "received count = %d\n",
+	          wait_count, sent_count, recv_count);
+        logger.log_message(msg, Verbosity::DEBUG);
+	if ( nw >= 256 ) 
+		logger.log_message( "[output truncated]\n", Verbosity::DEBUG );
+        
+        wait_count++;
         wait_set->wait(active_cond, wait_timeout);
 
         if ( reader != NULL ) {
-#if defined(TWINOAKS_COREDX)
-            while ( reader->take_next_sample(&shape, &info) == DDS_RETCODE_OK )
-#else
             while ( reader->take_next_sample(shape, info) == DDS_RETCODE_OK )
-#endif
               {
-                printf("Received sample...\n");
                 if ( info.valid_data ) {
                     recv_count++;
-#if defined(TWINOAKS_COREDX)
-                    ShapeType::print(stdout, &shape);
-#elif defined(INTERCOM_DDS)
-                    std::cout << shape << std::endl;
-#elif defined OPENDDS
-                    ShapeTypeConfigurator::print_data(shape);
-#else
-                    ShapeTypeTypeSupport::print_data(&shape);
-#endif
+                    printf("%-10s %-10s %03d %03d [%d]\n",
+                           sub_topic_name,
+                           shape.color STRING_IN,
+                           shape.x,
+                           shape.y,
+                           shape.shapesize );
                 }
                 fflush(stdout);
             }
@@ -333,8 +393,16 @@ int run(DomainId_t domain_id, bool use_security,
                 last_send_time = current_time;
                 next_send_time = last_send_time + send_time;
 
-                printf("Time: %d:%u -- Sending sample: count = %d\n",
-		       current_time.sec, current_time.nanosec, sent_count++);
+                {
+                  char msg[256];
+                  int nw = snprintf(msg, 256, "Time: %d:%u -- Sending sample: count = %d\n",
+                            current_time.sec, current_time.nanosec, sent_count );
+                  logger.log_message(msg, Verbosity::DEBUG);
+		  if ( nw >= 256 ) 
+			logger.log_message( "[output truncated]\n", Verbosity::DEBUG );
+                }
+                
+                sent_count++;
 #ifdef OPENDDS
                 shape.color = color;
 #else
@@ -343,23 +411,13 @@ int run(DomainId_t domain_id, bool use_security,
                 shape.x = 5*(sent_count%50);
                 shape.y = (4 * (color[0] - 'A')) % 250;
                 shape.shapesize = 30;
-#if defined(TWINOAKS_COREDX)
-                writer->write(&shape, DDS_HANDLE_NIL);
-#else
                 writer->write(shape, DDS_HANDLE_NIL);
-#endif
                 fflush(stdout);
             }
 
             // Workaround missing operation wait_timeout = next_send_time - last_send_time
-
-#if defined(TWINOAKS_COREDX)
-            Duration_t d1(next_send_time.sec,  next_send_time.nanosec);
-            Duration_t d2(last_send_time.sec, last_send_time.nanosec);
-#else
             Duration_t d1 = {next_send_time.sec,  next_send_time.nanosec};
             Duration_t d2 = {last_send_time.sec, last_send_time.nanosec};
-#endif
 
             wait_timeout = d1 - d2;
         }
@@ -376,6 +434,8 @@ int run(DomainId_t domain_id, bool use_security,
     delete wait_set;
     return 0;
 }
+
+/*************************************************************/
 void print_usage( const char * name )
 {
   printf( "Usage:  %s\n", name );
@@ -392,6 +452,7 @@ void print_usage( const char * name )
   printf( "    [-logging]                                         :  default: %s\n",   "false" );
 }
 
+/*************************************************************/
 int main(int argc, char *argv[])
 {
     DomainId_t domain_id   = -1;
@@ -407,7 +468,35 @@ int main(int argc, char *argv[])
     bool        enable_logging = false;
 
     for (int i=1; i<argc; ++i) {
-        if ( strcmp(argv[i], "-domain") == 0 ) {
+
+        if ( strcmp( argv[i], "-v") == 0 ) {
+            if ( ++i == argc) {
+                fprintf(stderr, "Error: missing 'level' after \"-v\" (expected one of 'd', or 'e')\n");
+                return -1;
+            }
+            char vlevel = argv[i][0];
+            switch ( vlevel )
+              {
+              case 'd':
+                {
+                  logger.verbosity(DEBUG);
+                  break;
+                }
+              case 'e':
+                {
+                  logger.verbosity(ERROR);
+                  break;
+                }
+              default:
+                {
+                  logger.log_message("unrecognized value for verbosity "
+                                     + std::string(1, argv[i][0]),
+                                     Verbosity::ERROR);
+                  return -1;
+                }
+              }
+        }
+        else if ( strcmp(argv[i], "-domain") == 0 ) {
             if ( ++i == argc) {
                 fprintf(stderr, "Error: missing <domainId> after \"-domain\"\n");
                 return -1;
