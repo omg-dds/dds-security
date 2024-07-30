@@ -115,8 +115,7 @@ Topic *create_topic(DomainParticipant *participant, const char *topic_name)
     const char *type_name = typeSupport->get_type_name();
     ReturnCode_t retcode = typeSupport->register_type(participant, type_name);
 #elif defined OPENDDS
-    org::omg::dds::demo::ShapeTypeTypeSupport_var ts =
-      new org::omg::dds::demo::ShapeTypeTypeSupportImpl;
+    ShapeTypeTypeSupport_var ts = new ShapeTypeTypeSupportImpl;
     const char type_name[] = "ShapeType";
     const ReturnCode_t retcode = ts->register_type(participant, type_name);
 #else
