@@ -98,7 +98,7 @@ class ShapeTypeConfigurator {
 
         if (DDS_PropertyQosPolicyHelper_assert_property(
                 &pQos.property,
-                "com.rti.serv.secure.access_control.permissions_file",
+                "dds.sec.access.permissions",
                 permissions_file,
                 DDS_BOOLEAN_FALSE) != DDS_RETCODE_OK) {
             fprintf(
