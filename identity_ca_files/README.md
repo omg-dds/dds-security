@@ -8,7 +8,7 @@ Generation of self-signed certificate request for the Identity/Authentication CA
 
 Generation of Certificate for the Identity/Authentication CA (signing of certificate request)
 
-    openssl x509 -req -days 3650 -in  identity_ca_files/identity_ca.csr  -signkey identity_ca_files/private/TESTONLY_identity_ca_private_key.pem  -out TESTONLY_identity_ca_cert.pem
+    openssl x509 -req -days 3650 -in  identity_ca_files/identity_ca.csr  -signkey identity_ca_files/private/TESTONLY_identity_ca_private_key.pem  -out TESTONLY_identity_ca_cert.pem -extfile identity_ca_files/identity_ca_openssl.cnf -extensions v3_ca
 
 Initialization of Index and Serial number files
 
