@@ -15,11 +15,8 @@
 #define BOOLEAN_TRUE true
 #define STATUS_MASK_NONE OpenDDS::DCPS::NO_STATUS_MASK
 
-using org::omg::dds::demo::ShapeType;
-using org::omg::dds::demo::ShapeTypeSeq;
-using org::omg::dds::demo::ShapeTypeDataReader;
-using org::omg::dds::demo::ShapeTypeDataWriter;
-using org::omg::dds::demo::ShapeTypeTypeSupport;
+#define STRING_IN .in()
+#define STRING_INOUT .inout()
 
 using OpenDDS::DCPS::operator>=; // for Time_t
 
@@ -87,12 +84,11 @@ std::string use_env(const char* key, const char* default_val)
   return env ? env : default_val;
 }
 
-DDS::DomainParticipant* create_participant(
-        int domain, bool use_security,
-        const char* governance,
-        const char* permissions,
-        const char *key_establishment_algorithm,
-        bool /*enable_logging*/)
+DDS::DomainParticipant* create_participant(int domain, bool use_security,
+                                           const char* governance,
+                                           const char* permissions,
+                                           const char* /*key_establishment_algorithm*/,
+                                           bool /*enable_logging*/)
 {
   using namespace OpenDDS::DCPS;
   using namespace OpenDDS::RTPS;
