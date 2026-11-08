@@ -1,0 +1,8 @@
+prompt=no
+distinguished_name	= DN_TEST_DDS-SECURITY_ZERODDS
+
+[ DN_TEST_DDS-SECURITY_ZERODDS ]
+countryName=DE
+stateOrProvinceName=HE
+organizationName=ZeroDDS
+commonName=CN_TEST_DDS-SECURITY_ZERODDS
