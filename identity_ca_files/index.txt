@@ -3,3 +3,4 @@ V	330813173935Z		02	unknown	/C=US/ST=CO/O=Twin Oaks Computing/CN=CN_TEST_DDS-SEC
 V	330813173937Z		03	unknown	/C=NO/O=Kongsberg Defence and Aerospace/CN=kda_intercom_dds
 V	330813173938Z		04	unknown	/C=US/ST=MO/O=Object Computing/CN=CN_TEST_DDS-SECURITY_OCI_OPENDDS/emailAddress=support@objectcomputing.com
 V	330813173939Z		05	unknown	/C=ES/ST=MA/O=eProsima/CN=CN_TEST_DDS-SECURITY_EPROSIMA_FASTRTPS/emailAddress=support@eprosima.com
+V	361105230009Z		06	unknown	/C=DE/ST=HE/O=ZeroDDS/CN=CN_TEST_DDS-SECURITY_ZERODDS

@@ -35,3 +35,7 @@ Generation of Object Computing, Inc. Certificate by the Identity CA (signing of 
 Generation of eProsima Fast-RTPS Certificate by the Identity CA (signing of certificate request)
 
     openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in eprosima_fastrtps_certs/identity_eprosima_fastrtps.csr -out eprosima_fastrtps_certs/TESTONLY_eprosima_fastrtps_identity_cert.pem
+
+Generation of ZeroDDS Identity Certificate by the Identity CA (signing of certificate request)
+
+    openssl ca -config identity_ca_files/identity_ca_openssl.cnf -days 3650 -in zerodds_certs/identity_zerodds.csr -out zerodds_certs/TESTONLY_zerodds_identity_cert.pem

@@ -96,3 +96,15 @@ Signing the governance document for eProsima Fast-RTPS.
 
     openssl smime -sign -in eprosima_fastrtps_certs/TESTONLY_eprosima_fastrtps_governance.xml -text -out  eprosima_fastrtps_certs/TESTONLY_eprosima_fastrtps_governance_signed.p7s -signer TESTONLY_permissions_ca_cert.pem -inkey permissions_ca_files/private/TESTONLY_permissions_ca_private_key.pem
 
+
+Signing the permissions documents for ZeroDDS
+
+    openssl smime -sign -in zerodds_certs/TESTONLY_zerodds_permissions_join.xml -text -out zerodds_certs/TESTONLY_zerodds_permissions_join_signed.p7s -signer TESTONLY_permissions_ca_cert.pem -inkey permissions_ca_files/private/TESTONLY_permissions_ca_private_key.pem
+
+    openssl smime -sign -in zerodds_certs/TESTONLY_zerodds_permissions_read.xml -text -out zerodds_certs/TESTONLY_zerodds_permissions_read_signed.p7s -signer TESTONLY_permissions_ca_cert.pem -inkey permissions_ca_files/private/TESTONLY_permissions_ca_private_key.pem
+
+    openssl smime -sign -in zerodds_certs/TESTONLY_zerodds_permissions_write.xml -text -out zerodds_certs/TESTONLY_zerodds_permissions_write_signed.p7s -signer TESTONLY_permissions_ca_cert.pem -inkey permissions_ca_files/private/TESTONLY_permissions_ca_private_key.pem
+
+    openssl smime -sign -in zerodds_certs/TESTONLY_zerodds_permissions_readwrite.xml -text -out zerodds_certs/TESTONLY_zerodds_permissions_readwrite_signed.p7s -signer TESTONLY_permissions_ca_cert.pem -inkey permissions_ca_files/private/TESTONLY_permissions_ca_private_key.pem
+
+    openssl smime -sign -in zerodds_certs/TESTONLY_zerodds_permissions_allowall.xml -text -out zerodds_certs/TESTONLY_zerodds_permissions_allowall_signed.p7s -signer TESTONLY_permissions_ca_cert.pem -inkey permissions_ca_files/private/TESTONLY_permissions_ca_private_key.pem
